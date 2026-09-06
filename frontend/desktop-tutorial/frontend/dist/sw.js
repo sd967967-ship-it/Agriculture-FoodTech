@@ -1,5 +1,5 @@
-const CACHE_NAME = 'fasalsathi-shell-v1';
-const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icon.svg'];
+const CACHE_NAME = 'fasalsathi-shell-v2';
+const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
@@ -27,6 +27,9 @@ self.addEventListener('fetch', event => {
         caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
         return response;
       })
-      .catch(() => caches.match(request).then(cached => cached || caches.match('/index.html')))
+      .catch(() => caches.match(request).then(cached => {
+        if (cached) return cached;
+        return request.mode === 'navigate' ? caches.match('/index.html') : Response.error();
+      }))
   );
 });
