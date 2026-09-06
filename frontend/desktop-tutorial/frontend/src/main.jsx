@@ -5,17 +5,9 @@ import { LanguageProvider } from './context/LanguageContext';
 import App from './App';
 import './index.css';
 
-// Remove any service worker left by the retired static interface. That worker
-// intercepted API calls and displayed the misleading "Queued for sync" state.
+// Cache the app shell for installable mobile use. API requests stay online.
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations()
-    .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
-    .catch(() => {});
-  caches.keys()
-    .then((keys) => Promise.all(keys
-      .filter((key) => key.startsWith('fasalsathi-'))
-      .map((key) => caches.delete(key))))
-    .catch(() => {});
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(

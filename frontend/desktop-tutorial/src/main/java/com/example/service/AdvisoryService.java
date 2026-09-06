@@ -73,9 +73,17 @@ public class AdvisoryService {
         double cropProbabilityTotal = cropPredictions.stream()
             .mapToDouble(entry -> entry.getValue())
             .sum();
-        double confidence = cropProbabilityTotal > 0
+        double cropRelativeConfidence = cropProbabilityTotal > 0
             ? top.getValue() / cropProbabilityTotal
             : top.getValue();
+        double runnerUpProbability = sorted.size() > 1 ? sorted.get(1).getValue() : 0.0;
+        double relativeMargin = cropProbabilityTotal > 0
+            ? Math.max(0.0, top.getValue() - runnerUpProbability) / cropProbabilityTotal
+            : Math.max(0.0, top.getValue() - runnerUpProbability);
+        // Crop filtering is useful context, but must not inflate a weak global
+        // softmax result into a definitive diagnosis.
+        double confidence = Math.min(0.99,
+            (top.getValue() * 0.65) + (cropRelativeConfidence * 0.25) + (relativeMargin * 0.10));
         String primaryClass = top.getKey();
 
         // ── Diagnosis type ──────────────────────────────────────────

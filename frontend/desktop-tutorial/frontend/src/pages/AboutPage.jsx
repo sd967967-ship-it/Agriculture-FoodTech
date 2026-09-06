@@ -26,6 +26,14 @@ export default function AboutPage() {
       coverage: 'Coverage',
       coverageText: 'Covering 23 districts of West Bengal with district-specific soil and agro-climatic context',
       stack: 'Technology Stack',
+      privacyTitle: 'Your data stays protected',
+      privacyPoints: [
+        'Uploaded leaf images are used for the current diagnosis and removed from temporary processing storage after analysis.',
+        'Diagnosis history stores advisory details such as crop, result, confidence, and date; the original image is not stored in the history.',
+        'Profile, crop records, and irrigation notes are saved locally on this device. You can edit or remove them from the app.',
+        'Location is optional and is used only to improve district, weather, and local support context.',
+      ],
+      privacyNote: 'FasalSathi is decision support, not a replacement for a qualified agricultural expert. Verify uncertain results before treatment.',
       ready: 'Ready to get started?',
       cta: 'Diagnose a Crop',
     },
@@ -49,6 +57,14 @@ export default function AboutPage() {
       coverage: 'কভারেজ',
       coverageText: 'পশ্চিমবঙ্গের ২৩টি জেলার জন্য জেলা-নির্দিষ্ট মাটি ও কৃষি-জলবায়ু প্রেক্ষাপট নিয়ে কাজ করে',
       stack: 'টেকনোলজি স্ট্যাক',
+      privacyTitle: 'আপনার তথ্য সুরক্ষিত থাকে',
+      privacyPoints: [
+        'পাতার ছবি বর্তমান রোগ নির্ণয়ের জন্য ব্যবহার করা হয় এবং বিশ্লেষণের পর অস্থায়ী প্রসেসিং স্টোরেজ থেকে মুছে ফেলা হয়।',
+        'রোগ নির্ণয়ের ইতিহাসে ফসল, ফলাফল, নির্ভরযোগ্যতা ও তারিখের মতো পরামর্শের তথ্য থাকে; মূল ছবি ইতিহাসে রাখা হয় না।',
+        'প্রোফাইল, ফসলের রেকর্ড ও সেচের নোট এই ডিভাইসেই সংরক্ষিত হয়। অ্যাপ থেকে এগুলি সম্পাদনা বা মুছে ফেলতে পারেন।',
+        'অবস্থান ঐচ্ছিক এবং জেলা, আবহাওয়া ও স্থানীয় সহায়তার প্রেক্ষাপট উন্নত করতে ব্যবহার করা হয়।',
+      ],
+      privacyNote: 'ফসলসাথী সিদ্ধান্ত গ্রহণে সহায়তা করে, যোগ্য কৃষি বিশেষজ্ঞের বিকল্প নয়। চিকিৎসার আগে অনিশ্চিত ফলাফল যাচাই করুন।',
       ready: 'শুরু করতে প্রস্তুত?',
       cta: 'ফসল শনাক্ত করুন',
     },
@@ -72,6 +88,14 @@ export default function AboutPage() {
       coverage: 'कवरेज',
       coverageText: 'पश्चिम बंगाल के 23 जिलों में जिला-विशिष्ट मिट्टी और कृषि-जलवायु संदर्भ के साथ कवरेज',
       stack: 'प्रौद्योगिकी स्टैक',
+      privacyTitle: 'आपका डेटा सुरक्षित रहता है',
+      privacyPoints: [
+        'पत्ती की तस्वीर का उपयोग वर्तमान जाँच के लिए किया जाता है और विश्लेषण के बाद अस्थायी प्रोसेसिंग स्टोरेज से हटा दिया जाता है।',
+        'निदान इतिहास में फसल, परिणाम, भरोसा और तारीख जैसी सलाह संबंधी जानकारी रहती है; मूल तस्वीर इतिहास में नहीं रखी जाती।',
+        'प्रोफ़ाइल, फसल रिकॉर्ड और सिंचाई नोट इसी डिवाइस पर सहेजे जाते हैं। आप उन्हें ऐप से बदल या हटा सकते हैं।',
+        'स्थान वैकल्पिक है और जिले, मौसम तथा स्थानीय सहायता का संदर्भ बेहतर करने के लिए उपयोग होता है।',
+      ],
+      privacyNote: 'फसलसाथी निर्णय में सहायता करता है, योग्य कृषि विशेषज्ञ का विकल्प नहीं है। उपचार से पहले अनिश्चित परिणाम की पुष्टि करें।',
       ready: 'शुरू करने के लिए तैयार हैं?',
       cta: 'फसल का निदान करें',
     },
@@ -125,6 +149,19 @@ export default function AboutPage() {
               <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium shadow-sm">Tailwind CSS</span>
             </div>
           </div>
+
+          <section className="mb-12 rounded-2xl border border-emerald-700/40 bg-emerald-950/50 p-6 md:p-8" aria-labelledby="privacy-title">
+            <div className="flex items-start gap-4">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-lime-300/15 text-2xl" aria-hidden="true">🔒</span>
+              <div>
+                <h2 id="privacy-title" className="text-2xl font-bold text-slate-100">{page.privacyTitle}</h2>
+                <ul className="mt-5 space-y-3 text-sm leading-6 text-slate-300">
+                  {page.privacyPoints.map((point) => <li key={point} className="flex gap-3"><span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-lime-300" aria-hidden="true" /><span>{point}</span></li>)}
+                </ul>
+                <p className="mt-5 border-t border-emerald-700/30 pt-4 text-sm font-semibold leading-6 text-lime-200">{page.privacyNote}</p>
+              </div>
+            </div>
+          </section>
 
           <div className="text-center bg-gray-50 p-8 rounded-xl border border-gray-100">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">{page.ready}</h2>

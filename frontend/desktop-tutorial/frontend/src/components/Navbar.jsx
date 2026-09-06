@@ -87,7 +87,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden border-t border-emerald-600 bg-emerald-800">
+        <div className="menu-enter md:hidden border-t border-emerald-600 bg-emerald-800">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navLinks.map((link) => (
               <Link
