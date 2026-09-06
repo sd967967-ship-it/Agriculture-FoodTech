@@ -479,6 +479,14 @@ run-app.bat
 
 The launcher checks Java, Maven, Node, and npm; installs frontend packages with `npm ci --legacy-peer-deps` on first run; builds React; verifies the generated bundles; stops a stale port-8080 process; waits for release; starts Spring Boot; polls `/api/v1/health`; and opens `http://localhost:8080`.
 
+### Separate app links
+
+- **Automatic app:** `http://localhost:8080/` detects phone versus desktop width.
+- **Mobile app override:** `http://localhost:8080/?mode=mobile`
+- **PC workspace override:** `http://localhost:8080/?mode=desktop`
+
+The automatic link uses a narrower, touch-friendly layout on phones and the wider desktop workspace on PCs. The query links override detection when needed. All modes use the same backend and farmer data.
+
 ### Manual development commands
 
 ```bat

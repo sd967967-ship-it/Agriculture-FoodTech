@@ -94,7 +94,7 @@ export default function Navbar() {
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                className={`block rounded-md px-3 py-3 text-base font-medium transition-colors ${
                   location.pathname === link.path
                     ? 'bg-white/20 text-white'
                     : 'text-emerald-100 hover:text-white hover:bg-white/10'
@@ -116,7 +116,7 @@ export default function Navbar() {
                       setLanguage(lang.code);
                       setIsOpen(false);
                     }}
-                    className={`flex-1 px-2 py-1 text-xs font-bold rounded transition-all ${
+                    className={`flex-1 rounded-lg px-2 py-3 text-xs font-bold transition-all ${
                       language === lang.code
                         ? 'bg-white text-emerald-700'
                         : 'bg-white/20 text-white hover:bg-white/30'

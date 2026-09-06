@@ -5,6 +5,11 @@ REM This script handles all dependencies and starts the application
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
 if not defined APP_URL set "APP_URL=http://localhost:8080"
+REM The root APP_URL automatically detects phone versus desktop width.
+REM MOBILE_APP_URL is the manual mobile override for phones and narrow screens.
+REM PC_APP_URL is the manual desktop override for laptops and monitors.
+set "MOBILE_APP_URL=%APP_URL%/?mode=mobile"
+set "PC_APP_URL=%APP_URL%/?mode=desktop"
 
 REM Color output
 for /f %%A in ('copy /Z "%~f0" nul') do set "BS=%%A"
@@ -203,6 +208,9 @@ if "%SERVER_READY%"=="0" (
 
 echo.
 echo ✓ FasalSathi backend is ready.
+echo.
+echo Mobile app: %MOBILE_APP_URL%
+echo PC workspace: %PC_APP_URL%
 echo.
 echo Close the FasalSathi backend window to stop the server.
 exit /b 0

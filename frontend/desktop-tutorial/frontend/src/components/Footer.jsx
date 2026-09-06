@@ -29,6 +29,8 @@ export default function Footer() {
               <li><Link to="/diagnose" className="text-sm text-slate-400 hover:text-white transition-colors">{text.diagnosis}</Link></li>
               <li><Link to="/about" className="text-sm text-slate-400 hover:text-white transition-colors">{text.about}</Link></li>
               <li><Link to="/profile" className="text-sm text-slate-400 hover:text-white transition-colors">{text.profile}</Link></li>
+              <li><Link to="/?mode=mobile" className="text-sm text-slate-400 hover:text-white transition-colors">Mobile app view</Link></li>
+              <li><Link to="/?mode=desktop" className="text-sm text-slate-400 hover:text-white transition-colors">PC workspace</Link></li>
             </ul>
           </div>
 
