@@ -1,0 +1,2154 @@
+2026-09-06T13:02:51.651Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:02:51.653Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "precheckCompleted",
+  "status": "succeeded",
+  "phase": "precheck",
+  "details": {
+    "components": [
+      {
+        "name": "jdk",
+        "baseVersion": "17",
+        "targetVersion": "25"
+      }
+    ]
+  },
+  "message": "Maven Java project detected; upgrading configured Java runtime/compiler target from 17 to latest LTS Java 25."
+}}).
+2026-09-06T13:02:51.654Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:02:51.657Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:02:51.663Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'precheckCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:02:51.665Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:02:51.670Z [INFO] Project java version: 17
+2026-09-06T13:02:51.676Z [INFO] Maven project detected.
+2026-09-06T13:02:51.688Z [INFO] Build tool type: mvn
+2026-09-06T13:02:52.981Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+  "version": "17"
+}
+2026-09-06T13:02:53.385Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+  "version": "",
+  "source": "install"
+}
+2026-09-06T13:02:53.386Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+    "name": "mvn",
+    "version": "",
+    "source": "install"
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+    "name": "java",
+    "version": "17"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:02:54.652Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:02:54.654Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "planGenerationStarted",
+  "status": "succeeded",
+  "phase": "plan",
+  "message": "Starting Java 25 upgrade plan generation."
+}}).
+2026-09-06T13:02:54.658Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:02:54.663Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:02:54.665Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:02:54.850Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:02:54.852Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "planGenerationStarted",
+  "status": "succeeded",
+  "phase": "plan",
+  "message": "Starting Java 25 upgrade plan generation."
+}}).
+2026-09-06T13:02:54.853Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:02:54.859Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'planGenerationStarted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:02:54.862Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:02:59.510Z [INFO] ---------------------prepare appmod-list-jdks----------------------
+2026-09-06T13:02:59.517Z [INFO] [Tool.prepareInvocation]({name: appmod-list-jdks, input: {
+  "sessionId": "20260906130251",
+  "additionalSearchPaths": [
+    "C:\\Program Files\\Java",
+    "C:\\Program Files\\Eclipse Adoptium",
+    "C:\\Program Files\\Microsoft"
+  ]
+}}).
+2026-09-06T13:02:59.519Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:02:59.520Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "List jdks"
+}}).
+2026-09-06T13:02:59.522Z [INFO] ----------------------prepared appmod-list-jdks----------------------
+2026-09-06T13:03:00.032Z [INFO] ----------------------invoke appmod-list-jdks----------------------
+2026-09-06T13:03:00.048Z [INFO] [Tool.invoke]({name: appmod-list-jdks, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "additionalSearchPaths": [
+    "C:\\Program Files\\Java",
+    "C:\\Program Files\\Eclipse Adoptium",
+    "C:\\Program Files\\Microsoft"
+  ]
+}}).
+2026-09-06T13:03:00.059Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:03:00.376Z [INFO] [Tool.invoke]({result: {
+  "message": "We found following jdks in your system:\n\n1. Java 17.0.7\n   📁 Path: C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin\n   🏷️ Source: PATH,JAVA_HOME\n\n2. Java 25.0.2\n   📁 Path: C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin\n   🏷️ Source: install\n\n3. Java 25.0.2\n   📁 Path: C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin\n   🏷️ Source: others\n\n4. Java 26.0.2\n   📁 Path: C:\\Program Files\\Java\\jdk-26.0.2\\bin\n   🏷️ Source: others\n\nTotal: 4 JDK installation(s) found"
+}}).
+2026-09-06T13:03:00.380Z [INFO] ----------------------invoked appmod-list-jdks----------------------
+2026-09-06T13:03:01.750Z [INFO] ---------------------prepare appmod-list-mavens----------------------
+2026-09-06T13:03:01.751Z [INFO] [Tool.prepareInvocation]({name: appmod-list-mavens, input: {
+  "sessionId": "20260906130251",
+  "additionalSearchPaths": [
+    "C:\\Program Files\\Apache\\maven"
+  ],
+  "includeVersion": true
+}}).
+2026-09-06T13:03:01.752Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:03:01.755Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "List mavens"
+}}).
+2026-09-06T13:03:01.759Z [INFO] ----------------------prepared appmod-list-mavens----------------------
+2026-09-06T13:03:02.007Z [INFO] ----------------------invoke appmod-list-mavens----------------------
+2026-09-06T13:03:02.008Z [INFO] [Tool.invoke]({name: appmod-list-mavens, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "additionalSearchPaths": [
+    "C:\\Program Files\\Apache\\maven"
+  ],
+  "includeVersion": true
+}}).
+2026-09-06T13:03:02.009Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:03:10.395Z [INFO] [Tool.invoke]({result: {
+  "message": "We found following maven installations in your system:\n\n1. Maven 3.10.0-rc-1\n   📁 Path: C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin\n   🏷️ Source: install\n\n2. Maven 3.9.15\n   📁 Path: C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin\n   🏷️ Source: install\n\nTotal: 2 Maven installation(s) found"
+}}).
+2026-09-06T13:03:10.397Z [INFO] ----------------------invoked appmod-list-mavens----------------------
+2026-09-06T13:03:48.086Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:03:48.089Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "planReviewed",
+  "status": "succeeded",
+  "phase": "plan",
+  "message": "Plan reviewed: Java target properties only; security pins preserved; baseline, compile, CVE, and final test validation included."
+}}).
+2026-09-06T13:03:48.091Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:03:48.098Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:03:48.130Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:03:48.753Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:03:48.760Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "planReviewed",
+  "status": "succeeded",
+  "phase": "plan",
+  "message": "Plan reviewed: Java target properties only; security pins preserved; baseline, compile, CVE, and final test validation included."
+}}).
+2026-09-06T13:03:48.762Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:03:48.771Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'planReviewed' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:03:48.775Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:03:52.897Z [INFO] ---------------------prepare appmod-confirm-upgrade-plan----------------------
+2026-09-06T13:03:52.908Z [INFO] [Tool.prepareInvocation]({name: appmod-confirm-upgrade-plan, input: {
+  "sessionId": "20260906130251",
+  "autoExecute": true
+}}).
+2026-09-06T13:03:52.920Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:03:52.925Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Auto-executing [upgrade plan](file:///c:/Users/sd967/Downloads/Agriculture-FoodTech/frontend/desktop-tutorial/.github/modernize/java-upgrade/20260906130251/plan.md)"
+}}).
+2026-09-06T13:03:52.927Z [INFO] ----------------------prepared appmod-confirm-upgrade-plan----------------------
+2026-09-06T13:03:53.287Z [INFO] ----------------------invoke appmod-confirm-upgrade-plan----------------------
+2026-09-06T13:03:53.294Z [INFO] [Tool.invoke]({name: appmod-confirm-upgrade-plan, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "autoExecute": true
+}}).
+2026-09-06T13:03:53.295Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:03:53.297Z [INFO] Upgrade plan confirmed successfully.
+2026-09-06T13:03:53.299Z [INFO] [Tool.invoke]({result: {
+  "message": "Generated plan is reviewed and confirmed by the user! the upgrade process will start now."
+}}).
+2026-09-06T13:03:53.305Z [INFO] ----------------------invoked appmod-confirm-upgrade-plan----------------------
+2026-09-06T13:04:30.673Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:04:30.674Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "planExecutionStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Upgrade execution started on appmod/java-upgrade-20260906130251."
+}}).
+2026-09-06T13:04:30.675Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:04:30.681Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:04:30.683Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:04:31.464Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:04:31.470Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "planExecutionStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Upgrade execution started on appmod/java-upgrade-20260906130251."
+}}).
+2026-09-06T13:04:31.472Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:04:32.392Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'planExecutionStarted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:04:32.394Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:04:39.582Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:04:39.584Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "environmentSetup",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+    "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+  },
+  "message": "Required JDK 25.0.2 and Maven 3.9.15 are installed and available."
+}}).
+2026-09-06T13:04:39.585Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:04:39.593Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:04:39.595Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:04:39.964Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:04:39.968Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "environmentSetup",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+    "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+  },
+  "message": "Required JDK 25.0.2 and Maven 3.9.15 are installed and available."
+}}).
+2026-09-06T13:04:39.970Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:04:39.971Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:04:39.974Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'environmentSetup' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:04:39.975Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:04:39.982Z [INFO] Project java version: 17
+2026-09-06T13:04:39.984Z [INFO] Build tool type detected from path: mvn
+2026-09-06T13:04:39.985Z [INFO] Build tool type: mvn
+2026-09-06T13:04:39.986Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "version": "17"
+}
+2026-09-06T13:04:39.988Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+  "version": ""
+}
+2026-09-06T13:04:39.992Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+    "name": "mvn",
+    "version": ""
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "17"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:04:43.774Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:04:43.777Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "baselineSetup",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Beginning Java 17 baseline compilation and tests."
+}}).
+2026-09-06T13:04:43.780Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:04:43.793Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:04:43.806Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:04:44.442Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:04:44.450Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "baselineSetup",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Beginning Java 17 baseline compilation and tests."
+}}).
+2026-09-06T13:04:44.451Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:04:44.455Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'baselineSetup' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:04:44.457Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:04:48.368Z [INFO] ---------------------prepare appmod-build-java-project----------------------
+2026-09-06T13:04:48.370Z [INFO] [Tool.prepareInvocation]({name: appmod-build-java-project, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:04:48.371Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:04:48.373Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Build project"
+}}).
+2026-09-06T13:04:48.374Z [INFO] ----------------------prepared appmod-build-java-project----------------------
+2026-09-06T13:04:48.785Z [INFO] ----------------------invoke appmod-build-java-project----------------------
+2026-09-06T13:04:48.794Z [INFO] [Tool.invoke]({name: appmod-build-java-project, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:04:48.805Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:04:48.807Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:04:48.819Z [INFO] Project java version: 17
+2026-09-06T13:04:48.825Z [INFO] Build tool type detected from path: mvn
+2026-09-06T13:04:48.826Z [INFO] Build tool type: mvn
+2026-09-06T13:04:48.827Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+  "version": "17"
+}
+2026-09-06T13:04:48.828Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+  "version": ""
+}
+2026-09-06T13:04:48.830Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+    "name": "mvn",
+    "version": ""
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+    "name": "java",
+    "version": "17"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:04:48.837Z [INFO] [MavenBuildTool] Getting build errors of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:04:48.852Z [INFO] [Environment] Running command (Java undefined): mvn clean test-compile -q -B -fn -Dossindex.skip=true -Dlicense.skip=true -Dcheckstyle.skip=true -DskipLicenseCheck=true -DskipCheckStyle=true -Dpmd.skip=true -Denforcer.skip=true -Drat.skip=true
+2026-09-06T13:05:17.716Z [INFO] [MavenBuildTool] parsing compilation errors.
+2026-09-06T13:05:17.726Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:05:17.728Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:05:17.737Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-e56e6374-6fba-4b62-871b-15a44b6f2d3d.log
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-e56e6374-6fba-4b62-871b-15a44b6f2d3d.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.218 s
+[INFO] Finished at: 2026-09-06T18:35:27+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:05:27.933Z [INFO] [BaseBuildTool] Found 1 modules: .
+2026-09-06T13:05:28.024Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2026-09-06T13:05:28.029Z [INFO] [MavenBuildTool] Cleaning c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:05:28.038Z [INFO] [Environment] Running command (Java undefined): mvn clean -q -B -fn
+2026-09-06T13:05:35.460Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:05:35.461Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:05:35.463Z [INFO] Build succeeded! There are no build errors in the project.
+2026-09-06T13:05:35.469Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:05:35.470Z [INFO] [Tool.invoke]({result: {
+  "message": "Build succeeded! There are no build errors in the project.",
+  "result": {
+    "numOfJavaFiles": 28,
+    "numOfClassFiles": 28,
+    "modulesBuildResult": {
+      ".": {
+        "numOfJavaFiles": 28,
+        "numOfClassFiles": 28
+      }
+    },
+    "errors": [],
+    "command": "mvn clean test-compile -q -B -fn -Dossindex.skip=true -Dlicense.skip=true -Dcheckstyle.skip=true -DskipLicenseCheck=true -DskipCheckStyle=true -Dpmd.skip=true -Denforcer.skip=true -Drat.skip=true"
+  },
+  "telemetry": {
+    "result": "succeeded"
+  }
+}}).
+2026-09-06T13:05:35.471Z [INFO] ----------------------invoked appmod-build-java-project----------------------
+2026-09-06T13:05:35.480Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 17
+2026-09-06T13:05:39.628Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:05:39.646Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "buildCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Java 17 baseline compilation succeeded."
+}}).
+2026-09-06T13:05:39.648Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:05:39.650Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:05:39.656Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:05:40.019Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:05:40.025Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "buildCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Java 17 baseline compilation succeeded."
+}}).
+2026-09-06T13:05:40.027Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:05:40.028Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:05:40.038Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'buildCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:05:40.039Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:05:40.046Z [INFO] Project java version: 17
+2026-09-06T13:05:40.048Z [INFO] Maven project detected.
+2026-09-06T13:05:40.049Z [INFO] Build tool type: mvn
+2026-09-06T13:05:40.790Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+  "version": "17"
+}
+2026-09-06T13:05:40.880Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+  "version": "",
+  "source": "install"
+}
+2026-09-06T13:05:40.882Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+    "name": "mvn",
+    "version": "",
+    "source": "install"
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+    "name": "java",
+    "version": "17"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:05:40.884Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:05:40.885Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:05:40.893Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-ea4088f3-fd1f-4136-bed3-cbfcac55329a.log
+2026-09-06T13:05:43.306Z [INFO] ---------------------prepare appmod-run-tests-for-java----------------------
+2026-09-06T13:05:43.310Z [INFO] [Tool.prepareInvocation]({name: appmod-run-tests-for-java, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:05:43.312Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:05:43.315Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Run tests"
+}}).
+2026-09-06T13:05:43.317Z [INFO] ----------------------prepared appmod-run-tests-for-java----------------------
+2026-09-06T13:05:43.674Z [INFO] ----------------------invoke appmod-run-tests-for-java----------------------
+2026-09-06T13:05:43.678Z [INFO] [Tool.invoke]({name: appmod-run-tests-for-java, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:05:43.680Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:05:43.682Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:05:43.684Z [INFO] Project java version: 17
+2026-09-06T13:05:43.685Z [INFO] Build tool type detected from path: mvn
+2026-09-06T13:05:43.691Z [INFO] Build tool type: mvn
+2026-09-06T13:05:43.692Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+  "version": "17"
+}
+2026-09-06T13:05:43.695Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+  "version": ""
+}
+2026-09-06T13:05:43.699Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+    "name": "mvn",
+    "version": ""
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-17.0.7.7-hotspot\\bin",
+    "name": "java",
+    "version": "17"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:05:43.701Z [INFO] Building project before running tests...
+2026-09-06T13:05:43.703Z [INFO] [MavenBuildTool] Getting build errors of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:05:43.707Z [INFO] [Environment] Running command (Java undefined): mvn clean test-compile -q -B -fn -Dossindex.skip=true -Dlicense.skip=true -Dcheckstyle.skip=true -DskipLicenseCheck=true -DskipCheckStyle=true -Dpmd.skip=true -Denforcer.skip=true -Drat.skip=true
+[INFO] Scanning for projects...
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-ea4088f3-fd1f-4136-bed3-cbfcac55329a.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.169 s
+[INFO] Finished at: 2026-09-06T18:35:53+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:05:54.349Z [INFO] [BaseBuildTool] Found 1 modules: .
+2026-09-06T13:05:54.380Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2026-09-06T13:05:54.387Z [INFO] [MavenBuildTool] Cleaning c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:05:54.394Z [INFO] [Environment] Running command (Java undefined): mvn clean -q -B -fn
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-clean-plugin:3.5.0:clean (default-clean) on project desktop-tutorial: Failed to clean project: Failed to delete C:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\target\classes -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+2026-09-06T13:06:07.961Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:06:07.964Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:06:07.966Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:06:07.971Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 17
+2026-09-06T13:06:08.033Z [INFO] [MavenBuildTool] parsing compilation errors.
+2026-09-06T13:06:08.035Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:06:08.036Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:06:08.039Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-e5826591-7cc0-44d3-91cb-5eefa83badcd.log
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-e5826591-7cc0-44d3-91cb-5eefa83badcd.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.238 s
+[INFO] Finished at: 2026-09-06T18:36:14+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:06:14.361Z [INFO] [BaseBuildTool] Found 1 modules: .
+2026-09-06T13:06:14.382Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2026-09-06T13:06:14.383Z [INFO] [MavenBuildTool] Cleaning c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:06:14.390Z [INFO] [Environment] Running command (Java undefined): mvn clean -q -B -fn
+2026-09-06T13:06:20.250Z [INFO] Running tests...
+2026-09-06T13:06:20.254Z [INFO] [MavenBuildTool] Running test cases of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:06:20.258Z [INFO] [Environment] Running command (Java undefined): mvn clean test -q -B -fn
+2026-09-06T13:06:36.280Z [INFO] [MavenBuildTool] loading surefire reports.
+2026-09-06T13:06:36.838Z [INFO] [MavenBuildTool] summarizing surefire reports.
+2026-09-06T13:06:36.844Z [INFO] [Tool.invoke]({result: {
+  "message": "All tests passed! There are no test errors/failures in the project.",
+  "result": {
+    "errors": [],
+    "failures": [],
+    "summary": {
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "reports": []
+  },
+  "telemetry": {
+    "result": "succeeded"
+  }
+}}).
+2026-09-06T13:06:36.846Z [INFO] ----------------------invoked appmod-run-tests-for-java----------------------
+2026-09-06T13:06:41.692Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:06:41.693Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "testCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Java 17 baseline tests passed; no test failures reported."
+}}).
+2026-09-06T13:06:41.695Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:06:41.698Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:06:41.700Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:06:41.928Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:06:41.932Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "testCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Java 17 baseline tests passed; no test failures reported."
+}}).
+2026-09-06T13:06:41.933Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:06:41.936Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'testCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:06:41.937Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:06:45.772Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:06:45.773Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 3,
+    "stepTitle": "Upgrade Java Target Configuration"
+  },
+  "message": "Applying Java 25 target properties in pom.xml."
+}}).
+2026-09-06T13:06:45.776Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:06:45.778Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:06:45.779Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:06:46.007Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:06:46.010Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 3,
+    "stepTitle": "Upgrade Java Target Configuration"
+  },
+  "message": "Applying Java 25 target properties in pom.xml."
+}}).
+2026-09-06T13:06:46.011Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:06:46.014Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'upgradeStepStarted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:06:46.015Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:06:57.203Z [INFO] ---------------------prepare appmod-build-java-project----------------------
+2026-09-06T13:06:57.205Z [INFO] [Tool.prepareInvocation]({name: appmod-build-java-project, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:06:57.206Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:06:57.210Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Build project"
+}}).
+2026-09-06T13:06:57.211Z [INFO] ----------------------prepared appmod-build-java-project----------------------
+2026-09-06T13:06:57.394Z [INFO] ----------------------invoke appmod-build-java-project----------------------
+2026-09-06T13:06:57.396Z [INFO] [Tool.invoke]({name: appmod-build-java-project, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:06:57.397Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:06:57.399Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:06:57.403Z [INFO] Project java version: 25
+2026-09-06T13:06:57.404Z [INFO] Build tool type detected from path: mvn
+2026-09-06T13:06:57.405Z [INFO] Build tool type: mvn
+2026-09-06T13:06:57.406Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "version": "25"
+}
+2026-09-06T13:06:57.407Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+  "version": ""
+}
+2026-09-06T13:06:57.408Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+    "name": "mvn",
+    "version": ""
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "25"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:06:57.411Z [INFO] [MavenBuildTool] Getting build errors of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:06:57.415Z [INFO] [Environment] Running command (Java undefined): mvn clean test-compile -q -B -fn -Dossindex.skip=true -Dlicense.skip=true -Dcheckstyle.skip=true -DskipLicenseCheck=true -DskipCheckStyle=true -Dpmd.skip=true -Denforcer.skip=true -Drat.skip=true
+2026-09-06T13:07:11.277Z [INFO] [MavenBuildTool] parsing compilation errors.
+2026-09-06T13:07:11.280Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:11.281Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:11.287Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-f04b0f34-c940-41cc-a184-a00b47764131.log
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-f04b0f34-c940-41cc-a184-a00b47764131.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.911 s
+[INFO] Finished at: 2026-09-06T18:37:17+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:07:17.925Z [INFO] [BaseBuildTool] Found 1 modules: .
+2026-09-06T13:07:18.049Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2026-09-06T13:07:18.053Z [INFO] [MavenBuildTool] Cleaning c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:07:18.058Z [INFO] [Environment] Running command (Java undefined): mvn clean -q -B -fn
+2026-09-06T13:07:23.305Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:07:23.310Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:23.312Z [INFO] Build succeeded! There are no build errors in the project.
+2026-09-06T13:07:23.313Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:07:23.314Z [INFO] [Tool.invoke]({result: {
+  "message": "Build succeeded! There are no build errors in the project.",
+  "result": {
+    "numOfJavaFiles": 28,
+    "numOfClassFiles": 28,
+    "modulesBuildResult": {
+      ".": {
+        "numOfJavaFiles": 28,
+        "numOfClassFiles": 28
+      }
+    },
+    "errors": [],
+    "command": "mvn clean test-compile -q -B -fn -Dossindex.skip=true -Dlicense.skip=true -Dcheckstyle.skip=true -DskipLicenseCheck=true -DskipCheckStyle=true -Dpmd.skip=true -Denforcer.skip=true -Drat.skip=true"
+  },
+  "telemetry": {
+    "result": "succeeded"
+  }
+}}).
+2026-09-06T13:07:23.316Z [INFO] ----------------------invoked appmod-build-java-project----------------------
+2026-09-06T13:07:23.322Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+2026-09-06T13:07:27.170Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:07:27.179Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "buildCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Java 25 main and test compilation succeeded."
+}}).
+2026-09-06T13:07:27.208Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:07:27.238Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:07:27.248Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:07:27.539Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:07:27.542Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "buildCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Java 25 main and test compilation succeeded."
+}}).
+2026-09-06T13:07:27.545Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:07:27.546Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:07:27.549Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'buildCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:07:27.551Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:07:27.557Z [INFO] Project java version: 25
+2026-09-06T13:07:27.559Z [INFO] Maven project detected.
+2026-09-06T13:07:27.560Z [INFO] Build tool type: mvn
+2026-09-06T13:07:28.416Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+  "version": "25"
+}
+2026-09-06T13:07:28.508Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+  "version": "",
+  "source": "install"
+}
+2026-09-06T13:07:28.509Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+    "name": "mvn",
+    "version": "",
+    "source": "install"
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "25"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:07:28.513Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:28.514Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:28.524Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-17b88c85-3f9a-4253-a947-5f35ce2270f4.log
+[INFO] Scanning for projects...
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-17b88c85-3f9a-4253-a947-5f35ce2270f4.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.758 s
+[INFO] Finished at: 2026-09-06T18:37:40+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:07:40.389Z [INFO] [BaseBuildTool] Found 1 modules: .
+2026-09-06T13:07:40.422Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2026-09-06T13:07:40.424Z [INFO] [MavenBuildTool] Cleaning c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:07:40.428Z [INFO] [Environment] Running command (Java undefined): mvn clean -q -B -fn
+2026-09-06T13:07:41.001Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:07:41.003Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 3,
+    "stepTitle": "Upgrade Java Target Configuration",
+    "commitId": "f9fceef1361535af29766e43a546fc83e90ddd9d"
+  },
+  "message": "Java target configuration upgraded to 25 and compiled successfully."
+}}).
+2026-09-06T13:07:41.008Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:07:41.016Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:07:41.025Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:07:41.304Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:07:41.306Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 3,
+    "stepTitle": "Upgrade Java Target Configuration",
+    "commitId": "f9fceef1361535af29766e43a546fc83e90ddd9d"
+  },
+  "message": "Java target configuration upgraded to 25 and compiled successfully."
+}}).
+2026-09-06T13:07:41.308Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:07:41.312Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:07:41.314Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'upgradeStepCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:07:41.315Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:07:41.321Z [INFO] Project java version: 25
+2026-09-06T13:07:41.323Z [INFO] Maven project detected.
+2026-09-06T13:07:41.324Z [INFO] Build tool type: mvn
+2026-09-06T13:07:41.891Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+  "version": "25"
+}
+2026-09-06T13:07:41.970Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+  "version": "",
+  "source": "install"
+}
+2026-09-06T13:07:41.975Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+    "name": "mvn",
+    "version": "",
+    "source": "install"
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "25"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:07:41.979Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:07:41.994Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:42.001Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:42.003Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:42.030Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-5745bc6f-1fbb-44f8-a814-d6f30d3e5eb5.log
+2026-09-06T13:07:42.177Z [INFO] [Environment] Running command (Java undefined): mvn dependency:tree -B
+2026-09-06T13:07:46.948Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:07:46.954Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 4,
+    "stepTitle": "CVE Validation and Fix"
+  },
+  "message": "Scanning resolved direct dependency versions for known CVEs."
+}}).
+2026-09-06T13:07:46.956Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:07:46.958Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:07:46.959Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:07:47.272Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:07:47.277Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 4,
+    "stepTitle": "CVE Validation and Fix"
+  },
+  "message": "Scanning resolved direct dependency versions for known CVEs."
+}}).
+2026-09-06T13:07:47.279Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:07:47.282Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'upgradeStepStarted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:07:47.289Z [INFO] ----------------------invoked appmod-report-event----------------------
+[INFO] Scanning for projects...
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+2026-09-06T13:07:50.508Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:07:50.522Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:50.532Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:07:50.548Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+[INFO] Scanning for projects...
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+2026-09-06T13:07:52.797Z [INFO] ---------------------prepare appmod-validate-cves-for-java----------------------
+2026-09-06T13:07:52.799Z [INFO] [Tool.prepareInvocation]({name: appmod-validate-cves-for-java, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "dependencies": [
+    "org.springframework.boot:spring-boot-starter-web:3.5.16",
+    "org.springframework.boot:spring-boot-starter-data-jpa:3.5.16",
+    "com.h2database:h2:2.3.232",
+    "ai.djl:api:0.31.1",
+    "ai.djl.pytorch:pytorch-engine:0.31.1",
+    "ai.djl.pytorch:pytorch-native-auto:1.9.1",
+    "com.alphacephei:vosk:0.3.45",
+    "junit:junit:4.13.2",
+    "com.fasterxml.jackson:jackson-bom:2.21.5",
+    "org.apache.logging.log4j:log4j-bom:2.25.5"
+  ]
+}}).
+2026-09-06T13:07:52.800Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:07:52.802Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Validate CVEs"
+}}).
+2026-09-06T13:07:52.803Z [INFO] ----------------------prepared appmod-validate-cves-for-java----------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-5745bc6f-1fbb-44f8-a814-d6f30d3e5eb5.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.746 s
+[INFO] Finished at: 2026-09-06T18:37:55+05:30
+[INFO] ------------------------------------------------------------------------
+[INFO] com.example:desktop-tutorial:jar:1.0.0
+[INFO] +- org.springframework.boot:spring-boot-starter-web:jar:3.5.16:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-autoconfigure:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-starter-logging:jar:3.5.16:compile
+[INFO] |  |  |  +- ch.qos.logback:logback-classic:jar:1.5.34:compile
+[INFO] |  |  |  |  \- ch.qos.logback:logback-core:jar:1.5.34:compile
+[INFO] |  |  |  +- org.apache.logging.log4j:log4j-to-slf4j:jar:2.25.5:compile
+[INFO] |  |  |  |  \- org.apache.logging.log4j:log4j-api:jar:2.25.5:compile
+[INFO] |  |  |  \- org.slf4j:jul-to-slf4j:jar:2.0.18:compile
+[INFO] |  |  +- jakarta.annotation:jakarta.annotation-api:jar:2.1.1:compile
+[INFO] |  |  +- org.springframework:spring-core:jar:6.2.19:compile
+[INFO] |  |  |  \- org.springframework:spring-jcl:jar:6.2.19:compile
+[INFO] |  |  \- org.yaml:snakeyaml:jar:2.4:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-json:jar:3.5.16:compile
+[INFO] |  |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.21.5:compile
+[INFO] |  |  |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.21:compile
+[INFO] |  |  |  \- com.fasterxml.jackson.core:jackson-core:jar:2.21.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.21.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.21.5:compile
+[INFO] |  |  \- com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.21.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-tomcat:jar:3.5.16:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-core:jar:10.1.55:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-el:jar:10.1.55:compile
+[INFO] |  |  \- org.apache.tomcat.embed:tomcat-embed-websocket:jar:10.1.55:compile
+[INFO] |  +- org.springframework:spring-web:jar:6.2.19:compile
+[INFO] |  |  +- org.springframework:spring-beans:jar:6.2.19:compile
+[INFO] |  |  \- io.micrometer:micrometer-observation:jar:1.15.12:compile
+[INFO] |  |     \- io.micrometer:micrometer-commons:jar:1.15.12:compile
+[INFO] |  \- org.springframework:spring-webmvc:jar:6.2.19:compile
+[INFO] |     +- org.springframework:spring-aop:jar:6.2.19:compile
+[INFO] |     +- org.springframework:spring-context:jar:6.2.19:compile
+[INFO] |     \- org.springframework:spring-expression:jar:6.2.19:compile
+[INFO] +- org.springframework.boot:spring-boot-starter-data-jpa:jar:3.5.16:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-jdbc:jar:3.5.16:compile
+[INFO] |  |  +- com.zaxxer:HikariCP:jar:6.3.3:compile
+[INFO] |  |  \- org.springframework:spring-jdbc:jar:6.2.19:compile
+[INFO] |  +- org.hibernate.orm:hibernate-core:jar:6.6.53.Final:compile
+[INFO] |  |  +- jakarta.persistence:jakarta.persistence-api:jar:3.1.0:compile
+[INFO] |  |  +- jakarta.transaction:jakarta.transaction-api:jar:2.0.1:compile
+[INFO] |  |  +- org.jboss.logging:jboss-logging:jar:3.6.3.Final:runtime
+[INFO] |  |  +- org.hibernate.common:hibernate-commons-annotations:jar:7.0.3.Final:runtime
+[INFO] |  |  +- io.smallrye:jandex:jar:3.2.0:runtime
+[INFO] |  |  +- com.fasterxml:classmate:jar:1.7.3:runtime
+[INFO] |  |  +- net.bytebuddy:byte-buddy:jar:1.17.8:runtime
+[INFO] |  |  +- jakarta.xml.bind:jakarta.xml.bind-api:jar:4.0.5:runtime
+[INFO] |  |  |  \- jakarta.activation:jakarta.activation-api:jar:2.1.4:runtime
+[INFO] |  |  +- org.glassfish.jaxb:jaxb-runtime:jar:4.0.9:runtime
+[INFO] |  |  |  \- org.glassfish.jaxb:jaxb-core:jar:4.0.9:runtime
+[INFO] |  |  |     +- org.eclipse.angus:angus-activation:jar:2.0.3:runtime
+[INFO] |  |  |     +- org.glassfish.jaxb:txw2:jar:4.0.9:runtime
+[INFO] |  |  |     \- com.sun.istack:istack-commons-runtime:jar:4.1.2:runtime
+[INFO] |  |  +- jakarta.inject:jakarta.inject-api:jar:2.0.1:runtime
+[INFO] |  |  \- org.antlr:antlr4-runtime:jar:4.13.2:compile
+[INFO] |  +- org.springframework.data:spring-data-jpa:jar:3.5.13:compile
+[INFO] |  |  +- org.springframework.data:spring-data-commons:jar:3.5.13:compile
+[INFO] |  |  +- org.springframework:spring-orm:jar:6.2.19:compile
+[INFO] |  |  \- org.springframework:spring-tx:jar:6.2.19:compile
+[INFO] |  \- org.springframework:spring-aspects:jar:6.2.19:compile
+[INFO] |     \- org.aspectj:aspectjweaver:jar:1.9.25.1:compile
+[INFO] +- com.h2database:h2:jar:2.3.232:runtime
+[INFO] +- ai.djl:api:jar:0.31.1:compile
+[INFO] |  +- com.google.code.gson:gson:jar:2.13.2:compile
+[INFO] |  |  \- com.google.errorprone:error_prone_annotations:jar:2.41.0:compile
+[INFO] |  +- net.java.dev.jna:jna:jar:5.14.0:compile
+[INFO] |  +- org.apache.commons:commons-compress:jar:1.27.1:compile
+[INFO] |  |  +- commons-codec:commons-codec:jar:1.18.0:compile
+[INFO] |  |  \- commons-io:commons-io:jar:2.16.1:compile
+[INFO] |  \- org.slf4j:slf4j-api:jar:2.0.18:compile
+[INFO] +- ai.djl.pytorch:pytorch-engine:jar:0.31.1:compile
+[INFO] +- ai.djl.pytorch:pytorch-native-auto:jar:1.9.1:runtime
+[INFO] +- com.alphacephei:vosk:jar:0.3.45:compile
+[INFO] \- junit:junit:jar:4.13.2:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:3.0:test
+[INFO]       \- org.hamcrest:hamcrest:jar:3.0:test
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.268 s
+[INFO] Finished at: 2026-09-06T18:37:56+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:07:56.517Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:07:56.521Z [INFO] [MavenBuildTool] Successfully got dependency tree of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:56.522Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:07:56.525Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:56.537Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:07:56.547Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+2026-09-06T13:07:56.548Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+2026-09-06T13:07:56.637Z [INFO] ----------------------invoke appmod-validate-cves-for-java----------------------
+2026-09-06T13:07:56.647Z [INFO] [Tool.invoke]({name: appmod-validate-cves-for-java, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "dependencies": [
+    "org.springframework.boot:spring-boot-starter-web:3.5.16",
+    "org.springframework.boot:spring-boot-starter-data-jpa:3.5.16",
+    "com.h2database:h2:2.3.232",
+    "ai.djl:api:0.31.1",
+    "ai.djl.pytorch:pytorch-engine:0.31.1",
+    "ai.djl.pytorch:pytorch-native-auto:1.9.1",
+    "com.alphacephei:vosk:0.3.45",
+    "junit:junit:4.13.2",
+    "com.fasterxml.jackson:jackson-bom:2.21.5",
+    "org.apache.logging.log4j:log4j-bom:2.25.5"
+  ]
+}}).
+2026-09-06T13:07:56.649Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:07:56.654Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:07:56.656Z [INFO] Getting CVEs for dependencies: org.springframework.boot:spring-boot-starter-web:3.5.16,org.springframework.boot:spring-boot-starter-data-jpa:3.5.16,com.h2database:h2:2.3.232,ai.djl:api:0.31.1,ai.djl.pytorch:pytorch-engine:0.31.1,ai.djl.pytorch:pytorch-native-auto:1.9.1,com.alphacephei:vosk:0.3.45,junit:junit:4.13.2,com.fasterxml.jackson:jackson-bom:2.21.5,org.apache.logging.log4j:log4j-bom:2.25.5
+2026-09-06T13:07:56.658Z [INFO] getting CVEs for dependencies:
+ - org.springframework.boot:spring-boot-starter-web:3.5.16
+  - org.springframework.boot:spring-boot-starter-data-jpa:3.5.16
+  - com.h2database:h2:2.3.232
+  - ai.djl:api:0.31.1
+  - ai.djl.pytorch:pytorch-engine:0.31.1
+  - ai.djl.pytorch:pytorch-native-auto:1.9.1
+  - com.alphacephei:vosk:0.3.45
+  - junit:junit:4.13.2
+  - com.fasterxml.jackson:jackson-bom:2.21.5
+  - org.apache.logging.log4j:log4j-bom:2.25.5...
+2026-09-06T13:07:56.660Z [INFO] getting gitHub access token...
+2026-09-06T13:07:56.667Z [INFO] Project java version: 25
+2026-09-06T13:07:56.677Z [INFO] Maven project detected.
+2026-09-06T13:07:56.703Z [INFO] Build tool type: mvn
+2026-09-06T13:07:57.055Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+  "version": "25"
+}
+2026-09-06T13:07:57.144Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+  "version": "",
+  "source": "install"
+}
+2026-09-06T13:07:57.146Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+    "name": "mvn",
+    "version": "",
+    "source": "install"
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "25"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:07:57.147Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:57.149Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:57.152Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:07:57.155Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:57.156Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:57.157Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:07:57.160Z [INFO] [Environment] Running command (Java undefined): mvn dependency:tree -B
+2026-09-06T13:07:57.252Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-6c722e7d-7a41-4812-b13f-a455c4fa80ed.log
+2026-09-06T13:07:57.386Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-5645c081-d5d6-465e-99fb-d0406a588d78.log
+2026-09-06T13:08:02.978Z [INFO] Processing batch 1/1, size: 10
+2026-09-06T13:08:02.980Z [INFO] Proxy configuration: HTTPS_PROXY=(not set), HTTP_PROXY=(not set), NO_PROXY=(not set), NODE_EXTRA_CA_CERTS=(not set), vscode http.proxy=(not set), hasProxy=false
+2026-09-06T13:08:02.982Z [INFO] No proxy detected, using direct connection.
+2026-09-06T13:08:02.987Z [INFO] listing CVEs from GitHub for dependencies [
+  "org.springframework.boot:spring-boot-starter-web:3.5.16",
+  "org.springframework.boot:spring-boot-starter-data-jpa:3.5.16",
+  "com.h2database:h2:2.3.232",
+  "ai.djl:api:0.31.1",
+  "ai.djl.pytorch:pytorch-engine:0.31.1",
+  "ai.djl.pytorch:pytorch-native-auto:1.9.1",
+  "com.alphacephei:vosk:0.3.45",
+  "junit:junit:4.13.2",
+  "com.fasterxml.jackson:jackson-bom:2.21.5",
+  "org.apache.logging.log4j:log4j-bom:2.25.5"
+]
+2026-09-06T13:08:02.988Z [INFO] GitHub Advisory API affects parameter: ["org.springframework.boot:spring-boot-starter-web@3.5.16","org.springframework.boot:spring-boot-starter-data-jpa@3.5.16","com.h2database:h2@2.3.232","ai.djl:api@0.31.1","ai.djl.pytorch:pytorch-engine@0.31.1","ai.djl.pytorch:pytorch-native-auto@1.9.1","com.alphacephei:vosk@0.3.45","junit:junit@4.13.2","com.fasterxml.jackson:jackson-bom@2.21.5","org.apache.logging.log4j:log4j-bom@2.25.5"]
+2026-09-06T13:08:03.622Z [INFO] Fetched 0 total advisories across all pages
+2026-09-06T13:08:03.623Z [INFO] Advisory IDs returned: 
+2026-09-06T13:08:03.626Z [INFO] grouping CVEs and finding max patched version by dep...
+2026-09-06T13:08:03.627Z [INFO] done getting 0 CVEs for 10 dependencies
+2026-09-06T13:08:03.631Z [INFO] calculating patched version by dep...
+2026-09-06T13:08:03.635Z [INFO] finished getting CVEs for dependencies.
+2026-09-06T13:08:03.637Z [INFO] Found 0 dependencies with known CVEs
+2026-09-06T13:08:03.647Z [INFO] No known CVEs that need to be fixed are found for dependencies: org.springframework.boot:spring-boot-starter-web:3.5.16,org.springframework.boot:spring-boot-starter-data-jpa:3.5.16,com.h2database:h2:2.3.232,ai.djl:api:0.31.1,ai.djl.pytorch:pytorch-engine:0.31.1,ai.djl.pytorch:pytorch-native-auto:1.9.1,com.alphacephei:vosk:0.3.45,junit:junit:4.13.2,com.fasterxml.jackson:jackson-bom:2.21.5,org.apache.logging.log4j:log4j-bom:2.25.5
+2026-09-06T13:08:03.648Z [INFO] [Tool.invoke]({result: {
+  "message": "No known CVEs that need to be fixed are found for the given dependencies."
+}}).
+2026-09-06T13:08:03.653Z [INFO] ----------------------invoked appmod-validate-cves-for-java----------------------
+[INFO] Scanning for projects...
+[INFO] Scanning for projects...
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Scanning for projects...
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+2026-09-06T13:08:07.703Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:08:07.708Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 4,
+    "stepTitle": "CVE Validation and Fix",
+    "commitId": "N/A"
+  },
+  "message": "CVE scan found no known vulnerabilities requiring fixes; no dependency changes were needed."
+}}).
+2026-09-06T13:08:07.710Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:08:07.712Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:08:07.713Z [INFO] ----------------------prepared appmod-report-event----------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+2026-09-06T13:08:08.160Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:08:08.167Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 4,
+    "stepTitle": "CVE Validation and Fix",
+    "commitId": "N/A"
+  },
+  "message": "CVE scan found no known vulnerabilities requiring fixes; no dependency changes were needed."
+}}).
+2026-09-06T13:08:08.178Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:08:08.180Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:08:08.201Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'upgradeStepCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:08:08.205Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:08:08.215Z [INFO] Project java version: 25
+2026-09-06T13:08:08.216Z [INFO] Maven project detected.
+2026-09-06T13:08:08.221Z [INFO] Build tool type: mvn
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ desktop-tutorial ---
+2026-09-06T13:08:11.332Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+  "version": "25"
+}
+2026-09-06T13:08:11.468Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+  "version": "",
+  "source": "install"
+}
+2026-09-06T13:08:11.470Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+    "name": "mvn",
+    "version": "",
+    "source": "install"
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "25"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:08:11.481Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:08:11.712Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:11.885Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:11.897Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:11.904Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-49e28ae2-254e-4ae3-a25b-69cdfcc4f350.log
+2026-09-06T13:08:12.628Z [INFO] [Environment] Running command (Java undefined): mvn dependency:tree -B
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-6c722e7d-7a41-4812-b13f-a455c4fa80ed.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.134 s
+[INFO] Finished at: 2026-09-06T18:38:12+05:30
+[INFO] ------------------------------------------------------------------------
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-5645c081-d5d6-465e-99fb-d0406a588d78.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.793 s
+[INFO] Finished at: 2026-09-06T18:38:12+05:30
+[INFO] ------------------------------------------------------------------------
+[INFO] com.example:desktop-tutorial:jar:1.0.0
+[INFO] +- org.springframework.boot:spring-boot-starter-web:jar:3.5.16:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-autoconfigure:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-starter-logging:jar:3.5.16:compile
+[INFO] |  |  |  +- ch.qos.logback:logback-classic:jar:1.5.34:compile
+[INFO] |  |  |  |  \- ch.qos.logback:logback-core:jar:1.5.34:compile
+[INFO] |  |  |  +- org.apache.logging.log4j:log4j-to-slf4j:jar:2.25.5:compile
+[INFO] |  |  |  |  \- org.apache.logging.log4j:log4j-api:jar:2.25.5:compile
+[INFO] |  |  |  \- org.slf4j:jul-to-slf4j:jar:2.0.18:compile
+[INFO] |  |  +- jakarta.annotation:jakarta.annotation-api:jar:2.1.1:compile
+[INFO] |  |  +- org.springframework:spring-core:jar:6.2.19:compile
+[INFO] |  |  |  \- org.springframework:spring-jcl:jar:6.2.19:compile
+[INFO] |  |  \- org.yaml:snakeyaml:jar:2.4:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-json:jar:3.5.16:compile
+[INFO] |  |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.21.5:compile
+[INFO] |  |  |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.21:compile
+[INFO] |  |  |  \- com.fasterxml.jackson.core:jackson-core:jar:2.21.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.21.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.21.5:compile
+[INFO] |  |  \- com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.21.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-tomcat:jar:3.5.16:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-core:jar:10.1.55:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-el:jar:10.1.55:compile
+[INFO] |  |  \- org.apache.tomcat.embed:tomcat-embed-websocket:jar:10.1.55:compile
+[INFO] |  +- org.springframework:spring-web:jar:6.2.19:compile
+[INFO] |  |  +- org.springframework:spring-beans:jar:6.2.19:compile
+[INFO] |  |  \- io.micrometer:micrometer-observation:jar:1.15.12:compile
+[INFO] |  |     \- io.micrometer:micrometer-commons:jar:1.15.12:compile
+[INFO] |  \- org.springframework:spring-webmvc:jar:6.2.19:compile
+[INFO] |     +- org.springframework:spring-aop:jar:6.2.19:compile
+[INFO] |     +- org.springframework:spring-context:jar:6.2.19:compile
+[INFO] |     \- org.springframework:spring-expression:jar:6.2.19:compile
+[INFO] +- org.springframework.boot:spring-boot-starter-data-jpa:jar:3.5.16:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-jdbc:jar:3.5.16:compile
+[INFO] |  |  +- com.zaxxer:HikariCP:jar:6.3.3:compile
+[INFO] |  |  \- org.springframework:spring-jdbc:jar:6.2.19:compile
+[INFO] |  +- org.hibernate.orm:hibernate-core:jar:6.6.53.Final:compile
+[INFO] |  |  +- jakarta.persistence:jakarta.persistence-api:jar:3.1.0:compile
+[INFO] |  |  +- jakarta.transaction:jakarta.transaction-api:jar:2.0.1:compile
+[INFO] |  |  +- org.jboss.logging:jboss-logging:jar:3.6.3.Final:runtime
+[INFO] |  |  +- org.hibernate.common:hibernate-commons-annotations:jar:7.0.3.Final:runtime
+[INFO] |  |  +- io.smallrye:jandex:jar:3.2.0:runtime
+[INFO] |  |  +- com.fasterxml:classmate:jar:1.7.3:runtime
+[INFO] |  |  +- net.bytebuddy:byte-buddy:jar:1.17.8:runtime
+[INFO] |  |  +- jakarta.xml.bind:jakarta.xml.bind-api:jar:4.0.5:runtime
+[INFO] |  |  |  \- jakarta.activation:jakarta.activation-api:jar:2.1.4:runtime
+[INFO] |  |  +- org.glassfish.jaxb:jaxb-runtime:jar:4.0.9:runtime
+[INFO] |  |  |  \- org.glassfish.jaxb:jaxb-core:jar:4.0.9:runtime
+[INFO] |  |  |     +- org.eclipse.angus:angus-activation:jar:2.0.3:runtime
+[INFO] |  |  |     +- org.glassfish.jaxb:txw2:jar:4.0.9:runtime
+[INFO] |  |  |     \- com.sun.istack:istack-commons-runtime:jar:4.1.2:runtime
+[INFO] |  |  +- jakarta.inject:jakarta.inject-api:jar:2.0.1:runtime
+[INFO] |  |  \- org.antlr:antlr4-runtime:jar:4.13.2:compile
+[INFO] |  +- org.springframework.data:spring-data-jpa:jar:3.5.13:compile
+[INFO] |  |  +- org.springframework.data:spring-data-commons:jar:3.5.13:compile
+[INFO] |  |  +- org.springframework:spring-orm:jar:6.2.19:compile
+[INFO] |  |  \- org.springframework:spring-tx:jar:6.2.19:compile
+[INFO] |  \- org.springframework:spring-aspects:jar:6.2.19:compile
+[INFO] |     \- org.aspectj:aspectjweaver:jar:1.9.25.1:compile
+[INFO] +- com.h2database:h2:jar:2.3.232:runtime
+[INFO] +- ai.djl:api:jar:0.31.1:compile
+[INFO] |  +- com.google.code.gson:gson:jar:2.13.2:compile
+[INFO] |  |  \- com.google.errorprone:error_prone_annotations:jar:2.41.0:compile
+[INFO] |  +- net.java.dev.jna:jna:jar:5.14.0:compile
+[INFO] |  +- org.apache.commons:commons-compress:jar:1.27.1:compile
+[INFO] |  |  +- commons-codec:commons-codec:jar:1.18.0:compile
+[INFO] |  |  \- commons-io:commons-io:jar:2.16.1:compile
+[INFO] |  \- org.slf4j:slf4j-api:jar:2.0.18:compile
+[INFO] +- ai.djl.pytorch:pytorch-engine:jar:0.31.1:compile
+[INFO] +- ai.djl.pytorch:pytorch-native-auto:jar:1.9.1:runtime
+[INFO] +- com.alphacephei:vosk:jar:0.3.45:compile
+[INFO] \- junit:junit:jar:4.13.2:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:3.0:test
+[INFO]       \- org.hamcrest:hamcrest:jar:3.0:test
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.921 s
+[INFO] Finished at: 2026-09-06T18:38:13+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:08:13.573Z [INFO] [MavenBuildTool] Successfully got dependency tree of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:13.581Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:08:13.582Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:13.584Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:13.585Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:13.590Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-11342b6d-f0b5-4d65-83f9-7b9f7dc7689a.log
+2026-09-06T13:08:14.290Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:08:14.389Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+2026-09-06T13:08:14.459Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:08:14.467Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 5,
+    "stepTitle": "Final Validation"
+  },
+  "message": "Running full Java 25 test and package validation."
+}}).
+2026-09-06T13:08:14.469Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:08:14.471Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:08:14.473Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:08:15.048Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:08:15.050Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 5,
+    "stepTitle": "Final Validation"
+  },
+  "message": "Running full Java 25 test and package validation."
+}}).
+2026-09-06T13:08:15.055Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:08:15.059Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'upgradeStepStarted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:08:15.067Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:08:19.907Z [INFO] ---------------------prepare appmod-run-tests-for-java----------------------
+2026-09-06T13:08:19.910Z [INFO] [Tool.prepareInvocation]({name: appmod-run-tests-for-java, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:08:19.912Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:08:19.913Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Run tests"
+}}).
+2026-09-06T13:08:19.914Z [INFO] ----------------------prepared appmod-run-tests-for-java----------------------
+2026-09-06T13:08:20.239Z [INFO] ----------------------invoke appmod-run-tests-for-java----------------------
+2026-09-06T13:08:20.243Z [INFO] [Tool.invoke]({name: appmod-run-tests-for-java, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:08:20.244Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:08:20.246Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:08:20.254Z [INFO] Project java version: 25
+2026-09-06T13:08:20.258Z [INFO] Build tool type detected from path: mvn
+2026-09-06T13:08:20.264Z [INFO] Build tool type: mvn
+2026-09-06T13:08:20.266Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "version": "25"
+}
+2026-09-06T13:08:20.267Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+  "version": ""
+}
+2026-09-06T13:08:20.269Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+    "name": "mvn",
+    "version": ""
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "25"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:08:20.271Z [INFO] Building project before running tests...
+2026-09-06T13:08:20.279Z [INFO] [MavenBuildTool] Getting build errors of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:08:20.287Z [INFO] [Environment] Running command (Java undefined): mvn clean test-compile -q -B -fn -Dossindex.skip=true -Dlicense.skip=true -Dcheckstyle.skip=true -DskipLicenseCheck=true -DskipCheckStyle=true -Dpmd.skip=true -Denforcer.skip=true -Drat.skip=true
+[INFO] Scanning for projects...
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Scanning for projects...
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 74 a[INFO] Scanning for projects...
+uto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ desktop-tutorial ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-49e28ae2-254e-4ae3-a25b-69cdfcc4f350.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.232 s
+[INFO] Finished at: 2026-09-06T18:38:27+05:30
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] com.example:desktop-tutorial:jar:1.0.0
+[INFO] +- org.springframework.boot:spring-boot-starter-web:jar:3.5.16:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-autoconfigure:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-starter-logging:jar:3.5.16:compile
+[INFO] |  |  |  +- ch.qos.logback:logback-classic:jar:1.5.34:compile
+[INFO] |  |  |  |  \- ch.qos.logback:logback-core:jar:1.5.34:compile
+[INFO] |  |  |  +- org.apache.logging.log4j:log4j-to-slf4j:jar:2.25.5:compile
+[INFO] |  |  |  |  \- org.apache.logging.log4j:log4j-api:jar:2.25.5:compile
+[INFO] |  |  |  \- org.slf4j:jul-to-slf4j:jar:2.0.18:compile
+[INFO] |  |  +- jakarta.annotation:jakarta.annotation-api:jar:2.1.1:compile
+[INFO] |  |  +- org.springframework:spring-core:jar:6.2.19:compile
+[INFO] |  |  |  \- org.springframework:spring-jcl:jar:6.2.19:compile
+[INFO] |  |  \- org.yaml:snakeyaml:jar:2.4:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-json:jar:3.5.16:compile
+[INFO] |  |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.21.5:compile
+[INFO] |  |  |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.21:compile
+[INFO] |  |  |  \- com.fasterxml.jackson.core:jackson-core:jar:2.21.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.21.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.21.5:compile
+[INFO] |  |  \- com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.21.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-tomcat:jar:3.5.16:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-core:jar:10.1.55:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-el:jar:10.1.55:compile
+[INFO] |  |  \- org.apache.tomcat.embed:tomcat-embed-websocket:jar:10.1.55:compile
+[INFO] |  +- org.springframework:spring-web:jar:6.2.19:compile
+[INFO] |  |  +- org.springframework:spring-beans:jar:6.2.19:compile
+[INFO] |  |  \- io.micrometer:micrometer-observation:jar:1.15.12:compile
+[INFO] |  |     \- io.micrometer:micrometer-commons:jar:1.15.12:compile
+[INFO] |  \- org.springframework:spring-webmvc:jar:6.2.19:compile
+[INFO] |     +- org.springframework:spring-aop:jar:6.2.19:compile
+[INFO] |     +- org.springframework:spring-context:jar:6.2.19:compile
+[INFO] |     \- org.springframework:spring-expression:jar:6.2.19:compile
+[INFO] +- org.springframework.boot:spring-boot-starter-data-jpa:jar:3.5.16:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-jdbc:jar:3.5.16:compile
+[INFO] |  |  +- com.zaxxer:HikariCP:jar:6.3.3:compile
+[INFO] |  |  \- org.springframework:spring-jdbc:jar:6.2.19:compile
+[INFO] |  +- org.hibernate.orm:hibernate-core:jar:6.6.53.Final:compile
+[INFO] |  |  +- jakarta.persistence:jakarta.persistence-api:jar:3.1.0:compile
+[INFO] |  |  +- jakarta.transaction:jakarta.transaction-api:jar:2.0.1:compile
+[INFO] |  |  +- org.jboss.logging:jboss-logging:jar:3.6.3.Final:runtime
+[INFO] |  |  +- org.hibernate.common:hibernate-commons-annotations:jar:7.0.3.Final:runtime
+[INFO] |  |  +- io.smallrye:jandex:jar:3.2.0:runtime
+[INFO] |  |  +- com.fasterxml:classmate:jar:1.7.3:runtime
+[INFO] |  |  +- net.bytebuddy:byte-buddy:jar:1.17.8:runtime
+[INFO] |  |  +- jakarta.xml.bind:jakarta.xml.bind-api:jar:4.0.5:runtime
+[INFO] |  |  |  \- jakarta.activation:jakarta.activation-api:jar:2.1.4:runtime
+[INFO] |  |  +- org.glassfish.jaxb:jaxb-runtime:jar:4.0.9:runtime
+[INFO] |  |  |  \- org.glassfish.jaxb:jaxb-core:jar:4.0.9:runtime
+[INFO] |  |  |     +- org.eclipse.angus:angus-activation:jar:2.0.3:runtime
+[INFO] |  |  |     +- org.glassfish.jaxb:txw2:jar:4.0.9:runtime
+[INFO] |  |  |     \- com.sun.istack:istack-commons-runtime:jar:4.1.2:runtime
+[INFO] |  |  +- jakarta.inject:jakarta.inject-api:jar:2.0.1:runtime
+[INFO] |  |  \- org.antlr:antlr4-runtime:jar:4.13.2:compile
+[INFO] |  +- org.springframework.data:spring-data-jpa:jar:3.5.13:compile
+[INFO] |  |  +- org.springframework.data:spring-data-commons:jar:3.5.13:compile
+[INFO] |  |  +- org.springframework:spring-orm:jar:6.2.19:compile
+[INFO] |  |  \- org.springframework:spring-tx:jar:6.2.19:compile
+[INFO] |  \- org.springframework:spring-aspects:jar:6.2.19:compile
+[INFO] |     \- org.aspectj:aspectjweaver:jar:1.9.25.1:compile
+[INFO] +- com.h2database:h2:jar:2.3.232:runtime
+[INFO] +- ai.djl:api:jar:0.31.1:compile
+[INFO] |  +- com.google.code.gson:gson:jar:2.13.2:compile
+[INFO] |  |  \- com.google.errorprone:error_prone_annotations:jar:2.41.0:compile
+[INFO] |  +- net.java.dev.jna:jna:jar:5.14.0:compile
+[INFO] |  +- org.apache.commons:commons-compress:jar:1.27.1:compile
+[INFO] |  |  +- commons-codec:commons-codec:jar:1.18.0:compile
+[INFO] |  |  \- commons-io:commons-io:jar:2.16.1:compile
+[INFO] |  \- org.slf4j:slf4j-api:jar:2.0.18:compile
+[INFO] +- ai.djl.pytorch:pytorch-engine:jar:0.31.1:compile
+[INFO] +- ai.djl.pytorch:pytorch-native-auto:jar:1.9.1:runtime
+[INFO] +- com.alphacephei:vosk:jar:0.3.45:compile
+[INFO] \- junit:junit:jar:4.13.2:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:3.0:test
+[INFO]       \- org.hamcrest:hamcrest:jar:3.0:test
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.847 s
+[INFO] Finished at: 2026-09-06T18:38:28+05:30
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+2026-09-06T13:08:28.697Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:08:28.705Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+2026-09-06T13:08:28.806Z [INFO] [MavenBuildTool] Successfully got dependency tree of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:28.811Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:08:28.812Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:28.814Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:08:28.816Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-11342b6d-f0b5-4d65-83f9-7b9f7dc7689a.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.257 s
+[INFO] Finished at: 2026-09-06T18:38:29+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:08:30.312Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:08:30.322Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+2026-09-06T13:08:41.611Z [INFO] [MavenBuildTool] parsing compilation errors.
+2026-09-06T13:08:41.613Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:41.614Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:08:41.620Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-07617a58-b159-4f4b-9cb9-0596c66df31e.log
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-07617a58-b159-4f4b-9cb9-0596c66df31e.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.891 s
+[INFO] Finished at: 2026-09-06T18:38:47+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:08:47.215Z [INFO] [BaseBuildTool] Found 1 modules: .
+2026-09-06T13:08:47.237Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2026-09-06T13:08:47.239Z [INFO] [MavenBuildTool] Cleaning c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:08:47.244Z [INFO] [Environment] Running command (Java undefined): mvn clean -q -B -fn
+2026-09-06T13:08:52.170Z [INFO] Running tests...
+2026-09-06T13:08:52.171Z [INFO] [MavenBuildTool] Running test cases of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:08:52.177Z [INFO] [Environment] Running command (Java undefined): mvn clean test -q -B -fn
+2026-09-06T13:09:04.910Z [INFO] [MavenBuildTool] loading surefire reports.
+2026-09-06T13:09:05.313Z [INFO] [MavenBuildTool] summarizing surefire reports.
+2026-09-06T13:09:05.314Z [INFO] [Tool.invoke]({result: {
+  "message": "All tests passed! There are no test errors/failures in the project.",
+  "result": {
+    "errors": [],
+    "failures": [],
+    "summary": {
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "reports": []
+  },
+  "telemetry": {
+    "result": "succeeded"
+  }
+}}).
+2026-09-06T13:09:05.316Z [INFO] ----------------------invoked appmod-run-tests-for-java----------------------
+2026-09-06T13:09:10.314Z [INFO] ---------------------prepare appmod-build-java-project----------------------
+2026-09-06T13:09:10.315Z [INFO] [Tool.prepareInvocation]({name: appmod-build-java-project, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:09:10.320Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:09:10.321Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Build project"
+}}).
+2026-09-06T13:09:10.323Z [INFO] ----------------------prepared appmod-build-java-project----------------------
+2026-09-06T13:09:10.569Z [INFO] ----------------------invoke appmod-build-java-project----------------------
+2026-09-06T13:09:10.570Z [INFO] [Tool.invoke]({name: appmod-build-java-project, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "jdkPath": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "buildToolPath": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin"
+}}).
+2026-09-06T13:09:10.573Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:09:10.575Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:09:10.577Z [INFO] Project java version: 25
+2026-09-06T13:09:10.579Z [INFO] Build tool type detected from path: mvn
+2026-09-06T13:09:10.580Z [INFO] Build tool type: mvn
+2026-09-06T13:09:10.581Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+  "version": "25"
+}
+2026-09-06T13:09:10.582Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+  "version": ""
+}
+2026-09-06T13:09:10.585Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.9.15\\bin",
+    "name": "mvn",
+    "version": ""
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "25"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:09:10.586Z [INFO] [MavenBuildTool] Getting build errors of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:09:10.590Z [INFO] [Environment] Running command (Java undefined): mvn clean test-compile -q -B -fn -Dossindex.skip=true -Dlicense.skip=true -Dcheckstyle.skip=true -DskipLicenseCheck=true -DskipCheckStyle=true -Dpmd.skip=true -Denforcer.skip=true -Drat.skip=true
+2026-09-06T13:09:22.278Z [INFO] [MavenBuildTool] parsing compilation errors.
+2026-09-06T13:09:22.280Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:09:22.281Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:09:22.288Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-089d8899-2953-4ccb-9df9-7e3a05bd5e00.log
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-089d8899-2953-4ccb-9df9-7e3a05bd5e00.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.113 s
+[INFO] Finished at: 2026-09-06T18:39:27+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:09:27.977Z [INFO] [BaseBuildTool] Found 1 modules: .
+2026-09-06T13:09:28.008Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2026-09-06T13:09:28.010Z [INFO] [MavenBuildTool] Cleaning c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:09:28.013Z [INFO] [Environment] Running command (Java undefined): mvn clean -q -B -fn
+2026-09-06T13:09:32.957Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:09:32.959Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:09:32.963Z [INFO] Build succeeded! There are no build errors in the project.
+2026-09-06T13:09:32.965Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:09:32.966Z [INFO] [Tool.invoke]({result: {
+  "message": "Build succeeded! There are no build errors in the project.",
+  "result": {
+    "numOfJavaFiles": 28,
+    "numOfClassFiles": 28,
+    "modulesBuildResult": {
+      ".": {
+        "numOfJavaFiles": 28,
+        "numOfClassFiles": 28
+      }
+    },
+    "errors": [],
+    "command": "mvn clean test-compile -q -B -fn -Dossindex.skip=true -Dlicense.skip=true -Dcheckstyle.skip=true -DskipLicenseCheck=true -DskipCheckStyle=true -Dpmd.skip=true -Denforcer.skip=true -Drat.skip=true"
+  },
+  "telemetry": {
+    "result": "succeeded"
+  }
+}}).
+2026-09-06T13:09:32.971Z [INFO] ----------------------invoked appmod-build-java-project----------------------
+2026-09-06T13:09:32.980Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+2026-09-06T13:09:41.852Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:09:41.853Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "buildCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Final Java 25 clean build/package validation succeeded."
+}}).
+2026-09-06T13:09:41.855Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:09:41.856Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:09:41.857Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:09:42.515Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:09:42.519Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "buildCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Final Java 25 clean build/package validation succeeded."
+}}).
+2026-09-06T13:09:42.520Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:09:42.522Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:09:42.524Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'buildCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:09:42.526Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:09:42.530Z [INFO] Project java version: 25
+2026-09-06T13:09:42.532Z [INFO] Maven project detected.
+2026-09-06T13:09:42.534Z [INFO] Build tool type: mvn
+2026-09-06T13:09:42.858Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:09:42.866Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "testCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Final Java 25 test suite passed with no reported failures."
+}}).
+2026-09-06T13:09:42.868Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:09:42.869Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:09:42.871Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:09:43.023Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+  "version": "25"
+}
+2026-09-06T13:09:43.094Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+  "version": "",
+  "source": "install"
+}
+2026-09-06T13:09:43.097Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+    "name": "mvn",
+    "version": "",
+    "source": "install"
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "25"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:09:43.098Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:09:43.099Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:09:43.103Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-c2ca4c16-77f2-4bb1-b5fb-649a34ddba67.log
+2026-09-06T13:09:43.280Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:09:43.288Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "testCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Final Java 25 test suite passed with no reported failures."
+}}).
+2026-09-06T13:09:43.289Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:09:43.292Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'testCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:09:43.299Z [INFO] ----------------------invoked appmod-report-event----------------------
+[INFO] Scanning for projects...
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-c2ca4c16-77f2-4bb1-b5fb-649a34ddba67.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.685 s
+[INFO] Finished at: 2026-09-06T18:39:53+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:09:53.654Z [INFO] [BaseBuildTool] Found 1 modules: .
+2026-09-06T13:09:53.674Z [INFO] [BaseBuildTool] Finish counting Java and class files
+2026-09-06T13:09:53.676Z [INFO] [MavenBuildTool] Cleaning c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial using Maven
+2026-09-06T13:09:53.680Z [INFO] [Environment] Running command (Java undefined): mvn clean -q -B -fn
+2026-09-06T13:10:00.156Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:10:00.158Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:10:00.162Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:10:00.166Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+2026-09-06T13:10:32.710Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:10:32.711Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 5,
+    "stepTitle": "Final Validation",
+    "commitId": "f9fceef1361535af29766e43a546fc83e90ddd9d"
+  },
+  "message": "Final Java 25 build, tests, and package validation succeeded."
+}}).
+2026-09-06T13:10:32.712Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:10:32.714Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:10:32.717Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:10:32.890Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:10:32.891Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeStepCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 5,
+    "stepTitle": "Final Validation",
+    "commitId": "f9fceef1361535af29766e43a546fc83e90ddd9d"
+  },
+  "message": "Final Java 25 build, tests, and package validation succeeded."
+}}).
+2026-09-06T13:10:32.894Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:10:32.896Z [INFO] Project c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial is a maven project, try to get java version from pom.xml
+2026-09-06T13:10:32.898Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'upgradeStepCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:10:32.900Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-09-06T13:10:32.902Z [INFO] Project java version: 25
+2026-09-06T13:10:32.904Z [INFO] Maven project detected.
+2026-09-06T13:10:32.906Z [INFO] Build tool type: mvn
+2026-09-06T13:10:33.463Z [INFO] JDK: {
+  "name": "java",
+  "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+  "version": "25"
+}
+2026-09-06T13:10:33.505Z [INFO] Build tool: {
+  "name": "mvn",
+  "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+  "version": "",
+  "source": "install"
+}
+2026-09-06T13:10:33.507Z [INFO] Project config: {
+  "buildTool": {
+    "path": "C:\\Users\\sd967\\.maven\\maven-3.10.0-rc-1\\bin",
+    "name": "mvn",
+    "version": "",
+    "source": "install"
+  },
+  "jdk": {
+    "path": "C:\\Users\\sd967\\AppData\\Local\\jdks\\jdk-25.0.2\\bin",
+    "name": "java",
+    "version": "25"
+  },
+  "name": "desktop-tutorial",
+  "dir": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial"
+}
+2026-09-06T13:10:33.508Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:10:33.509Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:10:33.510Z [INFO] [MavenBuildTool] Getting all module coordinates of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:10:33.511Z [INFO] [MavenBuildTool] Getting effective POMs of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:10:33.517Z [INFO] [Environment] Running command (Java undefined): mvn help:effective-pom -Doutput=effective-pom-9adbcd59-be20-4dee-9eb6-8d36327c5754.log
+2026-09-06T13:10:33.609Z [INFO] [Environment] Running command (Java undefined): mvn dependency:tree -B
+2026-09-06T13:10:36.477Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:10:36.480Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeValidationCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 5,
+    "stepTitle": "Final Validation",
+    "commitId": "f9fceef1361535af29766e43a546fc83e90ddd9d"
+  },
+  "message": "Java 25 LTS upgrade success criteria met: clean compilation, package, tests, and CVE validation."
+}}).
+2026-09-06T13:10:36.485Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:10:36.499Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:10:36.512Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:10:36.768Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:10:36.776Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "upgradeValidationCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 5,
+    "stepTitle": "Final Validation",
+    "commitId": "f9fceef1361535af29766e43a546fc83e90ddd9d"
+  },
+  "message": "Java 25 LTS upgrade success criteria met: clean compilation, package, tests, and CVE validation."
+}}).
+2026-09-06T13:10:36.779Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:10:36.787Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'upgradeValidationCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:10:36.790Z [INFO] ----------------------invoked appmod-report-event----------------------
+[INFO] Scanning for projects...
+[INFO] Scanning for projects...
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+2026-09-06T13:10:39.995Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:10:39.999Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "planExecutionCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "All Java 25 upgrade steps completed successfully."
+}}).
+2026-09-06T13:10:40.002Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:10:40.044Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:10:40.110Z [INFO] ----------------------prepared appmod-report-event----------------------
+[INFO] Loaded 23713 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+2026-09-06T13:10:41.134Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:10:41.140Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "planExecutionCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "All Java 25 upgrade steps completed successfully."
+}}).
+2026-09-06T13:10:41.144Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:10:41.181Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'planExecutionCompleted' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:10:41.185Z [INFO] ----------------------invoked appmod-report-event----------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.2:effective-pom (default-cli) @ desktop-tutorial ---
+[INFO] 
+[INFO] --------------------< com.example:desktop-tutorial >--------------------
+[INFO] Building Desktop Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ desktop-tutorial ---
+[INFO] Effective-POM written to: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\effective-pom-9adbcd59-be20-4dee-9eb6-8d36327c5754.log
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.964 s
+[INFO] Finished at: 2026-09-06T18:40:44+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:10:44.621Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:10:44.828Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25
+2026-09-06T13:10:45.355Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-09-06T13:10:45.361Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "summaryGenerated",
+  "status": "succeeded",
+  "phase": "summarize",
+  "message": "Java 17 to Java 25 LTS upgrade completed with successful compilation, tests, package validation, and clean CVE scan."
+}}).
+2026-09-06T13:10:45.366Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-09-06T13:10:45.368Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-09-06T13:10:45.376Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-09-06T13:10:45.689Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-09-06T13:10:45.710Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260906130251",
+  "projectPath": "c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial",
+  "event": "summaryGenerated",
+  "status": "succeeded",
+  "phase": "summarize",
+  "message": "Java 17 to Java 25 LTS upgrade completed with successful compilation, tests, package validation, and clean CVE scan."
+}}).
+2026-09-06T13:10:45.745Z [INFO] [Tool.invoke] do invoke.
+2026-09-06T13:10:45.755Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'summaryGenerated' reported!\nSession ID: 20260906130251,\nSession Dir: c:\\Users\\sd967\\Downloads\\Agriculture-FoodTech\\frontend\\desktop-tutorial\\.github\\modernize\\java-upgrade\\20260906130251"
+}}).
+2026-09-06T13:10:45.756Z [INFO] ----------------------invoked appmod-report-event----------------------
+[INFO] com.example:desktop-tutorial:jar:1.0.0
+[INFO] +- org.springframework.boot:spring-boot-starter-web:jar:3.5.16:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-autoconfigure:jar:3.5.16:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-starter-logging:jar:3.5.16:compile
+[INFO] |  |  |  +- ch.qos.logback:logback-classic:jar:1.5.34:compile
+[INFO] |  |  |  |  \- ch.qos.logback:logback-core:jar:1.5.34:compile
+[INFO] |  |  |  +- org.apache.logging.log4j:log4j-to-slf4j:jar:2.25.5:compile
+[INFO] |  |  |  |  \- org.apache.logging.log4j:log4j-api:jar:2.25.5:compile
+[INFO] |  |  |  \- org.slf4j:jul-to-slf4j:jar:2.0.18:compile
+[INFO] |  |  +- jakarta.annotation:jakarta.annotation-api:jar:2.1.1:compile
+[INFO] |  |  +- org.springframework:spring-core:jar:6.2.19:compile
+[INFO] |  |  |  \- org.springframework:spring-jcl:jar:6.2.19:compile
+[INFO] |  |  \- org.yaml:snakeyaml:jar:2.4:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-json:jar:3.5.16:compile
+[INFO] |  |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.21.5:compile
+[INFO] |  |  |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.21:compile
+[INFO] |  |  |  \- com.fasterxml.jackson.core:jackson-core:jar:2.21.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.21.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.21.5:compile
+[INFO] |  |  \- com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.21.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-tomcat:jar:3.5.16:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-core:jar:10.1.55:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-el:jar:10.1.55:compile
+[INFO] |  |  \- org.apache.tomcat.embed:tomcat-embed-websocket:jar:10.1.55:compile
+[INFO] |  +- org.springframework:spring-web:jar:6.2.19:compile
+[INFO] |  |  +- org.springframework:spring-beans:jar:6.2.19:compile
+[INFO] |  |  \- io.micrometer:micrometer-observation:jar:1.15.12:compile
+[INFO] |  |     \- io.micrometer:micrometer-commons:jar:1.15.12:compile
+[INFO] |  \- org.springframework:spring-webmvc:jar:6.2.19:compile
+[INFO] |     +- org.springframework:spring-aop:jar:6.2.19:compile
+[INFO] |     +- org.springframework:spring-context:jar:6.2.19:compile
+[INFO] |     \- org.springframework:spring-expression:jar:6.2.19:compile
+[INFO] +- org.springframework.boot:spring-boot-starter-data-jpa:jar:3.5.16:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-jdbc:jar:3.5.16:compile
+[INFO] |  |  +- com.zaxxer:HikariCP:jar:6.3.3:compile
+[INFO] |  |  \- org.springframework:spring-jdbc:jar:6.2.19:compile
+[INFO] |  +- org.hibernate.orm:hibernate-core:jar:6.6.53.Final:compile
+[INFO] |  |  +- jakarta.persistence:jakarta.persistence-api:jar:3.1.0:compile
+[INFO] |  |  +- jakarta.transaction:jakarta.transaction-api:jar:2.0.1:compile
+[INFO] |  |  +- org.jboss.logging:jboss-logging:jar:3.6.3.Final:runtime
+[INFO] |  |  +- org.hibernate.common:hibernate-commons-annotations:jar:7.0.3.Final:runtime
+[INFO] |  |  +- io.smallrye:jandex:jar:3.2.0:runtime
+[INFO] |  |  +- com.fasterxml:classmate:jar:1.7.3:runtime
+[INFO] |  |  +- net.bytebuddy:byte-buddy:jar:1.17.8:runtime
+[INFO] |  |  +- jakarta.xml.bind:jakarta.xml.bind-api:jar:4.0.5:runtime
+[INFO] |  |  |  \- jakarta.activation:jakarta.activation-api:jar:2.1.4:runtime
+[INFO] |  |  +- org.glassfish.jaxb:jaxb-runtime:jar:4.0.9:runtime
+[INFO] |  |  |  \- org.glassfish.jaxb:jaxb-core:jar:4.0.9:runtime
+[INFO] |  |  |     +- org.eclipse.angus:angus-activation:jar:2.0.3:runtime
+[INFO] |  |  |     +- org.glassfish.jaxb:txw2:jar:4.0.9:runtime
+[INFO] |  |  |     \- com.sun.istack:istack-commons-runtime:jar:4.1.2:runtime
+[INFO] |  |  +- jakarta.inject:jakarta.inject-api:jar:2.0.1:runtime
+[INFO] |  |  \- org.antlr:antlr4-runtime:jar:4.13.2:compile
+[INFO] |  +- org.springframework.data:spring-data-jpa:jar:3.5.13:compile
+[INFO] |  |  +- org.springframework.data:spring-data-commons:jar:3.5.13:compile
+[INFO] |  |  +- org.springframework:spring-orm:jar:6.2.19:compile
+[INFO] |  |  \- org.springframework:spring-tx:jar:6.2.19:compile
+[INFO] |  \- org.springframework:spring-aspects:jar:6.2.19:compile
+[INFO] |     \- org.aspectj:aspectjweaver:jar:1.9.25.1:compile
+[INFO] +- com.h2database:h2:jar:2.3.232:runtime
+[INFO] +- ai.djl:api:jar:0.31.1:compile
+[INFO] |  +- com.google.code.gson:gson:jar:2.13.2:compile
+[INFO] |  |  \- com.google.errorprone:error_prone_annotations:jar:2.41.0:compile
+[INFO] |  +- net.java.dev.jna:jna:jar:5.14.0:compile
+[INFO] |  +- org.apache.commons:commons-compress:jar:1.27.1:compile
+[INFO] |  |  +- commons-codec:commons-codec:jar:1.18.0:compile
+[INFO] |  |  \- commons-io:commons-io:jar:2.16.1:compile
+[INFO] |  \- org.slf4j:slf4j-api:jar:2.0.18:compile
+[INFO] +- ai.djl.pytorch:pytorch-engine:jar:0.31.1:compile
+[INFO] +- ai.djl.pytorch:pytorch-native-auto:jar:1.9.1:runtime
+[INFO] +- com.alphacephei:vosk:jar:0.3.45:compile
+[INFO] \- junit:junit:jar:4.13.2:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:3.0:test
+[INFO]       \- org.hamcrest:hamcrest:jar:3.0:test
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.118 s
+[INFO] Finished at: 2026-09-06T18:40:45+05:30
+[INFO] ------------------------------------------------------------------------
+2026-09-06T13:10:45.960Z [INFO] [MavenBuildTool] Successfully got dependency tree of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:10:45.962Z [INFO] [MavenBuildTool] Getting Java version of c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial from pom.xml
+2026-09-06T13:10:45.963Z [INFO] [MavenBuildTool] Searching for pom.xml files in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial
+2026-09-06T13:10:45.964Z [INFO] [MavenBuildTool] Found pom.xml files: c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml
+2026-09-06T13:10:45.969Z [INFO] [MavenBuildTool] Java version found in c:\Users\sd967\Downloads\Agriculture-FoodTech\frontend\desktop-tutorial\pom.xml: 25

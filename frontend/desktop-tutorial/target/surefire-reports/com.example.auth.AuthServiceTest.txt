@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.example.auth.AuthServiceTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 36.782 s - in com.example.auth.AuthServiceTest
