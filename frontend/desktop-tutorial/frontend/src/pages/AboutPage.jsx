@@ -29,7 +29,7 @@ export default function AboutPage() {
       privacyTitle: 'Your data stays protected',
       privacyPoints: [
         'Uploaded leaf images are used for the current diagnosis and removed from temporary processing storage after analysis.',
-        'Diagnosis history stores advisory details such as crop, result, confidence, and date; the original image is not stored in the history.',
+        'Diagnosis history stores advisory details such as crop, result, and date; the original image is not stored in the history.',
         'Profile, crop records, and irrigation notes are saved locally on this device. You can edit or remove them from the app.',
         'Location is optional and is used only to improve district, weather, and local support context.',
       ],
@@ -104,53 +104,51 @@ export default function AboutPage() {
   const page = content[language] || content.en;
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4">
-      <div className="card bg-white rounded-2xl shadow-lg overflow-hidden border-t-8 border-emerald-600">
+    <div className="mx-auto max-w-4xl px-4 py-12">
+      <div className="overflow-hidden rounded-[2rem] border border-emerald-500/20 bg-[linear-gradient(180deg,rgba(11,23,20,0.96),rgba(8,18,15,0.94))] shadow-[0_30px_80px_rgba(4,13,10,0.45)]">
         <div className="p-8 md:p-12">
-          <h1 className="section-title text-4xl font-bold text-gray-800 mb-8 border-b pb-4">{page.title}</h1>
+          <h1 className="mb-8 border-b border-emerald-500/20 pb-4 text-4xl font-bold text-slate-100">{page.title}</h1>
 
-          <div className="space-y-6 text-lg text-gray-700 leading-relaxed mb-12">
+          <div className="mb-12 space-y-6 text-lg leading-relaxed text-slate-300">
             {page.intro.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
 
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">{page.how}</h2>
+            <h2 className="mb-6 text-2xl font-bold text-slate-100">{page.how}</h2>
             <ol className="space-y-4">
               {page.steps.map((step, index) => (
                 <li key={step} className="flex items-start">
-                  <span className="text-2xl mr-4 bg-emerald-100 p-2 rounded-lg text-emerald-700 font-bold">{index + 1}</span>
-                  <span className="text-lg pt-2">{step}</span>
+                  <span className="mr-4 rounded-lg bg-emerald-900/80 p-2 text-2xl font-bold text-emerald-100">{index + 1}</span>
+                  <span className="pt-2 text-lg text-slate-200">{step}</span>
                 </li>
               ))}
             </ol>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-emerald-50 p-6 rounded-xl">
-              <h3 className="text-xl font-bold text-emerald-800 mb-4 flex items-center">🌾 {page.supported}</h3>
-              <p className="text-gray-700">{page.supportedList}</p>
+          <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div className="rounded-xl border border-emerald-500/20 bg-slate-900/80 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-emerald-200">🌾 {page.supported}</h3>
+              <p className="text-slate-200">{page.supportedList}</p>
             </div>
 
-            <div className="bg-blue-50 p-6 rounded-xl">
-              <h3 className="text-xl font-bold text-blue-800 mb-4 flex items-center">📍 {page.coverage}</h3>
-              <p className="text-gray-700">{page.coverageText}</p>
+            <div className="rounded-xl border border-sky-500/20 bg-slate-900/80 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-sky-200">📍 {page.coverage}</h3>
+              <p className="text-slate-200">{page.coverageText}</p>
             </div>
           </div>
 
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">{page.stack}</h2>
+            <h2 className="mb-4 text-2xl font-bold text-slate-100">{page.stack}</h2>
             <div className="flex flex-wrap gap-3">
-              <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium shadow-sm">ResNet-18 CNN</span>
-              <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium shadow-sm">PyTorch/DJL</span>
-              <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium shadow-sm">Spring Boot</span>
-              <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium shadow-sm">React</span>
-              <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium shadow-sm">Tailwind CSS</span>
+              {['ResNet-18 CNN', 'PyTorch/DJL', 'Spring Boot', 'React', 'Tailwind CSS'].map((chip) => (
+                <span key={chip} className="rounded-full border border-slate-700 bg-slate-800/80 px-4 py-2 font-medium text-slate-100 shadow-sm">{chip}</span>
+              ))}
             </div>
           </div>
 
-          <section className="mb-12 rounded-2xl border border-emerald-700/40 bg-emerald-950/50 p-6 md:p-8" aria-labelledby="privacy-title">
+          <section className="mb-12 rounded-2xl border border-emerald-700/30 bg-emerald-950/30 p-6 md:p-8" aria-labelledby="privacy-title">
             <div className="flex items-start gap-4">
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-lime-300/15 text-2xl" aria-hidden="true">🔒</span>
               <div>
@@ -163,11 +161,11 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <div className="text-center bg-gray-50 p-8 rounded-xl border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">{page.ready}</h2>
+          <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-8 text-center">
+            <h2 className="mb-4 text-2xl font-bold text-slate-100">{page.ready}</h2>
             <Link
               to="/diagnose"
-              className="inline-block btn-primary bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:-translate-y-1"
+              className="inline-block rounded-full bg-emerald-500 px-8 py-3 font-bold text-slate-950 shadow-lg transition-transform hover:-translate-y-1 hover:bg-emerald-400"
             >
               {page.cta}
             </Link>

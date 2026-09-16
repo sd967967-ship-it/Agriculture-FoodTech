@@ -4,12 +4,25 @@ import { useLanguage } from '../context/LanguageContext';
 import FileUpload from '../components/FileUpload';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DiagnosisBadge from '../components/DiagnosisBadge';
-import ConfidenceGauge from '../components/ConfidenceGauge';
 import CandidateList from '../components/CandidateList';
 import ActionCard from '../components/ActionCard';
 import SafetyWarnings from '../components/SafetyWarnings';
 import EscalationAlert from '../components/EscalationAlert';
 import WeatherCard from '../components/WeatherCard';
+
+const FALLBACK_CROPS = [
+  { name: 'Rice', stages: ['Seedling', 'Vegetative', 'Flowering', 'Grain Filling', 'Maturity', 'Harvest'] },
+  { name: 'Potato', stages: ['Seedling', 'Vegetative', 'Tuber Initiation', 'Tuber Bulking', 'Maturity', 'Harvest'] },
+  { name: 'Jute', stages: ['Seedling', 'Vegetative', 'Flowering', 'Maturity', 'Harvest'] },
+  { name: 'Mustard', stages: ['Seedling', 'Vegetative', 'Flowering', 'Maturity', 'Harvest'] },
+  { name: 'Tea', stages: ['Vegetative', 'Flowering', 'Harvest'] },
+  { name: 'Tomato', stages: ['Seedling', 'Vegetative', 'Flowering', 'Fruiting', 'Harvest'] },
+  { name: 'Brinjal', stages: ['Seedling', 'Vegetative', 'Flowering', 'Fruiting', 'Harvest'] },
+  { name: 'Chilli', stages: ['Seedling', 'Vegetative', 'Flowering', 'Fruiting', 'Harvest'] },
+  { name: 'Mango', stages: ['Vegetative', 'Flowering', 'Fruiting', 'Maturity', 'Harvest'] },
+  { name: 'Wheat', stages: ['Seedling', 'Vegetative', 'Flowering', 'Grain Filling', 'Maturity', 'Harvest'] },
+  { name: 'Maize', stages: ['Seedling', 'Vegetative', 'Flowering', 'Grain Filling', 'Maturity', 'Harvest'] },
+];
 
 export default function DiagnosePage() {
   const { language, t } = useLanguage();
@@ -30,6 +43,7 @@ export default function DiagnosePage() {
   const [result, setResult] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [speechStatus, setSpeechStatus] = useState('');
+  const [translationLoading, setTranslationLoading] = useState(false);
   const [liveWeather, setLiveWeather] = useState(null);
   const [kvkInfo, setKvkInfo] = useState(null);
   const [mandiPrices, setMandiPrices] = useState([]);
@@ -69,7 +83,6 @@ export default function DiagnosePage() {
       copied: 'Diagnosis summary copied.',
       copySummary: 'Copy summary',
       retakePhoto: 'Please retake the photo before using any treatment.',
-      confidence: 'Confidence',
     },
     bn: {
       cropType: 'ফসলের ধরন',
@@ -105,7 +118,6 @@ export default function DiagnosePage() {
       copied: 'রোগ নির্ণয়ের সারাংশ কপি হয়েছে।',
       copySummary: 'সারাংশ কপি করুন',
       retakePhoto: 'কোনো চিকিৎসা ব্যবহারের আগে ছবিটি আবার তুলুন।',
-      confidence: 'আত্মবিশ্বাস',
     },
     hi: {
       cropType: 'फसल का प्रकार',
@@ -141,7 +153,6 @@ export default function DiagnosePage() {
       copied: 'निदान सारांश कॉपी हो गया।',
       copySummary: 'सारांश कॉपी करें',
       retakePhoto: 'किसी भी उपचार से पहले तस्वीर दोबारा लें।',
-      confidence: 'विश्वास',
     },
   };
 
@@ -200,7 +211,19 @@ export default function DiagnosePage() {
     return message;
   };
 
-  const localizedResult = language === 'en' ? null : result?.translatedAdvisory;
+  const translatedAdvisory = result?.translatedAdvisory;
+  const hasTranslatedContent = translatedAdvisory && [
+    translatedAdvisory.diagnosisLabel,
+    translatedAdvisory.explanation,
+    translatedAdvisory.solutionSummary,
+    ...(translatedAdvisory.nextActions || []),
+    ...(translatedAdvisory.safetyWarnings || []),
+  ].some((value) => typeof value === 'string' && value.trim());
+  const localizedResult = language === 'en'
+    ? null
+    : hasTranslatedContent
+      ? translatedAdvisory
+      : null;
   const clientTranslations = {
     hi: {
       'Strong water spray to dislodge mites': 'माइट हटाने के लिए तेज़ पानी का छिड़काव करें',
@@ -292,6 +315,8 @@ export default function DiagnosePage() {
     if (resultLanguage === language) return;
 
     let active = true;
+    setTranslationLoading(true);
+    setError(null);
     diagnose(selectedFile, { cropType, cropStage, district, latitude, longitude, observations, language })
       .then((response) => {
         if (active) setResult(response.data);
@@ -302,6 +327,9 @@ export default function DiagnosePage() {
           : language === 'hi'
             ? 'भाषा बदली नहीं जा सकी। फिर कोशिश करें।'
             : 'The language could not be changed. Please try again.');
+          })
+          .finally(() => {
+            if (active) setTranslationLoading(false);
       });
 
     return () => {
@@ -417,10 +445,12 @@ export default function DiagnosePage() {
       try {
         const cropsRes = await getCrops();
         const districtsRes = await getDistricts();
-        setCrops(cropsRes.data || []);
+        const cropData = Array.isArray(cropsRes.data) ? cropsRes.data : cropsRes.data?.crops;
+        setCrops(cropData?.length ? cropData : FALLBACK_CROPS);
         setDistricts(districtsRes.data || []);
       } catch (err) {
         console.error("Error fetching form data:", err);
+        setCrops(FALLBACK_CROPS);
       }
     }
     fetchData();
@@ -635,22 +665,20 @@ export default function DiagnosePage() {
 
       const hasLocation = latitude && longitude;
       if (hasLocation) {
-        const [weatherRes, kvkRes, mandiRes] = await Promise.all([
-          getWeather(latitude, longitude),
-          getKvkInfo(district || '', latitude, longitude),
-          getMandiPrices(cropType, 'West Bengal', district)
+        await Promise.allSettled([
+          getWeather(latitude, longitude).then(({ data }) => setLiveWeather(data || null)),
+          getKvkInfo(district || '', latitude, longitude).then(({ data }) => setKvkInfo(data || null)),
+          getMandiPrices(cropType, 'West Bengal', district).then(({ data }) => {
+            setMandiPrices(data && Array.isArray(data.records) ? data.records : []);
+          }),
         ]);
-
-        setLiveWeather(weatherRes.data || null);
-        setKvkInfo(kvkRes.data || null);
-        setMandiPrices((mandiRes.data && Array.isArray(mandiRes.data.records)) ? mandiRes.data.records : []);
       } else if (district) {
-        const [kvkRes, mandiRes] = await Promise.all([
-          getKvkInfo(district, null, null),
-          getMandiPrices(cropType, 'West Bengal', district)
+        await Promise.allSettled([
+          getKvkInfo(district, null, null).then(({ data }) => setKvkInfo(data || null)),
+          getMandiPrices(cropType, 'West Bengal', district).then(({ data }) => {
+            setMandiPrices(data && Array.isArray(data.records) ? data.records : []);
+          }),
         ]);
-        setKvkInfo(kvkRes.data || null);
-        setMandiPrices((mandiRes.data && Array.isArray(mandiRes.data.records)) ? mandiRes.data.records : []);
       }
     } catch (err) {
       console.error(err);
@@ -676,7 +704,7 @@ export default function DiagnosePage() {
   };
 
   const copyResult = async () => {
-    const summary = `${displayDiagnosis}\n${displayExplanation}\n${labelText.confidence}: ${Math.round((result?.confidence || 0) * 100)}%`;
+    const summary = `${displayDiagnosis}\n${displayExplanation}`;
     try {
       await navigator.clipboard.writeText(summary);
       setSpeechStatus(labelText.copied);
@@ -705,10 +733,10 @@ export default function DiagnosePage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
+    <div className="mx-auto max-w-4xl px-4 py-8">
       {!result ? (
-        <div className="card bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-emerald-600">
-          <h2 className="section-title text-3xl font-bold mb-6 flex items-center text-gray-800">
+        <div className="rounded-[1.6rem] border border-emerald-500/20 bg-[linear-gradient(180deg,rgba(10,18,15,0.96),rgba(7,13,11,0.98))] p-6 shadow-[0_20px_38px_rgba(0,0,0,0.25)] md:p-8">
+          <h2 className="mb-6 flex items-center text-3xl font-black tracking-[-0.04em] text-slate-100">
             <span className="mr-3 text-3xl">🌿</span> {labelText.diagnoseTitle}
           </h2>
           
@@ -722,13 +750,14 @@ export default function DiagnosePage() {
                 setImagePreview(null);
               }}
             />
-            <p className="rounded-lg border border-emerald-900/60 bg-emerald-950/30 px-4 py-3 text-sm text-emerald-200">{labelText.imageQuality}</p>
+            <p className="rounded-xl border border-emerald-500/20 bg-emerald-950/30 px-4 py-3 text-sm leading-6 text-emerald-100">{labelText.imageQuality}</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">{labelText.cropType}</label>
+                <label htmlFor="crop-type-select" className="mb-2 block font-semibold text-slate-200">{labelText.cropType}</label>
                 <select 
-                  className="select-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" 
+                  id="crop-type-select"
+                  className="select-field w-full rounded-lg border border-slate-600 bg-slate-900 p-3 text-slate-100 focus:ring-2 focus:ring-emerald-500" 
                   value={cropType} 
                   onChange={e => setCropType(e.target.value)}
                 >
@@ -740,9 +769,10 @@ export default function DiagnosePage() {
               </div>
 
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">{labelText.growthStage}</label>
+                <label htmlFor="crop-stage-select" className="mb-2 block font-semibold text-slate-200">{labelText.growthStage}</label>
                 <select 
-                  className="select-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 disabled:bg-gray-100" 
+                  id="crop-stage-select"
+                  className="select-field w-full rounded-lg border border-slate-600 bg-slate-900 p-3 text-slate-100 focus:ring-2 focus:ring-emerald-500 disabled:bg-slate-800" 
                   value={cropStage} 
                   onChange={e => setCropStage(e.target.value)}
                   disabled={!cropType}
@@ -757,9 +787,10 @@ export default function DiagnosePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">{labelText.district}</label>
+                <label htmlFor="district-select" className="mb-2 block font-semibold text-slate-200">{labelText.district}</label>
                 <select 
-                  className="select-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" 
+                  id="district-select"
+                  className="select-field w-full rounded-lg border border-slate-600 bg-slate-900 p-3 text-slate-100 focus:ring-2 focus:ring-emerald-500" 
                   value={district} 
                   onChange={e => setDistrict(e.target.value)}
                 >
@@ -771,32 +802,32 @@ export default function DiagnosePage() {
               </div>
               
               <div className="flex flex-col">
-                <label className="block text-gray-700 font-semibold mb-2">{labelText.location}</label>
-                <div className="flex gap-2 mb-2">
-                  <input type="text" placeholder="Lat" className="input-field flex-1 p-3 border border-gray-300 rounded-lg" value={latitude} onChange={e => setLatitude(e.target.value)} />
-                  <input type="text" placeholder="Lon" className="input-field flex-1 p-3 border border-gray-300 rounded-lg" value={longitude} onChange={e => setLongitude(e.target.value)} />
+                <label className="mb-2 block font-semibold text-slate-200">{labelText.location}</label>
+                <div className="mb-2 flex gap-2">
+                  <input type="text" placeholder="Lat" className="input-field flex-1 rounded-lg border border-slate-600 bg-slate-900 p-3 text-slate-100" value={latitude} onChange={e => setLatitude(e.target.value)} />
+                  <input type="text" placeholder="Lon" className="input-field flex-1 rounded-lg border border-slate-600 bg-slate-900 p-3 text-slate-100" value={longitude} onChange={e => setLongitude(e.target.value)} />
                 </div>
-                <button type="button" onClick={handleLocation} className="btn-secondary text-emerald-600 border border-emerald-600 hover:bg-emerald-50 p-2 rounded-lg text-sm transition-colors">
+                <button type="button" onClick={handleLocation} className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-2 text-sm font-semibold text-emerald-100 transition-colors hover:bg-emerald-500/15">
                   {labelText.useLocation}
                 </button>
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="block text-gray-700 font-semibold">{labelText.observations}</label>
+              <div className="mb-2 flex items-center justify-between">
+                <label className="block font-semibold text-slate-200">{labelText.observations}</label>
                 <button
                   type="button"
                   onClick={startVoiceCapture}
-                  className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium border transition-colors ${
-                    isRecording ? 'border-red-500 bg-red-50 text-red-700' : 'border-emerald-600 text-emerald-700 hover:bg-emerald-50'
+                  className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-medium transition-colors ${
+                    isRecording ? 'border-red-500/30 bg-red-500/10 text-red-100' : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100 hover:bg-emerald-500/15'
                   }`}
                 >
                   <span>{isRecording ? labelText.recording : labelText.voiceInput}</span>
                 </button>
               </div>
               <textarea 
-                className="input-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" 
+                className="input-field w-full rounded-lg border border-slate-600 bg-slate-900 p-3 text-slate-100 focus:ring-2 focus:ring-emerald-500" 
                 rows="3" 
                 placeholder={language === 'bn' ? 'আপনি কী কী অন্য লক্ষণ দেখছেন তা বর্ণনা করুন...' : language === 'hi' ? 'आपको कौन-से अन्य लक्षण दिख रहे हैं, लिखें...' : 'Describe any other symptoms you see...'}
                 value={observations}
@@ -806,11 +837,11 @@ export default function DiagnosePage() {
             </div>
             <p className="text-xs leading-5 text-slate-400">{labelText.privacy}</p>
 
-            {error && <div className="p-4 bg-red-50 text-red-700 border-l-4 border-red-500 rounded">{error}</div>}
+            {error && <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">{error}</div>}
 
             <button 
               type="submit" 
-              className="btn-primary w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
+              className="flex w-full items-center justify-center rounded-xl bg-emerald-700 py-4 text-base font-bold text-white shadow-[0_16px_28px_rgba(31,93,59,0.18)] transition-colors hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={!selectedFile || !cropType || loading}
             >
               {loading ? <LoadingSpinner /> : `🔍 ${labelText.analyze}`}
@@ -819,46 +850,48 @@ export default function DiagnosePage() {
         </div>
       ) : (
         <div className="space-y-6">
-          <div className="card bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-emerald-600">
-            <div className="flex justify-between items-start mb-6 flex-wrap gap-4">
-              <h2 className="text-3xl font-bold text-gray-800">{displayDiagnosis}</h2>
+          <div className="rounded-[1.6rem] border border-emerald-500/20 bg-[linear-gradient(180deg,rgba(10,18,15,0.96),rgba(7,13,11,0.98))] p-6 shadow-[0_20px_38px_rgba(0,0,0,0.25)] md:p-8">
+            <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+              <h2 className="text-3xl font-black tracking-[-0.04em] text-slate-100">{displayDiagnosis}</h2>
               <DiagnosisBadge type={result.diagnosisType} language={language} />
             </div>
             
-            <div className="mb-6">
-              <ConfidenceGauge value={result.confidence} language={language} />
-            </div>
-            
-            <p className="text-gray-700 text-lg mb-8 leading-relaxed">
-              {displayExplanation}
-            </p>
+            {translationLoading ? (
+              <p className="mb-8 rounded-lg border border-emerald-800/40 bg-emerald-950/30 p-4 text-sm text-emerald-200" role="status">
+                {language === 'bn' ? 'ফলাফল অনুবাদ করা হচ্ছে...' : language === 'hi' ? 'परिणाम का अनुवाद हो रहा है...' : 'Translating diagnosis...'}
+              </p>
+            ) : (
+              <p className="mb-8 text-lg leading-relaxed text-slate-300">
+                {displayExplanation}
+              </p>
+            )}
             <div className="mb-8 flex flex-wrap gap-3">
-              <button type="button" onClick={speakResult} className="rounded-lg border border-emerald-700 px-4 py-2 text-sm font-semibold text-emerald-300 hover:bg-emerald-950/50">🔊 {labelText.readResult}</button>
-              <button type="button" onClick={copyResult} className="rounded-lg border border-slate-600 px-4 py-2 text-sm font-semibold text-slate-300 hover:bg-slate-800">📋 {labelText.copySummary}</button>
+              <button type="button" onClick={speakResult} className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-100 hover:bg-emerald-500/15">🔊 {labelText.readResult}</button>
+              <button type="button" onClick={copyResult} className="rounded-lg border border-slate-600 bg-slate-900 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-800">📋 {labelText.copySummary}</button>
             </div>
 
             {result.diagnosisType === 'IMAGE_NOT_MATCHED' ? (
-              <div className="mb-8 rounded-xl border border-red-200 bg-red-950/40 p-5">
-                <p className="text-lg font-semibold text-red-200">{labelText.retakePhoto}</p>
+              <div className="mb-8 rounded-[1.25rem] border border-red-500/20 bg-red-950/30 p-5">
+                <p className="text-lg font-semibold text-red-100">{labelText.retakePhoto}</p>
               </div>
             ) : displaySolution && (
-              <div className="mb-8 rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-                <h3 className="text-xl font-bold text-emerald-900 mb-2">
+              <div className="mb-8 rounded-[1.25rem] border border-emerald-500/20 bg-emerald-950/30 p-5">
+                <h3 className="mb-2 text-xl font-bold text-emerald-100">
                   {language === 'bn' ? '✅ রোগের সঠিক সমাধান' : language === 'hi' ? '✅ रोग का सही समाधान' : '✅ Proper Disease Solution'}
                 </h3>
-                <p className="text-emerald-900 leading-relaxed">{displaySolution}</p>
+                <p className="leading-relaxed text-emerald-100">{displaySolution}</p>
               </div>
             )}
 
             {result.diagnosisType !== 'IMAGE_NOT_MATCHED' && displayCandidates && displayCandidates.length > 0 && (
               <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">{labelText.alternativePossibilities}</h3>
+                <h3 className="mb-4 text-xl font-bold text-slate-100">{labelText.alternativePossibilities}</h3>
                 <CandidateList candidates={displayCandidates} language={language} />
               </div>
             )}
 
             {result.diagnosisType !== 'IMAGE_NOT_MATCHED' && <div className="mb-8">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">{labelText.actionPlan}</h3>
+              <h3 className="mb-4 text-xl font-bold text-slate-100">{labelText.actionPlan}</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <ActionCard
                   stepNumber={1}
@@ -903,33 +936,33 @@ export default function DiagnosePage() {
             {(liveWeather || kvkInfo || mandiPrices.length > 0) && (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
                 {liveWeather && (
-                  <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
-                    <h3 className="text-lg font-bold text-emerald-900 mb-2">{labelText.liveWeather}</h3>
-                    <p className="text-3xl font-bold text-emerald-800">{liveWeather.temperatureC ?? '--'}°C</p>
-                    <p className="text-sm text-gray-700">{localizedWeatherCondition(liveWeather.condition) || (language === 'bn' ? 'আবহাওয়া ডেটা প্রস্তুত' : language === 'hi' ? 'मौसम डेटा तैयार है' : 'Weather data ready')}</p>
-                    <p className="text-xs text-gray-600 mt-2">{language === 'bn' ? 'আর্দ্রতা' : language === 'hi' ? 'नमी' : 'Humidity'}: {liveWeather.humidityPercent ?? '--'}% • {language === 'bn' ? 'হাওয়া' : language === 'hi' ? 'हवा' : 'Wind'}: {liveWeather.windKph ?? '--'} km/h</p>
+                  <div className="rounded-xl border border-emerald-500/20 bg-emerald-950/30 p-4">
+                    <h3 className="mb-2 text-lg font-bold text-emerald-100">{labelText.liveWeather}</h3>
+                    <p className="text-3xl font-bold text-emerald-200">{liveWeather.temperatureC ?? '--'}°C</p>
+                    <p className="text-sm text-slate-300">{localizedWeatherCondition(liveWeather.condition) || (language === 'bn' ? 'আবহাওয়া ডেটা প্রস্তুত' : language === 'hi' ? 'मौसम डेटा तैयार है' : 'Weather data ready')}</p>
+                    <p className="mt-2 text-xs text-slate-400">{language === 'bn' ? 'আর্দ্রতা' : language === 'hi' ? 'नमी' : 'Humidity'}: {liveWeather.humidityPercent ?? '--'}% • {language === 'bn' ? 'হাওয়া' : language === 'hi' ? 'हवा' : 'Wind'}: {liveWeather.windKph ?? '--'} km/h</p>
                   </div>
                 )}
 
                 {kvkInfo && (
-                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                    <h3 className="text-lg font-bold text-amber-900 mb-2">{labelText.nearestKvk}</h3>
-                    <p className="font-semibold text-gray-800">{kvkInfo.name}</p>
-                    <p className="text-sm text-gray-700">{kvkInfo.address}</p>
-                    {kvkInfo.phone && <a className="text-sm text-amber-700 underline" href={`tel:${kvkInfo.phone}`}>{kvkInfo.phone}</a>}
-                    {kvkInfo.website && <a className="block text-sm text-amber-700 underline mt-1" href={kvkInfo.website} target="_blank" rel="noreferrer">{language === 'bn' ? 'সরকারী ওয়েবসাইট' : language === 'hi' ? 'अधिकारिक वेबसाइट' : 'Official website'}</a>}
+                  <div className="rounded-xl border border-amber-500/20 bg-amber-950/30 p-4">
+                    <h3 className="mb-2 text-lg font-bold text-amber-100">{labelText.nearestKvk}</h3>
+                    <p className="font-semibold text-amber-100">{kvkInfo.name}</p>
+                    <p className="text-sm text-slate-300">{kvkInfo.address}</p>
+                    {kvkInfo.phone && <a className="text-sm text-amber-200 underline" href={`tel:${kvkInfo.phone}`}>{kvkInfo.phone}</a>}
+                    {kvkInfo.website && <a className="mt-1 block text-sm text-amber-200 underline" href={kvkInfo.website} target="_blank" rel="noreferrer">{language === 'bn' ? 'সরকারী ওয়েবসাইট' : language === 'hi' ? 'अधिकारिक वेबसाइट' : 'Official website'}</a>}
                   </div>
                 )}
 
                 {mandiPrices.length > 0 && (
-                  <div className="bg-sky-50 border border-sky-200 rounded-xl p-4 overflow-auto">
-                    <h3 className="text-lg font-bold text-sky-900 mb-2">{labelText.mandiPrices}</h3>
-                    <div className="space-y-2 text-sm text-gray-700">
+                  <div className="overflow-auto rounded-xl border border-sky-500/20 bg-sky-950/30 p-4">
+                    <h3 className="mb-2 text-lg font-bold text-sky-100">{labelText.mandiPrices}</h3>
+                    <div className="space-y-2 text-sm text-slate-300">
                       {mandiPrices.slice(0, 3).map((market, idx) => (
-                        <div key={idx} className="border-b border-sky-100 pb-2 last:border-0 last:pb-0">
-                          <p className="font-semibold">{market.market || (language === 'bn' ? 'বাজার' : language === 'hi' ? 'बाजार' : 'Market')}</p>
+                        <div key={idx} className="border-b border-sky-500/20 pb-2 last:border-0 last:pb-0">
+                          <p className="font-semibold text-sky-100">{market.market || (language === 'bn' ? 'বাজার' : language === 'hi' ? 'बाजार' : 'Market')}</p>
                           <p>{language === 'bn' ? 'মোডেল' : language === 'hi' ? 'मॉडल' : 'Modal'}: ₹{market.modalPrice ?? 'N/A'} • {language === 'bn' ? 'সর্বনিম্ন' : language === 'hi' ? 'न्यूनतम' : 'Min'}: ₹{market.minPrice ?? 'N/A'}</p>
-                          <p className="text-xs text-gray-500">{market.date || ''}</p>
+                          <p className="text-xs text-slate-400">{market.date || ''}</p>
                         </div>
                       ))}
                     </div>
@@ -940,7 +973,7 @@ export default function DiagnosePage() {
 
             <button 
               onClick={resetForm}
-              className="btn-secondary w-full py-4 text-center border-2 border-emerald-600 text-emerald-700 font-bold rounded-xl hover:bg-emerald-50 transition-colors"
+              className="w-full rounded-xl border-2 border-emerald-500/30 bg-emerald-500/10 py-4 text-center text-base font-bold text-emerald-100 transition-colors hover:bg-emerald-500/15"
             >
               {labelText.startNew}
             </button>

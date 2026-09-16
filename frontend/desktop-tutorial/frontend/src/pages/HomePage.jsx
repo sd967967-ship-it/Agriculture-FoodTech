@@ -19,6 +19,13 @@ const tabs = [['weather', '☀'], ['market', '₹'], ['shops', '⌖']];
 const number = (value) => Number.isFinite(Number(value)) ? Number(value) : 0;
 const dateLabel = (date) => new Intl.DateTimeFormat('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }).format(new Date(date));
 const localCondition = (condition, text) => text.weatherConditions?.[condition] || condition || text.weatherUpdate;
+const getWeatherArt = (condition = '') => {
+  const normalized = String(condition).toLowerCase();
+  if (normalized.includes('rain') || normalized.includes('storm') || normalized.includes('drizzle') || normalized.includes('showers') || normalized.includes('thunder')) return { emoji: '🌧️', tint: 'from-sky-500/25 via-cyan-600/20 to-slate-900/95', label: 'Rainy', accent: 'bg-sky-500/10 text-sky-100' };
+  if (normalized.includes('cloud') || normalized.includes('fog') || normalized.includes('mist') || normalized.includes('overcast')) return { emoji: '☁️', tint: 'from-slate-400/20 via-sky-500/10 to-slate-900/95', label: 'Cloudy', accent: 'bg-slate-400/10 text-slate-100' };
+  if (normalized.includes('sun') || normalized.includes('clear') || normalized.includes('bright')) return { emoji: '☀️', tint: 'from-amber-400/25 via-orange-500/20 to-slate-900/95', label: 'Sunny', accent: 'bg-amber-400/10 text-amber-100' };
+  return { emoji: '🌤️', tint: 'from-emerald-500/20 via-cyan-500/15 to-slate-900/95', label: 'Clear', accent: 'bg-emerald-500/10 text-emerald-100' };
+};
 const timeGreeting = (hour) => hour >= 5 && hour < 12 ? 'Good morning' : hour >= 12 && hour < 17 ? 'Good afternoon' : hour >= 17 && hour < 21 ? 'Good evening' : 'Good night';
 
 function weekFrom(records) {
@@ -105,73 +112,77 @@ export default function HomePage() {
     }, () => { setNotice(text.locationFail); setLoading(false); }, { timeout: 10000, maximumAge: 300000 });
   };
 
-  return <div className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 text-slate-800">
+  return <div className="min-h-screen bg-[#07120e] text-slate-100">
     <MorningBrief district={district} crop={crop} weather={weather} market={market} currentTime={currentTime} language={language} />
-    {/* Hero Section */}
-    <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-700 px-4 py-14 text-white sm:py-20">
-      <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-lime-300/10 blur-3xl" />
-      <div className="absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-teal-300/10 blur-3xl" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.25fr_.75fr] lg:items-center">
-        <div>
-          <span className="inline-block rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold tracking-wider text-emerald-50 backdrop-blur-sm">
+    <section className="relative overflow-hidden bg-[#0a1d18] px-4 py-12 text-white sm:py-16">
+      <div className="absolute inset-0 opacity-90" style={{ backgroundImage: 'linear-gradient(120deg, rgba(5, 23, 18, 0.88), rgba(10, 49, 39, 0.74)), url("/farm-hero.svg")', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(149,227,145,0.18),transparent_40%)]" />
+      <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-lime-300/20 blur-3xl animate-[drift_18s_ease-in-out_infinite_alternate]" />
+      <div className="absolute -left-16 bottom-0 h-64 w-64 rounded-full bg-emerald-300/15 blur-3xl animate-[drift_12s_ease-in-out_infinite_alternate]" />
+      <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+        <div className="max-w-2xl">
+          <span className="inline-block rounded-full border border-white/30 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-emerald-50 backdrop-blur-sm">
             {text.tag}
           </span>
-          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">
+          <h1 className="mt-6 text-4xl font-black leading-tight tracking-[-0.04em] sm:text-5xl">
             {text.title}
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-emerald-50 sm:text-lg">
+          <p className="mt-4 max-w-xl text-base leading-7 text-emerald-50/90 sm:text-lg">
             {text.intro}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <button 
               onClick={() => navigate('/diagnose')} 
-              className="rounded-xl bg-lime-300 px-6 py-3 font-bold text-emerald-950 shadow-lg hover:shadow-xl hover:bg-lime-200 transition-all duration-200 transform hover:scale-105"
+              className="rounded-xl bg-lime-300 px-6 py-3 text-sm font-bold text-emerald-950 shadow-[0_14px_24px_rgba(196,233,98,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-lime-200"
             >
               {text.diagnose}
             </button>
             <a 
               href="/tools"
-              className="rounded-xl border-2 border-white/40 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm hover:bg-white/20 transition-all duration-200"
+              className="rounded-xl border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/15"
             >
               {text.explore}
             </a>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md">
-          <HeroStat icon="☀" title={text.tabs[0]} detail={text.weatherDetail} />
-          <HeroStat icon="₹" title={text.tabs[1]} detail={text.priceDetail} />
-          <HeroStat icon="⌖" title={text.tabs[2]} detail={text.shopDetail} />
+        <div className="rounded-[1.6rem] border border-white/15 bg-white/8 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.22)] backdrop-blur-md">
+          <div className="overflow-hidden rounded-[1.2rem] border border-white/10 bg-[#dfeecb] shadow-[0_18px_32px_rgba(15,44,32,0.22)]">
+            <div className="h-52 w-full bg-cover bg-center transition-transform duration-700 hover:scale-[1.03]" style={{ backgroundImage: 'url("/farm-card.svg")' }} />
+          </div>
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            <HeroStat icon="☀" title={text.tabs[0]} detail={text.weatherDetail} />
+            <HeroStat icon="₹" title={text.tabs[1]} detail={text.priceDetail} />
+            <HeroStat icon="⌖" title={text.tabs[2]} detail={text.shopDetail} />
+          </div>
         </div>
       </div>
     </section>
 
-    {/* Dashboard Section */}
-    <section id="farm-tools" className="mx-auto max-w-7xl px-4 py-14 sm:py-16">
+    <section id="farm-tools" className="mx-auto max-w-7xl px-4 py-12 sm:py-16">
       <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-emerald-600">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-400">
             {text.dashboard}
           </p>
-          <h2 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.04em] text-slate-100 sm:text-4xl">
             {text.local}
           </h2>
         </div>
-        <p className="max-w-md text-sm leading-6 text-slate-500">
+        <p className="max-w-md text-sm leading-6 text-slate-300">
           {text.select}
         </p>
       </div>
-      {/* Dashboard Card */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-md hover:shadow-lg transition-shadow">
-        {/* District Selection */}
+
+      <div className="rounded-[1.5rem] border border-slate-700 bg-[linear-gradient(180deg,rgba(10,17,14,0.96),rgba(9,16,13,0.98))] p-5 shadow-[0_12px_30px_rgba(0,0,0,0.22)] sm:p-6">
         <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
+            <label className="mb-2 block text-sm font-semibold text-slate-200">
               {text.area}
             </label>
             <select 
               value={district} 
               onChange={(event) => setDistrict(event.target.value)} 
-              className="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-3 text-base font-medium text-slate-900 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 transition-all"
+              className="w-full rounded-xl border-2 border-slate-600 bg-slate-900 px-4 py-3 text-base font-medium text-slate-100 outline-none transition-all focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20"
             >
               <option value="">{text.chooseDistrict}</option>
               {districts.map((item) => (
@@ -183,14 +194,13 @@ export default function HomePage() {
           </div>
           <button 
             onClick={useLocation} 
-            className="rounded-xl border-2 border-emerald-600 bg-white px-5 py-3 text-sm font-bold text-emerald-700 transition-all hover:bg-emerald-50 hover:shadow-md"
+            className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-3 text-sm font-bold text-emerald-100 transition-all hover:bg-emerald-500/15 hover:shadow-sm"
           >
             ⌖ {text.useLocation}
           </button>
         </div>
 
-        {/* Tabs */}
-        <div className="mt-8 border-b-2 border-slate-200" role="tablist">
+        <div className="mt-8 border-b border-slate-700" role="tablist">
           <div className="flex gap-1 overflow-x-auto">
             {tabs.map(([id, icon], index) => (
               <button
@@ -201,10 +211,10 @@ export default function HomePage() {
                   setTab(id);
                   setNotice('');
                 }}
-                className={`whitespace-nowrap px-6 py-4 text-sm font-bold transition-all border-b-2 -mb-0.5 ${
+                className={`whitespace-nowrap border-b-2 px-5 py-4 text-sm font-bold transition-all ${
                   tab === id
-                    ? 'border-emerald-600 text-emerald-700 bg-emerald-50'
-                    : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'border-emerald-500 bg-emerald-500/10 text-emerald-200'
+                    : 'border-transparent text-slate-400 hover:bg-slate-800 hover:text-slate-100'
                 }`}
               >
                 <span className="mr-2 text-lg">{icon}</span>
@@ -214,14 +224,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Notice Alert */}
         {notice && (
-          <div className="mt-6 rounded-lg bg-amber-50 border-l-4 border-amber-500 px-4 py-3 text-sm text-amber-900 font-medium">
+          <div className="mt-6 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm font-medium text-amber-100">
             {notice}
           </div>
         )}
 
-        {/* Tab Content */}
         <div className="mt-8">
           {tab === 'weather' && <Weather weather={weather} district={district} loading={loading} text={text} />}
           {tab === 'market' && <Market crop={crop} setCrop={setCrop} market={market} week={week} district={district} loading={loading} text={text} />}
@@ -230,20 +238,19 @@ export default function HomePage() {
       </div>
     </section>
 
-    {/* CTA Section */}
-    <section className="border-t-2 border-b-2 border-emerald-200 bg-gradient-to-r from-emerald-50 to-teal-50 px-4 py-12">
+    <section className="border-y border-emerald-700/30 bg-[radial-gradient(circle_at_top,_rgba(110,164,78,0.15),transparent_40%),#0b1714] px-4 py-12">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-6 sm:flex-row">
         <div>
-          <p className="text-lg font-bold text-emerald-950">
+          <p className="text-lg font-black text-emerald-100">
             {text.help}
           </p>
-          <p className="mt-2 text-sm text-emerald-700">
+          <p className="mt-2 text-sm text-emerald-200/85">
             {text.helpCopy}
           </p>
         </div>
         <button 
           onClick={() => navigate('/diagnose')} 
-          className="rounded-xl bg-emerald-600 px-8 py-3 text-sm font-bold text-white shadow-lg hover:shadow-xl hover:bg-emerald-700 transition-all duration-200 transform hover:scale-105 whitespace-nowrap"
+          className="whitespace-nowrap rounded-xl bg-emerald-500 px-8 py-3 text-sm font-bold text-slate-950 shadow-[0_12px_22px_rgba(52,211,153,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-emerald-400"
         >
           {text.start}
         </button>
@@ -257,7 +264,7 @@ function MorningBrief({ district, crop, weather, market, currentTime, language }
   const price = Number(market?.records?.[0]?.modalPrice) || typicalPrices[crop] || 2400;
   const greeting = timeGreeting(currentTime.getHours()).replace('Good morning', copy.morning).replace('Good afternoon', copy.afternoon).replace('Good evening', copy.evening).replace('Good night', copy.night);
   const weatherAdvice = weather?.rainMm > 5 ? copy.rainTask : weather ? copy.weatherTask : copy.chooseTask;
-  return <section className="mx-auto max-w-7xl px-4 pt-6 sm:pt-8" aria-labelledby="morning-brief-title"><div className="rounded-2xl border border-emerald-900/60 bg-emerald-950/40 p-5 shadow-md sm:p-6"><p className="text-xs font-bold uppercase tracking-widest text-emerald-400">{copy.today}</p><h2 id="morning-brief-title" className="mt-2 text-2xl font-bold text-slate-100">{greeting}, farmer</h2><p className="mt-2 text-sm text-slate-300">{district ? `📍 ${copy.choose.split(' ')[0]} — ${district}` : `📍 ${copy.choose}`}</p><div className="mt-4 grid gap-3 text-sm text-slate-200 md:grid-cols-3"><p>🌦️ <strong>{copy.weather}:</strong> {weatherAdvice}</p><p>💰 <strong>{crop} {copy.price}:</strong> ₹{price.toLocaleString('en-IN')}/quintal {copy.nearby}.</p><p>🐛 <strong>{copy.pest}:</strong> {copy.pestText}</p></div></div></section>;
+  return <section className="mx-auto max-w-7xl px-4 pt-6 sm:pt-8" aria-labelledby="morning-brief-title"><div className="rounded-[1.6rem] border border-emerald-700/20 bg-[linear-gradient(135deg,rgba(14,35,29,0.92),rgba(10,25,20,0.88))] p-5 shadow-[0_15px_35px_rgba(0,0,0,0.28)] sm:p-6"><p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">{copy.today}</p><h2 id="morning-brief-title" className="mt-2 text-2xl font-black tracking-[-0.04em] text-white">{greeting}, farmer</h2><p className="mt-2 text-sm text-slate-300">{district ? `📍 ${copy.choose.split(' ')[0]} — ${district}` : `📍 ${copy.choose}`}</p><div className="mt-4 grid gap-3 text-sm text-slate-200 md:grid-cols-3"><p className="rounded-xl border border-emerald-500/20 bg-emerald-950/35 p-3 shadow-inner shadow-emerald-500/10">🌦️ <strong>{copy.weather}:</strong> {weatherAdvice}</p><p className="rounded-xl border border-lime-500/20 bg-lime-950/30 p-3 shadow-inner shadow-lime-500/10">💰 <strong>{crop} {copy.price}:</strong> ₹{price.toLocaleString('en-IN')}/quintal {copy.nearby}.</p><p className="rounded-xl border border-amber-500/20 bg-amber-950/25 p-3 shadow-inner shadow-amber-500/10">🐛 <strong>{copy.pest}:</strong> {copy.pestText}</p></div></div></section>;
 }
 
 export function FarmerPlanner({ district, crop, weather, market, farmCrops, onSave, onRemove }) {
@@ -394,12 +401,13 @@ function ProfitResult({ label, value, tone }) {
   return <div className="min-w-0 rounded-xl border border-slate-700 bg-slate-900/80 p-4"><p className="break-words text-xs font-semibold uppercase tracking-wide text-slate-400">{label}</p><p className={`mt-2 break-words text-xl font-bold sm:text-2xl ${tone}`}>{value}</p></div>;
 }
 
-function HeroStat({ icon, title, detail }) { return <div className="rounded-xl bg-white/10 p-3 text-center"><div className="text-2xl">{icon}</div><strong className="mt-2 block text-sm">{title}</strong><span className="text-xs text-emerald-100">{detail}</span></div>; }
-function Metric({ label, value }) { return <div className="rounded-xl bg-white/80 p-3 text-center shadow-sm"><span className="block text-lg font-bold text-slate-900">{value}</span><span className="text-xs font-medium text-slate-500">{label}</span></div>; }
+function HeroStat({ icon, title, detail }) { return <div className="rounded-xl border border-slate-700/80 bg-slate-900/80 p-3 text-center shadow-[0_10px_20px_rgba(0,0,0,0.12)]"><div className="text-2xl">{icon}</div><strong className="mt-2 block text-sm text-slate-100">{title}</strong><span className="text-xs text-emerald-100">{detail}</span></div>; }
+function Metric({ label, value }) { return <div className="rounded-xl border border-slate-700 bg-[#0e1815]/90 p-3 text-center shadow-sm"><span className="block text-lg font-bold text-white">{value}</span><span className="text-xs font-medium text-slate-300">{label}</span></div>; }
 
 function Weather({ weather, district, loading, text }) {
-  if (!weather) return <div className="py-10 text-center text-sm text-slate-500">{loading ? text.updating : text.chooseDistrict}</div>;
-  return <div className="mt-6"><div className="rounded-2xl bg-gradient-to-br from-sky-50 to-emerald-50 p-5 sm:p-7"><div className="flex flex-col justify-between gap-4 sm:flex-row"><div><p className="text-sm font-semibold text-sky-700">{text.conditions(district)}</p><h3 className="mt-1 text-3xl font-bold text-slate-900">{localCondition(weather.condition, text)}</h3><p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">{text.weatherUpdate}</p></div><div className="rounded-2xl bg-white px-5 py-3 text-center shadow-sm"><span className="block text-4xl font-bold text-slate-900">{weather.temperatureC}°</span><span className="text-xs font-semibold text-slate-500">{text.celsius}</span></div></div><div className="mt-6 grid grid-cols-3 gap-3"><Metric label={text.humidity} value={`${weather.humidityPercent}%`} /><Metric label={text.rain} value={`${weather.rainMm} mm`} /><Metric label={text.wind} value={`${weather.windKph} km/h`} /></div></div><div className="mt-5"><h4 className="font-bold text-slate-900">{text.next}</h4><div className="mt-3 grid gap-3 sm:grid-cols-3">{(weather.forecast || []).map((day) => <div key={day.date} className="rounded-xl border border-slate-200 p-4"><p className="text-sm font-bold text-slate-800">{dateLabel(day.date)}</p><p className="mt-3 text-2xl font-bold text-emerald-800">{day.highC}°</p><p className="text-xs text-slate-500">{text.low} {day.lowC}° · {text.rain} {day.rainMm} mm</p></div>)}</div></div><p className="mt-4 text-xs text-slate-500">{text.weatherSource}</p></div>;
+  if (!weather) return <div className="py-10 text-center text-sm text-slate-300">{loading ? text.updating : text.chooseDistrict}</div>;
+  const weatherArt = getWeatherArt(weather.condition);
+  return <div className="mt-6"><div className={`rounded-[1.6rem] border border-slate-700/80 bg-gradient-to-br ${weatherArt.tint} p-5 shadow-[0_18px_40px_rgba(0,0,0,0.22)] sm:p-7`}><div className="flex flex-col justify-between gap-4 sm:flex-row"><div><p className="text-sm font-semibold text-emerald-200">{text.conditions(district)}</p><h3 className="mt-1 text-3xl font-bold text-white">{localCondition(weather.condition, text)}</h3><p className="mt-2 max-w-xl text-sm leading-6 text-slate-200">{text.weatherUpdate}</p></div><div className={`flex items-center gap-3 rounded-2xl border border-white/15 ${weatherArt.accent} px-5 py-3 text-center shadow-sm`}><span className="text-4xl" aria-label={weatherArt.label}>{weatherArt.emoji}</span><div><span className="block text-4xl font-bold text-white">{weather.temperatureC}°</span><span className="text-xs font-semibold text-slate-300">{text.celsius}</span></div></div></div><div className="mt-6 grid grid-cols-3 gap-3"><Metric label={text.humidity} value={`${weather.humidityPercent}%`} /><Metric label={text.rain} value={`${weather.rainMm} mm`} /><Metric label={text.wind} value={`${weather.windKph} km/h`} /></div></div><div className="mt-5"><h4 className="font-bold text-slate-100">{text.next}</h4><div className="mt-3 grid gap-3 sm:grid-cols-3">{(weather.forecast || []).map((day) => <div key={day.date} className="rounded-xl border border-slate-700 bg-[#0c1513]/90 p-4"><p className="text-sm font-bold text-slate-100">{dateLabel(day.date)}</p><p className="mt-3 text-2xl font-bold text-emerald-300">{day.highC}°</p><p className="text-xs text-slate-300">{text.low} {day.lowC}° · {text.rain} {day.rainMm} mm</p></div>)}</div></div><p className="mt-4 text-xs text-slate-400">{text.weatherSource}</p></div>;
 }
 
 function Market({ crop, setCrop, market, week, district, loading, text }) {
@@ -411,5 +419,5 @@ function Market({ crop, setCrop, market, week, district, loading, text }) {
 function Shops({ district, text }) {
   const mapUrl = (query) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
   const queries = ['agricultural seed fertilizer shops', 'farm equipment shops', 'animal feed veterinary shops'];
-  return <div className="mt-6"><div className="rounded-2xl bg-amber-50 p-5 sm:p-7"><p className="text-sm font-bold uppercase tracking-wider text-amber-800">{text.near(district)}</p><h3 className="mt-2 text-2xl font-bold text-slate-900">{text.shopsTitle}</h3><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{text.shopsCopy}</p></div><div className="mt-5 grid gap-4 md:grid-cols-3">{queries.map((query, index) => <div key={query} className="rounded-xl border border-slate-200 p-5 shadow-sm"><div className="text-2xl">⌖</div><h4 className="mt-3 font-bold text-slate-900">{text.shopNames[index]}</h4><p className="mt-1 min-h-10 text-sm leading-5 text-slate-500">{text.shopDetails[index]}</p><a className="mt-5 inline-flex rounded-lg bg-emerald-700 px-4 py-2 text-sm font-bold text-white transition hover:bg-emerald-800" href={mapUrl(`${query} in ${district}, West Bengal`)} target="_blank" rel="noreferrer">{text.find}</a></div>)}</div><p className="mt-5 text-xs text-slate-500">{text.shopsNote}</p></div>;
+  return <div className="mt-6"><div className="rounded-2xl border border-amber-500/20 bg-[linear-gradient(180deg,rgba(38,28,11,0.92),rgba(19,16,10,0.96))] p-5 sm:p-7"><p className="text-sm font-bold uppercase tracking-wider text-amber-200">{text.near(district)}</p><h3 className="mt-2 text-2xl font-bold text-slate-100">{text.shopsTitle}</h3><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">{text.shopsCopy}</p></div><div className="mt-5 grid gap-4 md:grid-cols-3">{queries.map((query, index) => <div key={query} className="rounded-xl border border-slate-700 bg-slate-900/75 p-5 shadow-sm"><div className="text-2xl">⌖</div><h4 className="mt-3 font-bold text-slate-100">{text.shopNames[index]}</h4><p className="mt-1 min-h-10 text-sm leading-5 text-slate-300">{text.shopDetails[index]}</p><a className="mt-5 inline-flex rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-emerald-400" href={mapUrl(`${query} in ${district}, West Bengal`)} target="_blank" rel="noreferrer">{text.find}</a></div>)}</div><p className="mt-5 text-xs text-slate-400">{text.shopsNote}</p></div>;
 }

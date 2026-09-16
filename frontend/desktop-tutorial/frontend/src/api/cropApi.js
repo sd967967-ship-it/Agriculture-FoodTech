@@ -5,6 +5,11 @@ const api = axios.create({
   timeout: 30000,
 });
 
+function sessionHeaders() {
+  const token = localStorage.getItem('fasal-sathi-session-token');
+  return token ? { 'X-Session-Token': token } : {};
+}
+
 export function diagnose(image, metadata = {}) {
   const formData = new FormData();
   formData.append('image', image);
@@ -59,7 +64,19 @@ export function healthCheck() {
 }
 
 export function getDiagnosisHistory() {
-  return api.get('/diagnosis-history');
+  return api.get('/diagnosis-history', { headers: sessionHeaders() });
+}
+
+export function login(username, password) {
+  return api.post('/auth/login', { username, password });
+}
+
+export function register(username, password, role = 'FARMER') {
+  return api.post('/auth/register', { username, password, role });
+}
+
+export function getCurrentUser() {
+  return api.get('/auth/me', { headers: sessionHeaders() });
 }
 
 export default api;

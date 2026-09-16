@@ -6,7 +6,11 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { language, setLanguage, languages } = useLanguage();
-  const labels = { en: ['Home', 'Diagnose', 'Tools', 'About', 'Profile'], bn: ['হোম', 'রোগ নির্ণয়', 'সরঞ্জাম', 'সম্পর্কে', 'প্রোফাইল'], hi: ['होम', 'जाँच', 'उपकरण', 'जानकारी', 'प्रोफ़ाइल'] }[language] || ['Home', 'Diagnose', 'Tools', 'About', 'Profile'];
+  const labels = {
+    en: ['Home', 'Diagnose', 'Tools', 'About', 'Profile'],
+    bn: ['হোম', 'রোগ নির্ণয়', 'সরঞ্জাম', 'সম্পর্কে', 'প্রোফাইল'],
+    hi: ['होम', 'जाँच', 'उपकरण', 'जानकारी', 'प्रोफ़ाइल']
+  }[language] || ['Home', 'Diagnose', 'Tools', 'About', 'Profile'];
 
   const navLinks = [
     { path: '/', label: labels[0], icon: '🏠' },
@@ -107,7 +111,7 @@ export default function Navbar() {
             
             {/* Mobile Language Selector */}
             <div className="px-3 py-3 border-t border-emerald-600 mt-2">
-              <p className="text-xs text-emerald-200 font-semibold mb-2">Language</p>
+              <p className="text-xs text-emerald-200 font-semibold mb-2">{language === 'bn' ? 'ভাষা' : language === 'hi' ? 'भाषा' : 'Language'}</p>
               <div className="flex gap-2">
                 {languages.map((lang) => (
                   <button

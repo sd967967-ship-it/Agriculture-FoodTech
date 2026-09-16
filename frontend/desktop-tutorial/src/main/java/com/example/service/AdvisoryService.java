@@ -57,7 +57,7 @@ public class AdvisoryService {
             .orElseThrow();
         if (cropType == null || cropType.isBlank()
                 || cropPredictions.isEmpty()) {
-            return imageNotMatchedResponse(lang, cropType, overallTop.getValue());
+            return mostLikelyResponse(lang, cropType, overallTop);
         }
 
         // The farmer's crop selection is useful evidence. Prefer its best matching
@@ -172,14 +172,19 @@ public class AdvisoryService {
                 || (normalizedCrop.equals("chilli") && normalizedLabel.contains("pepper"));
             }
 
-            private PredictionResponseDTO imageNotMatchedResponse(String language, String cropType, double confidence) {
-            String crop = cropType == null || cropType.isBlank() ? "selected crop" : cropType;
-            String explanation = "This image could not be matched confidently to " + crop
-                + ". No disease treatment has been suggested. Take a close, well-lit photo of one leaf from the selected crop, then try again.";
-            String escalation = "Please retake the image with the leaf filling most of the frame. If the result remains uncertain, consult a KVK or agriculture expert before treating the crop.";
+            private PredictionResponseDTO mostLikelyResponse(String language, String cropType,
+                                                              Map.Entry<String, Double> topPrediction) {
+            String crop = cropType == null || cropType.isBlank() ? "the selected crop" : cropType;
+            DiseaseAdvisory advisory = knowledgeBase.getDiseaseAdvisory(topPrediction.getKey());
+            String likelyCondition = advisory != null ? advisory.diseaseName() : topPrediction.getKey();
+            double confidence = Math.min(0.99, Math.max(0.0, topPrediction.getValue()));
+            String explanation = "The model's most likely result is " + likelyCondition + " for " + crop
+                + ". This result is uncertain because the strongest model signal did not match the selected crop. "
+                + "Verify the symptoms with a clear close-up photo and an agriculture expert before treatment.";
+            String escalation = "The selected crop and model signal do not fully agree. Confirm the disease with a KVK or agriculture expert before applying chemical treatment.";
             return new PredictionResponseDTO(
-                "IMAGE_NOT_MATCHED",
-                "Image not matched",
+                "ADVISORY_SUPPORT",
+                likelyCondition,
                 confidence,
                 List.of(),
                 explanation,
@@ -192,7 +197,7 @@ public class AdvisoryService {
                 escalation,
                 new TranslatedAdvisoryDTO(
                     language,
-                    translationService.translateDiseaseName("Image not matched", language),
+                    translationService.translateDiseaseName(likelyCondition, language),
                     translationService.translateNarrative(explanation, language),
                     "",
                     translationService.translateActions(List.of("Retake a clear photo of one leaf from the selected crop.", "Use natural light and keep the affected area in focus.", "Do not apply chemical treatment based on this result."), language),

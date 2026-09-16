@@ -5,19 +5,65 @@
 /* ── Custom base styles ───────────────────────────────────── */
 
 @layer base {
+  :root {
+    color-scheme: dark;
+    --bg: #020b09;
+    --bg-soft: #0b1714;
+    --panel: #0d1d1a;
+    --panel-alt: #11251f;
+    --panel-strong: #153f2c;
+    --forest: #245a3d;
+    --forest-deep: #163f2d;
+    --forest-light: #d9f6cf;
+    --leaf: #9ae66e;
+    --leaf-soft: #bfe8a8;
+    --text: #edf7f1;
+    --muted: #b7d4c5;
+    --line: rgba(165, 210, 180, 0.18);
+    --shadow: 0 18px 38px rgba(4, 13, 10, 0.42);
+    --radius-lg: 1.5rem;
+    --radius-md: 1rem;
+    --radius-sm: 0.75rem;
+  }
+
   html {
     scroll-behavior: smooth;
-    background: #08130f;
+    background: var(--bg);
   }
 
   body {
-    @apply bg-slate-950 text-slate-100;
-    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    @apply bg-[var(--bg)] text-slate-100;
+    font-family: "Inter", "Segoe UI", "Noto Sans Bengali", "Noto Sans Devanagari", sans-serif;
     background-image:
-      radial-gradient(circle at 12% 0%, rgba(73, 193, 130, 0.12), transparent 30rem),
-      radial-gradient(circle at 88% 12%, rgba(247, 190, 76, 0.08), transparent 24rem),
-      linear-gradient(135deg, #08130f 0%, #0b1d16 48%, #10251c 100%);
+      radial-gradient(circle at top left, rgba(39, 116, 77, 0.28), transparent 22rem),
+      radial-gradient(circle at top right, rgba(80, 180, 120, 0.12), transparent 20rem),
+      linear-gradient(180deg, #020b09 0%, #071915 22%, #0b120f 100%);
     background-attachment: fixed;
+    color: var(--text);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .app-shell,
+  .site-shell,
+  main,
+  footer,
+  nav {
+    background-color: #07120e;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  ::selection {
+    background: rgba(31, 93, 59, 0.18);
   }
 }
 
@@ -27,58 +73,110 @@
   }
 
   .soft-grid {
-    background-image: linear-gradient(rgba(139, 214, 169, 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139, 214, 169, 0.045) 1px, transparent 1px);
-    background-size: 32px 32px;
+    background-image:
+      linear-gradient(rgba(36, 90, 61, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(36, 90, 61, 0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .site-shell {
+    position: relative;
+    isolation: isolate;
+    background:
+      linear-gradient(180deg, rgba(4, 14, 11, 0.72), rgba(4, 14, 11, 0.88)),
+      linear-gradient(135deg, rgba(16, 44, 34, 0.85), rgba(10, 28, 22, 0.9));
+  }
+
+  .site-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(120deg, rgba(255, 255, 255, 0.02), transparent 35%),
+      url("/farm-hero.svg");
+    background-size: cover;
+    background-position: center center;
+    filter: saturate(0.75) brightness(0.5) contrast(1.08);
+    opacity: 0.55;
+  }
+
+  .ambient-glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: 0.42;
+    pointer-events: none;
+    animation: drift 16s ease-in-out infinite alternate;
+  }
+
+  .ambient-glow-one {
+    top: 3rem;
+    left: -4rem;
+    width: 18rem;
+    height: 18rem;
+    background: rgba(118, 192, 108, 0.28);
+  }
+
+  .ambient-glow-two {
+    right: -5rem;
+    bottom: 4rem;
+    width: 22rem;
+    height: 22rem;
+    background: rgba(56, 126, 93, 0.22);
+    animation-delay: 1.5s;
   }
 }
 
-/* ── Reusable component utilities ─────────────────────────── */
-
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600
-           px-6 py-3 text-base font-semibold text-white shadow-sm
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-[#1f5d3b]
+           px-6 py-3 text-base font-semibold text-white shadow-[0_10px_18px_rgba(31,93,59,0.18)]
            transition-all duration-200
-           hover:bg-emerald-700 hover:shadow-md
-           focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2
-           active:scale-[0.98]
+           hover:-translate-y-0.5 hover:bg-[#174c32] hover:shadow-[0_16px_26px_rgba(31,93,59,0.18)]
+           focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:ring-offset-2
+           active:translate-y-0
            disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-emerald-600
-           px-6 py-3 text-base font-semibold text-emerald-700
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-500/30
+           bg-slate-900/80 px-6 py-3 text-base font-semibold text-emerald-50
            transition-all duration-200
-           hover:bg-emerald-50
-           focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2
-           active:scale-[0.98];
+           hover:border-emerald-400 hover:bg-slate-800
+           focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:ring-offset-2
+           active:translate-y-0;
   }
 
   .card {
-    @apply rounded-xl border border-gray-200 bg-white p-6 shadow-sm;
+    @apply rounded-[var(--radius-lg)] border border-slate-700/80 bg-slate-900/80 p-6 shadow-[var(--shadow)];
   }
 
   .input-field {
-    @apply w-full rounded-lg border border-gray-300 px-4 py-3 text-base
-           transition-colors
-           placeholder:text-gray-400
-           focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20;
+    @apply w-full rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-base text-slate-100
+           transition-colors placeholder:text-slate-400
+           focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20;
   }
 
   .select-field {
-    @apply w-full appearance-none rounded-lg border border-gray-300 bg-white
-           px-4 py-3 text-base
-           transition-colors
-           focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20;
+    @apply w-full appearance-none rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-base text-slate-100
+           transition-colors focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20;
   }
 
   .section-title {
-    @apply text-2xl font-bold text-gray-900;
+    @apply text-2xl font-bold text-slate-100;
+  }
+
+  .app-shell,
+  .site-shell,
+  .page-enter,
+  .page-enter section,
+  .page-enter div,
+  .page-enter article {
+    color: #edf7f1;
   }
 }
-
-/* ── Confidence gauge animation ──────────────────────────── */
 
 @keyframes gauge-fill {
   from {
@@ -91,66 +189,18 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0) scale(0.96); }
+  100% { transform: translate3d(24px, -18px, 0) scale(1.08); }
+}
+
 .gauge-circle {
   animation: gauge-fill 1.2s ease-out forwards;
 }
 
-/* ── Drag-and-drop zone highlight ────────────────────────── */
-
 .drop-zone-active {
   @apply border-emerald-500 bg-emerald-50;
 }
-
-/* Shared dark field palette for the existing Tailwind components. */
-html {
-  color-scheme: dark;
-  background: #08130f;
-}
-
-body {
-  @apply bg-slate-950 text-slate-100;
-}
-
-.bg-white { background-color: #13231d !important; }
-.bg-white\/80 { background-color: rgba(19, 35, 29, 0.9) !important; }
-.bg-gray-50, .hover\:bg-gray-50:hover { background-color: #172b24 !important; }
-.bg-gray-100, .bg-slate-50, .bg-slate-100 { background-color: #1b3129 !important; }
-.bg-slate-900 { background-color: #0d1d17 !important; }
-.bg-slate-950 { background-color: #08130f !important; }
-.bg-slate-900\/70 { background-color: rgba(13, 29, 23, 0.88) !important; }
-.bg-slate-950\/70 { background-color: rgba(8, 19, 15, 0.9) !important; }
-.bg-slate-900\/80 { background-color: rgba(13, 29, 23, 0.92) !important; }
-.bg-amber-50 { background-color: #382b12 !important; }
-.bg-sky-50 { background-color: #102b35 !important; }
-.bg-gradient-to-b.from-white { background-image: linear-gradient(to bottom, #0b1b14, #0d2119, #10291f) !important; }
-.bg-gradient-to-br.from-sky-50.to-emerald-50 { background-image: linear-gradient(to bottom right, #102b35, #12372b) !important; }
-.bg-gradient-to-r.from-emerald-50.to-teal-50 { background-image: linear-gradient(to right, #12372b, #123239) !important; }
-.bg-emerald-50, .hover\:bg-emerald-50:hover { background-color: #12372b !important; }
-.bg-emerald-100 { background-color: #1a4938 !important; }
-.text-gray-900, .text-gray-800, .text-gray-700, .text-slate-900, .text-slate-800 { color: #e6f2ec !important; }
-.text-slate-700 { color: #c7d8ce !important; }
-.text-gray-600, .text-slate-600 { color: #b4c7bd !important; }
-.text-gray-500, .text-slate-500 { color: #8da69a !important; }
-.text-amber-800 { color: #f5cf7a !important; }
-.text-amber-900 { color: #ffe3a3 !important; }
-.text-emerald-900, .text-emerald-800 { color: #b9f3d0 !important; }
-.text-emerald-700 { color: #7ee2a8 !important; }
-.border-gray-100, .border-gray-200, .border-gray-300, .border-slate-200, .border-slate-300 { border-color: #2b4439 !important; }
-.border-slate-700 { border-color: #385448 !important; }
-.border-emerald-200 { border-color: #286b4d !important; }
-.divide-gray-100 > :not([hidden]) ~ :not([hidden]) { border-color: #2b4439 !important; }
-.input-field, .select-field { background-color: #0f211a !important; color: #e6f2ec !important; border-color: #385448 !important; }
-.select-field option { background-color: #13231d; color: #e6f2ec; }
-.input-field::placeholder { color: #789287; }
-.card { background-color: #13231d !important; border-color: #2b4439 !important; }
-.drop-zone-active { background-color: #12372b !important; }
-.hover\:bg-gray-50:hover { background-color: #1d3b2e !important; }
-.hover\:bg-gray-100:hover { background-color: #244737 !important; }
-.bg-white.text-slate-900 { background-color: #1b3129 !important; }
-.bg-amber-50 .text-slate-900, .bg-amber-50 .text-slate-600 { color: #e6f2ec !important; }
-.bg-sky-50 .text-slate-900, .bg-emerald-50 .text-slate-900 { color: #e6f2ec !important; }
-.bg-slate-50 .text-slate-900, .bg-slate-50 .text-slate-500 { color: #d0e1d7 !important; }
-.shadow-sm, .shadow-md, .shadow-lg { --tw-shadow-color: #0008; }
 
 .mobile-mode .max-w-7xl {
   max-width: 40rem;
@@ -166,10 +216,6 @@ body {
 
 .desktop-mode .max-w-7xl {
   max-width: 90rem;
-}
-
-.rounded-2xl {
-  border-radius: 1rem;
 }
 
 button, a, input, select, textarea {
@@ -203,8 +249,8 @@ button:not(:disabled):active, a:active {
 
 .interactive-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(163, 230, 53, 0.36);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+  border-color: rgba(31, 93, 59, 0.22);
+  box-shadow: 0 18px 42px rgba(17, 46, 35, 0.14);
 }
 
 .menu-enter {
@@ -232,6 +278,6 @@ button:not(:disabled):active, a:active {
 }
 
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 3px solid rgba(163, 230, 53, 0.7);
+  outline: 3px solid rgba(42, 127, 84, 0.45);
   outline-offset: 3px;
 }

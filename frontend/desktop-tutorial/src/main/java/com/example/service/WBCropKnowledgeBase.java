@@ -696,8 +696,34 @@ public class WBCropKnowledgeBase {
     public String getDistrictContext(String districtName) {
         DistrictInfo info = getDistrict(districtName);
         if (info == null) return "Field conditions indicate a moderately humid local environment. Select the nearest district for more precise recommendations and treatment timing.";
-        return String.format("District: %s | Zone: %s | Soil: %s | Major Crops: %s | Season: %s",
-                info.name, info.agroClimaticZone, info.soilType,
+
+        String soilCare = buildSoilCareTip(info.soilType);
+        return String.format("District: %s | Zone: %s | Soil: %s | Soil care: %s | Major Crops: %s | Season: %s",
+                info.name, info.agroClimaticZone, info.soilType, soilCare,
                 String.join(", ", info.majorCrops), getCurrentSeason());
+    }
+
+    private String buildSoilCareTip(String soilType) {
+        if (soilType == null || soilType.isBlank()) {
+            return "Check drainage and add organic matter before planting.";
+        }
+
+        String normalized = soilType.toLowerCase(Locale.ROOT);
+        if (normalized.contains("laterite") || normalized.contains("gravelly") || normalized.contains("red")) {
+            return "Add compost and mulch to improve moisture retention and reduce nutrient stress.";
+        }
+        if (normalized.contains("saline") || normalized.contains("coastal")) {
+            return "Improve drainage and avoid waterlogging; use salt-tolerant varieties where possible.";
+        }
+        if (normalized.contains("clay")) {
+            return "Improve aeration and avoid waterlogging by maintaining proper drainage channels.";
+        }
+        if (normalized.contains("sandy")) {
+            return "Use frequent light irrigation and add organic matter to improve water holding capacity.";
+        }
+        if (normalized.contains("alluvial") || normalized.contains("loam")) {
+            return "Maintain balanced organic matter and drainage for steady nutrient supply.";
+        }
+        return "Check drainage and add compost for stable soil health.";
     }
 }

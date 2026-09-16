@@ -27,9 +27,11 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <div className={`app-shell flex min-h-screen flex-col soft-grid${isMobileMode ? ' mobile-mode' : ''}${isDesktopMode ? ' desktop-mode' : ''}`}>
+      <div className={`app-shell site-shell flex min-h-screen flex-col soft-grid${isMobileMode ? ' mobile-mode' : ''}${isDesktopMode ? ' desktop-mode' : ''}`}>
+        <div className="ambient-glow ambient-glow-one" />
+        <div className="ambient-glow ambient-glow-two" />
         <Navbar />
-        <main className="page-enter flex-1">
+        <main className="page-enter relative z-10 flex-1">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/diagnose" element={<DiagnosePage />} />

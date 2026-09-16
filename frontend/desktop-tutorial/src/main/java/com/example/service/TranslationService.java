@@ -159,7 +159,9 @@ public class TranslationService {
                     : "hi".equals(lang) ? "छवि का फसल से मिलान नहीं हुआ" : diseaseName;
         }
         Map<String, String> t = DISEASE_NAMES.get(diseaseName);
-        return t != null ? t.getOrDefault(lang, diseaseName) : diseaseName;
+        if (t != null) return t.getOrDefault(lang, diseaseName);
+        String translated = translateWithApi(diseaseName, lang);
+        return translated != null && !translated.isBlank() ? translated : diseaseName;
     }
 
     /**
@@ -189,7 +191,7 @@ public class TranslationService {
     public String translateNarrative(String text, String lang) {
         if (text == null || text.isBlank() || lang == null || "en".equals(lang)) return text;
 
-        String apiTranslation = translateWithApi(text, lang);
+        String apiTranslation = translateLongText(text, lang);
         if (apiTranslation != null && !apiTranslation.isBlank()) return apiTranslation;
 
         Map<String, String> replacements = new LinkedHashMap<>();
@@ -418,6 +420,20 @@ public class TranslationService {
             result = result.replace(entry.getKey(), entry.getValue().getOrDefault(lang, entry.getKey()));
         }
         return result;
+    }
+
+    private String translateLongText(String text, String lang) {
+        if (text.length() <= 3500) return translateWithApi(text, lang);
+
+        List<String> chunks = Arrays.asList(text.split("(?<=[.!?।])\\s+"));
+        StringBuilder translated = new StringBuilder();
+        for (String chunk : chunks) {
+            String value = translateWithApi(chunk, lang);
+            if (value == null || value.isBlank()) return null;
+            if (translated.length() > 0) translated.append(' ');
+            translated.append(value);
+        }
+        return translated.toString();
     }
 
     /**

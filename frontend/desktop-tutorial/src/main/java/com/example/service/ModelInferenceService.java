@@ -194,6 +194,7 @@ public class ModelInferenceService {
     private void validateImageQuality(BufferedImage image) {
         long brightnessTotal = 0;
         long brightnessSquared = 0;
+        int colorfulPixels = 0;
         int sampleCount = 0;
         int stepX = Math.max(1, image.getWidth() / 96);
         int stepY = Math.max(1, image.getHeight() / 96);
@@ -207,6 +208,9 @@ public class ModelInferenceService {
                 int brightness = (red + green + blue) / 3;
                 brightnessTotal += brightness;
                 brightnessSquared += (long) brightness * brightness;
+                if (Math.max(red, Math.max(green, blue)) - Math.min(red, Math.min(green, blue)) > 28) {
+                    colorfulPixels++;
+                }
                 sampleCount++;
             }
         }
@@ -216,7 +220,7 @@ public class ModelInferenceService {
         if (average < 18 || average > 242) {
             throw new IllegalArgumentException("The image is too dark or overexposed. Upload a clear leaf photo in natural light.");
         }
-        if (variance < 20) {
+        if (variance < 20 && (double) colorfulPixels / sampleCount < 0.04) {
             throw new IllegalArgumentException("The image does not contain enough visible leaf detail. Upload a focused crop leaf photo.");
         }
     }
