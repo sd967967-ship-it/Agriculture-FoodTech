@@ -103,4 +103,20 @@ export function completeFollowUp(id) {
   return api.post(`/follow-ups/${id}/complete`);
 }
 
+export function getHotspots(params = {}) {
+  return api.get('/hotspots', { params });
+}
+
+export function getAdminDashboard() {
+  return api.get('/admin/dashboard');
+}
+
+export function submitDiagnosisFeedback(feedback) {
+  return api.post('/diagnosis-feedback', feedback);
+}
+
+export function createReferral(referral) {
+  return api.post('/referrals', referral);
+}
+
 export default api;

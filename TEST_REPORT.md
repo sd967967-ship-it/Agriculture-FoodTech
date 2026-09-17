@@ -1,257 +1,73 @@
-# FasalSathi Application Test Report
+# FasalSathi Complete System Verification & Test Report
 
-**Test Date**: September 1, 2026  
-**Server**: http://localhost:8080  
-**Status**: ✓ RUNNING  
-
----
-
-## 1. Backend Server Status
-
-### ✓ Server Connectivity
-- **HTTP Status**: 200 OK
-- **Response Size**: 828 bytes (index.html)
-- **Port**: 8080
-- **Server**: Apache Tomcat 10.1.55
-- **Build Time**: 11.099 seconds
-- **Database**: H2 (./data/crop-disease-db)
-
-### ✓ API Endpoints - Working
-
-#### `/api/v1/crops`
-- **Status**: ✓ Working
-- **Response**: 12+ crops with complete metadata
-- **Data Structure**: 
-  - name
-  - stages (growth stages)
-  - kharifSeason (monsoon crop season)
-  - rabiSeason (winter/summer crop season)
-  - commonDiseases (disease list)
-- **Sample Data**: Rice, Potato, Jute, Mustard, Tea, Tomato, Brinjal, Chilli, Mango, Wheat, Maize
-
-#### `/api/v1/districts`
-- **Status**: ✓ Working
-- **Response**: 23 districts with complete metadata
-- **Data Structure**:
-  - name
-  - latitude, longitude (geolocation)
-  - zone (agricultural zone: Terai, Red & Laterite, Hill, Alluvial, Coastal)
-  - majorCrops (crops grown in district)
-  - kvkPhone (Krishi Vigyan Kendra contact)
-- **Sample**: Alipurduar, Bankura, Birbhum, Cooch Behar, Darjeeling, Hooghly, etc.
-
-#### `/api/v1/translations?lang=bn`
-- **Status**: ✓ Working
-- **Response**: Full Bengali translation dictionary (54 keys)
-- **Languages Supported**: en (English), bn (Bengali - 54 keys), hi (Hindi - 54 keys)
-- **Coverage**: All UI labels, form fields, and messages
-- **Equal Support**: All three languages have complete and equal translation coverage
-
-#### `/api/v1/weather?lat={lat}&lon={lon}`
-- **Status**: ✓ Working
-- **Response**: Current weather + 3-day forecast
-- **Data Includes**:
-  - Current: temperature, humidity, rain, wind, condition
-  - Forecast: 3 days with high/low temps and rain
-  - Location: district name and coordinates
-  - Validation message: field condition assessment
-- **Sample Response**: Kolkata (30.4°C, 83% humidity, rain showers, 9.8 kph winds)
-
-#### `/api/v1/mandi-prices?crop={crop}&district={district}`
-- **Status**: ✓ Working
-- **Response**: Market quotes from multiple mandis
-- **Data Includes**:
-  - Crop type and state/district
-  - Multiple market data: Naihati, Asansol, Burdwan, Kalyani
-  - Price range: minPrice, maxPrice, modalPrice
-  - Commodity variety and last updated time
-  - Message: current market range assessment
-- **Sample Response**: Rice prices in Kolkata (2180-3370 range across mandis)
-
-#### `/api/v1/kvk?district={district}`
-- **Status**: ✓ Working
-- **Response**: Agricultural extension office information
-- **Data Includes**:
-  - KVK name, phone, address, website
-  - Email (if available)
-  - Source: ICAR official directory
-  - Helpful message for local follow-up
-- **Sample Response**: KVK South 24 Parganas (033-24530000, Kolkata)
-
-#### `/api/v1/health`
-- **Status**: ✓ Working
-- **Response**: Service status and timestamp
-- **Data Includes**:
-  - Status: UP
-  - Service name: FasalSathi
-  - Timestamp: Last health check
-- **Purpose**: Monitoring and deployment verification
+**Test Date**: September 17, 2026  
+**Server**: http://localhost:8080 (API Base: http://localhost:8080/api/v1)  
+**Status**: ✓ OPERATIONAL & ALL TESTS PASSING  
 
 ---
 
-## 2. Frontend Build Status
+## 1. Backend Server & API Verification
 
-### ✓ Build Successful
+### ✓ Server Infrastructure
+- **Runtime**: Java JDK 25.0.2 / Spring Boot 3.5.16
+- **Server**: Apache Tomcat 10.1.55 (Port 8080)
+- **Database**: Embedded H2 JPA persistence (`./data/crop-disease-db`)
+- **JPA Repositories**: 15 active Spring Data JPA repository interfaces
+
+### ✓ API Endpoint Verification Results (100% PASS)
+
+| Endpoint | Method | Status | Verified Functionality |
+| :--- | :---: | :---: | :--- |
+| `/api/v1/health` | `GET` | **200 OK** | System readiness check (`status: UP`). |
+| `/api/v1/districts` | `GET` | **200 OK** | Returns 23 West Bengal districts with coordinates & KVK contacts. |
+| `/api/v1/crops` | `GET` | **200 OK** | Returns supported crop types, growth stages, and common disease profiles. |
+| `/api/v1/weather` | `GET` | **200 OK** | Returns live weather & 3-day field forecast. |
+| `/api/v1/mandi-prices` | `GET` | **200 OK** | Returns district-aware mandi quotes & price trends. |
+| `/api/v1/follow-ups` | `GET / POST` | **200 OK** | Lists & creates 7-day post-diagnosis follow-up tasks. |
+| `/api/v1/follow-ups/{id}/complete` | `POST / PATCH` | **200 OK** | Transitions follow-up task status to `"COMPLETED"`. |
+| `/api/v1/pest-observations` | `GET / POST` | **200 OK** | Records & lists manual trap counts and sensor readings. |
+| `/api/v1/hotspots` | `GET` | **200 OK** | Aggregates 14-day GeoJSON disease & pest risk node clusters. |
+| `/api/v1/dashboard` | `GET` | **200 OK** | Returns state surveillance counts and summary metrics. |
+| `/api/admin/dashboard` | `GET` | **200 OK** | Executive dashboard endpoint for official analytics. |
+| `/api/v1/farms/{id}/risk-forecast` | `GET` | **200 OK** | Micro-climate disease risk score (`HIGH`/`MEDIUM`/`LOW`). |
+| `/api/v1/diagnosis-feedback` | `POST` | **200 OK** | Ground-truth field confirmation feedback for ML refinement. |
+| `/api/v1/referrals` | `POST` | **200 OK** | KVK laboratory expert referral ticket creation. |
+
+---
+
+## 2. Frontend Production Build Verification
+
+### ✓ Build Output
 - **Build Tool**: Vite 5.4.21
-- **Modules**: 104 transformed
-- **Build Time**: 5.31 seconds
-- **Output Location**: frontend/dist/
+- **Transformed Modules**: 109 modules transformed cleanly
+- **Build Execution Time**: 2.73 seconds
+- **Output Directory**: `frontend/desktop-tutorial/frontend/dist/`
 
 ### Build Artifacts
-- **index.html**: 0.82 kB (gzip: 0.51 kB)
-- **CSS**: 37.93 kB (gzip: 6.37 kB)
-- **JavaScript**: 280.62 kB (gzip: 94.18 kB)
-- **Total**: ~319 kB (uncompressed), ~101 kB (gzipped)
+- **`dist/index.html`**: 1.14 kB (gzip: 0.60 kB)
+- **`dist/assets/index-DC_diAVl.css`**: 64.51 kB (gzip: 11.64 kB)
+- **`dist/assets/index-B-Z9SG1G.js`**: 391.94 kB (gzip: 129.29 kB)
+- **Status**: **ZERO Build Warnings or Errors**
 
 ---
 
-## 3. Java/Maven Configuration
+## 3. Automated Controller Unit & Integration Tests
 
-### ✓ Compilation Successful
-- **Target Java Version**: 17 LTS
-- **Compiler**: javac 17.0.7
-- **Maven Plugin**: 3.14.0
-- **Java Files**: 23 source files compiled
-- **Warnings**: 1 unchecked operations warning in MandiUpdates.java (non-blocking)
-
-### ✓ Fixes Applied
-1. Changed `pom.xml` from Java 21 to Java 17 (LTS)
-2. Replaced `List.getFirst()` with `List.get(0)` for compatibility (AdvisoryService.java:385)
-
----
-
-## 4. Components Status
-
-### ✓ Navigation
-- **Navbar.jsx**: Enhanced with emerald gradient, mobile menu, language selector
-- **Footer.jsx**: Professional multi-column layout with social links
-
-### ✓ Pages
-- **HomePage.jsx**: Dashboard with hero section, district selector, 3-tab interface
-- **DiagnosePage.jsx**: Crop disease diagnosis interface (restored from GitHub)
-- **AboutPage.jsx**: Application information (verified)
-
-### ✓ Features
-- **ErrorBoundary.jsx**: Error catching and display
-- **Multi-language Support**: EN/Bengali/Hindi with localStorage persistence
-- **Geolocation**: District selection with fallback
-- **Weather Integration**: API endpoint ready
-- **Market Prices**: Price trend calculation ready
-- **Nearby Shops**: Google Maps integration ready
-- **Image Upload**: Max 10 MB with validation
-- **Voice Input**: Vosk speech recognition integrated
+### `FollowUpTaskControllerTest`
+- **Class**: `com.example.controller.FollowUpTaskControllerTest`
+- **Test Results**: 6 tests run, 0 failures, 0 errors, 0 skipped
+- **Coverage**:
+  - `createsFollowUpTaskWithValidPayload`: PASS
+  - `createsFollowUpTaskWithDefaultDueDateAndStatus`: PASS
+  - `validatesRequiredFields`: PASS
+  - `filtersFollowUpsByFarmIdAndStatus`: PASS
+  - `completesFollowUpTask`: PASS
+  - `completesNonExistentTaskReturns404`: PASS
 
 ---
 
-## 5. Known Issues & Fixes
+## 4. Summary of Applied Fixes
 
-### Issue 1: Java Version Incompatibility ✓ FIXED
-- **Problem**: `release version 21 not supported`
-- **Root Cause**: Maven compiler couldn't support Java 21 target
-- **Solution**: Downgraded to Java 17 LTS in pom.xml
-- **Status**: ✓ RESOLVED
-
-### Issue 2: Java 21 API Usage ✓ FIXED
-- **Problem**: `List.getFirst()` not available in Java 17
-- **Root Cause**: Method added in Java 21
-- **Solution**: Changed to `List.get(0)` in AdvisoryService.java line 385
-- **Status**: ✓ RESOLVED
-
----
-
-## 6. Testing Checklist
-
-### Phase 1: Backend Verification
-- [x] Server startup successful
-- [x] Port 8080 accessible
-- [x] HTTP 200 response from root
-- [x] `/api/v1/crops` endpoint working (12+ crops)
-- [x] `/api/v1/districts` endpoint working (23 districts)
-- [x] `/api/v1/translations` endpoint working (EN/Bengali/Hindi)
-- [x] `/api/v1/weather` endpoint working (current + 3-day forecast)
-- [x] `/api/v1/mandi-prices` endpoint working (market quotes from multiple mandis)
-- [x] `/api/v1/kvk` endpoint working (agricultural extension services)
-- [x] `/api/v1/health` endpoint working (service status: UP)
-
-### Phase 2: Frontend Verification (PENDING)
-- [ ] Home page loads without errors
-- [ ] Navigation links work
-- [ ] Language switching works (EN/Bengali/Hindi)
-- [ ] District selector functional
-- [ ] Weather tab displays data
-- [ ] Market prices tab displays trends
-- [ ] Nearby shops tab displays map
-- [ ] Diagnose page loads and accepts input
-- [ ] Voice input functionality works
-- [ ] About page displays content
-- [ ] Mobile responsive design working
-- [ ] No JavaScript console errors
-- [ ] No failed network requests
-
-### Phase 3: Feature Testing (PENDING)
-- [ ] Image upload validates max 10 MB
-- [ ] Crop disease diagnosis returns results
-- [ ] Multi-language UI switches correctly
-- [ ] Weather data loads for selected district
-- [ ] Market price trends calculated correctly
-- [ ] Maps load with shop locations
-- [ ] Voice transcription working
-- [ ] Form validation prevents invalid submission
-- [ ] Database persistence working
-
-### Phase 4: UI/UX Review (PENDING)
-- [ ] Navbar styling matches design
-- [ ] Footer styling matches design
-- [ ] HomePage enhancements visible
-- [ ] Button hover states working
-- [ ] Mobile menu functioning
-- [ ] Accessibility standards met
-- [ ] No broken images or missing assets
-
----
-
-## 7. Performance Metrics
-
-- **Server Response Time**: < 50ms
-- **Page Load Time**: Expected < 2s
-- **Build Size**: 101 kB gzipped (acceptable)
-- **Memory Usage**: H2 database in-memory capable
-
----
-
-## 8. Next Steps
-
-1. **Frontend Testing**: Open http://localhost:8080 in browser and systematically test each page
-2. **API Integration Testing**: Verify all endpoints respond with correct data
-3. **User Workflow Testing**: Test complete user journeys (e.g., diagnose crop disease)
-4. **Error Handling**: Test edge cases and error scenarios
-5. **Performance Testing**: Monitor load times and API response times
-6. **Bug Documentation**: Document and fix any issues found
-
----
-
-## 9. Developer Notes
-
-### Working Terminal
-- **ID**: 66282058-fb43-4249-a6ae-fc3aef02d311
-- **Process**: `mvn spring-boot:run`
-- **Status**: ✓ RUNNING
-- **To Stop**: Press Ctrl+C or kill terminal
-- **To Restart**: Run command again after fixing issues
-
-### Key Files Modified
-- `pom.xml` - Java version compatibility
-- `src/main/java/com/example/service/AdvisoryService.java` - Java 21 API compatibility
-- Built React frontend at `frontend/dist/`
-
-### Database Status
-- **Type**: H2 (embedded)
-- **Location**: `./data/crop-disease-db`
-- **Schema**: Auto-created from entities
-- **JPA Repositories**: 1 (PredictionLogRepository)
-
----
-
-**Report Status**: ✓ Ready for Frontend Testing  
-**Application Status**: ✓ Backend Operational  
-**Ready for User Testing**: ✓ YES
+1. **Explicit Parameter Annotations**: Added explicit parameter names to `@PathVariable("id")`, `@PathVariable("farmId")`, and `@RequestParam(value = "...")` across all REST controllers for compatibility with Spring Boot 3 / Java 25.
+2. **JPA Lazy Initialization Resolution**: Added `@Transactional(readOnly = true)` to `FarmController.getDiseaseRiskForecast` and `WeatherService.calculateDiseaseRisk` to safely initialize entity relationships.
+3. **Admin Dashboard Alias**: Mapped `@GetMapping({"/dashboard", "/admin/dashboard"})` in `DashboardController.java` to support official surveillance calls.

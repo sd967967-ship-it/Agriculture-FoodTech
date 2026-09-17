@@ -43,26 +43,55 @@ run-app.bat
 
 Do NOT open any other URLs or index files. All features are accessed through the main URL.
 
-## Features
+---
 
-### 1. Dashboard (Home Page)
-- View local weather for your district
+## Complete Feature Guide
+
+### 1. Home Dashboard & Follow-Up Task Banner (`/`)
+- View local weather for your West Bengal district
 - Check current mandi prices for crops
-- Find nearby agricultural shops
+- Find nearby agricultural & equipment shops
+- **Follow-Up Reminder Banner**: Prominent 7-day post-diagnosis check-in countdown banner with direct "Mark Completed" and "Inspect Field" quick actions.
 - Multi-language support (English, Bengali, Hindi)
 
-### 2. Crop Diagnosis
-- Upload crop leaf images
-- AI-powered disease identification
-- Treatment recommendations
-- Safety warnings and expert escalation
-- Voice input for accessibility
+### 2. AI Crop Diagnosis & IPDM Advisories (`/diagnose`)
+- Upload crop leaf images (JPG, PNG, WebP)
+- AI-powered disease identification with TorchScript ML models
+- **IPDM Wording**: Structured multi-tiered recommendations (Cultural, Biological, Chemical steps with dosage per growth stage)
+- **Ground-Truth ML Feedback**: Field worker accuracy confirmation widget (`/api/v1/diagnosis-feedback`)
+- **Expert Lab Referral**: Direct KVK laboratory referral escalation flow (`/api/v1/referrals`)
+- Voice input and text-to-speech accessibility
 
-### 3. Local Information
-- 23 districts of West Bengal covered
-- Real-time weather data
-- Market price trends
-- Nearby KVK information
+### 3. Pest & Trap Observation Logging (`/pest-log`)
+- Manual trap count entry and sensor reading inputs
+- Farm location selection and pest type logging (Brown Planthopper, Aphid, Stem Borer, Cutworm, Whitefly, Spodoptera)
+- Real-time backend sync (`/api/v1/pest-observations`)
+
+### 4. Geospatial Hotspot Map (`/hotspots`)
+- Interactive West Bengal district risk node cluster map based on 14-day field diagnoses and trap counts
+- Risk node color coding: Red (>10 cases / High Risk), Yellow (5-10 cases / Moderate), Green (<5 cases / Low)
+- Filter by Crop Type (Rice, Potato, Tomato, Mustard, Chilli) and Timeframe (7, 14, 30 days)
+- Selected district detail drawer with recommended preventive field intervention
+
+### 5. Official Agriculture Admin Dashboard (`/admin/dashboard`)
+- Executive surveillance portal for state & district agriculture officials
+- 4 Top KPI Cards: Active Disease Hotspots, Pending Expert Reviews, Follow-Up Compliance Rate (%), Total Surveillance Reports
+- **District Breakdown Chart**: Visual incident distribution per district
+- **14-Day Trapping & Incident Trend Chart**: Dual-channel visual trend of diagnoses vs trap counts
+- **Pending Expert Review Queue Table**: Interactive queue with *"Approve Advisory"* and *"Assign KVK Officer"* actions
+
+### 6. Farmer Tools & Profit Calculator (`/tools`)
+- Farm profit calculator with crop revenue & cost estimation
+- Irrigation scheduler based on soil type and crop watering frequency
+- Government agricultural scheme finder (PM-KISAN, PM Fasal Bima Yojana, Soil Health Card)
+- Device-local pest & disease inspection history log
+
+### 7. Local West Bengal Knowledge Layer
+- Coverage for all 23 districts of West Bengal with coordinates and agro-climatic context
+- Real-time weather data and 3-day forecast
+- District KVK directory and official contact information
+
+---
 
 ## Troubleshooting
 
@@ -72,7 +101,7 @@ Then add it to your system PATH:
 1. Right-click "This PC" → Properties
 2. Click "Advanced system settings"
 3. Click "Environment Variables"
-4. Add Java bin folder to PATH (e.g., `C:\Program Files\Java\jdk-26.0.2\bin`)
+4. Add Java bin folder to PATH (e.g., `C:\Program Files\Java\jdk-25.0.2\bin`)
 
 ### Problem: "Maven not found"
 **Solution:** 
@@ -101,113 +130,18 @@ Then add it to your system PATH:
 - Supported formats: JPG, PNG, JPEG, WebP
 - Ensure good lighting for leaf photo
 
-### Problem: "Node modules/npm issues"
-**Solution:**
-1. Delete `frontend/desktop-tutorial/frontend/node_modules` folder
-2. Delete `frontend/desktop-tutorial/frontend/package-lock.json`
-3. Run `npm ci --legacy-peer-deps` in that folder
+---
 
-## Optional Configuration
+## Configuration
 
 ### Weather API (Live Data)
 For real-time weather, set the OPENWEATHER_API_KEY:
 ```bash
 set OPENWEATHER_API_KEY=your_key_here
 ```
-Get a free API key from: https://openweathermap.org/api
 
 ### Market Prices (Live Data)
-For live mandi prices, set the DATA_GOV_API_KEY:
+For live mandi prices, set the MANDI_API_KEY:
 ```bash
-set DATA_GOV_API_KEY=your_key_here
+set MANDI_API_KEY=your_key_here
 ```
-Get a free API key from: https://www.data.gov.in
-
-## Project Structure
-
-```
-frontend/desktop-tutorial/
-├── frontend/
-│   └── desktop-tutorial/          # Main application
-│       ├── frontend/              # React application
-│       │   ├── src/
-│       │   │   ├── pages/         # HomePage, DiagnosePage, AboutPage
-│       │   │   ├── components/    # Reusable UI components
-│       │   │   ├── api/           # API integration
-│       │   │   └── context/       # Language context
-│       │   └── package.json
-│       ├── src/                   # Spring Boot backend
-│       │   ├── main/java/com/example/
-│       │   │   ├── controller/    # REST endpoints
-│       │   │   ├── service/       # Business logic
-│       │   │   └── config/        # Configuration
-│       │   └── resources/
-│       │       └── application.properties
-│       └── pom.xml
-├── models/                        # TorchScript ML models
-├── vosk-model-small-en-us-0.15/  # Speech recognition
-└── setup-and-run.bat             # Recommended setup script
-```
-
-## Development
-
-### Run Frontend Only (Vite Dev Server)
-```bash
-cd frontend/desktop-tutorial/frontend
-npm run dev
-```
-This starts a dev server at http://localhost:5173 with hot reload.
-
-### Run Backend Only
-```bash
-cd frontend/desktop-tutorial
-mvn spring-boot:run
-```
-
-### Build Frontend for Production
-```bash
-cd frontend/desktop-tutorial/frontend
-npm run build
-```
-Output goes to `dist/` folder.
-
-## API Endpoints
-
-All endpoints are prefixed with `/api/v1`:
-
-- `GET /health` - Health check
-- `GET /districts` - List of districts
-- `GET /crops` - List of supported crops
-- `POST /diagnose` - Diagnose crop disease from image
-- `GET /weather` - Get weather by coordinates
-- `GET /mandi-prices` - Get market prices
-- `GET /kvk` - Get KVK information
-- `POST /speech/transcribe` - Transcribe audio to text
-- `GET /translations` - Get multi-language translations
-
-## Performance Tips
-
-1. **First Load**: The first run will be slow due to:
-   - Frontend npm dependencies installation
-   - TorchScript model loading
-   - Spring Boot startup
-
-2. **Subsequent Runs**: Much faster as everything is cached
-
-3. **Image Processing**: Large images (>5MB) may take 10-30 seconds to process
-
-## Support
-
-For issues or questions:
-1. Check the browser console (F12) for error messages
-2. Check the terminal where the backend is running
-3. Ensure all dependencies are installed
-4. Try the "Troubleshooting" section above
-
-## Security Notes
-
-- Application runs locally on your machine
-- No data is stored permanently on your device
-- Crop disease models are open-source
-- Weather/market data comes from public APIs
-- Voice data is processed locally (Vosk model)

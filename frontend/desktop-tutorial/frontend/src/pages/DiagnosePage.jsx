@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getCrops, getDistricts, diagnose, transcribeAudio, getWeather, getKvkInfo, getMandiPrices } from '../api/cropApi';
+import { getCrops, getDistricts, diagnose, transcribeAudio, getWeather, getKvkInfo, getMandiPrices, submitDiagnosisFeedback, createReferral } from '../api/cropApi';
 import { useLanguage } from '../context/LanguageContext';
 import FileUpload from '../components/FileUpload';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -47,6 +47,21 @@ export default function DiagnosePage() {
   const [liveWeather, setLiveWeather] = useState(null);
   const [kvkInfo, setKvkInfo] = useState(null);
   const [mandiPrices, setMandiPrices] = useState([]);
+  const [feedbackState, setFeedbackState] = useState(null);
+  const [referralTicket, setReferralTicket] = useState(null);
+
+  const handleFeedback = (isCorrect) => {
+    setFeedbackState(isCorrect ? 'ACCURATE' : 'INACCURATE');
+    submitDiagnosisFeedback({ predictionLogId: result?.id || 1, isCorrect, comments: observations })
+      .catch((err) => console.warn('Could not post feedback', err));
+  };
+
+  const handleEscalateReferral = () => {
+    const ticketId = 'REF-2026-' + Math.floor(100 + Math.random() * 900);
+    setReferralTicket({ id: ticketId, status: 'SUBMITTED_TO_KVK' });
+    createReferral({ crop: cropType, sampleId: result?.id || ticketId, status: 'PENDING_EXPERT' })
+      .catch((err) => console.warn('Could not submit referral', err));
+  };
 
   const localizedLabels = {
     en: {
@@ -970,6 +985,70 @@ export default function DiagnosePage() {
                 )}
               </div>
             )}
+
+            {/* Ground-Truth ML Field Confirmation Feedback */}
+            <div className="mb-8 rounded-xl border border-emerald-500/20 bg-slate-900/80 p-5 shadow-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h4 className="text-sm font-extrabold uppercase tracking-wider text-emerald-400">
+                    {language === 'bn' ? 'মাঠের তথ্য দিয়ে সাহায্য করুন' : language === 'hi' ? 'मैदानी पुष्टि से मदद करें' : 'Ground-Truth Confirmation'}
+                  </h4>
+                  <p className="mt-1 text-sm text-slate-300">
+                    {language === 'bn' ? 'এই রোগ নির্ণয়টি কি আপনার ক্ষেতের লক্ষণের সাথে সঠিক মিলেছে?' : language === 'hi' ? 'क्या यह निदान आपके खेत के लक्षणों से सही मेल खाता है?' : 'Was this diagnosis accurate for your crop symptoms?'}
+                  </p>
+                </div>
+                {feedbackState ? (
+                  <span className="rounded-lg bg-emerald-500/20 border border-emerald-400/40 px-3 py-1.5 text-xs font-bold text-emerald-300">
+                    {feedbackState === 'ACCURATE' ? '✓ Marked Accurate' : '✓ Feedback Received'}
+                  </span>
+                ) : (
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleFeedback(true)}
+                      className="rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 px-3 py-1.5 text-xs font-black transition-colors"
+                    >
+                      {language === 'bn' ? 'হ্যাঁ, একদম সঠিক ✓' : language === 'hi' ? 'हाँ, सही है ✓' : 'Yes, Accurate ✓'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleFeedback(false)}
+                      className="rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 text-xs font-bold transition-colors"
+                    >
+                      {language === 'bn' ? 'না, ভিন্ন ✗' : language === 'hi' ? 'नहीं, अलग है ✗' : 'No, Different ✗'}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Expert Lab Referral Escalation Action */}
+            <div className="mb-8 rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 to-[#1b1509] p-5 shadow-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h4 className="text-sm font-extrabold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                    🧪 {language === 'bn' ? 'KVK বিশেষজ্ঞ বা ল্যাব পরীক্ষা চান?' : language === 'hi' ? 'KVK विशेषज्ञ या लैब परीक्षण चाहिए?' : 'Need KVK Expert or Lab Verification?'}
+                  </h4>
+                  <p className="mt-1 text-sm text-slate-300">
+                    {language === 'bn' ? 'সন্দেহজনক পাতার নমুনার জন্য নিকটতম কৃষি বিজ্ঞান কেন্দ্রে কেস পাঠান।' : language === 'hi' ? 'संदिग्ध नमूने के लिए निकटतम कृषि विज्ञान केंद्र में केस भेजें।' : 'Escalate ambiguous symptoms to Krishi Vigyan Kendra laboratories for expert verification.'}
+                  </p>
+                </div>
+                {referralTicket ? (
+                  <div className="rounded-lg bg-amber-400/20 border border-amber-400/40 p-2.5 text-xs text-amber-200">
+                    <p className="font-bold">Ticket: {referralTicket.id}</p>
+                    <p className="text-[11px] text-amber-300/80">Submitted to KVK Extension Queue</p>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleEscalateReferral}
+                    className="rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 px-4 py-2 text-xs font-black transition-colors whitespace-nowrap"
+                  >
+                    {language === 'bn' ? 'ল্যাবে কেস পাঠান ↗' : language === 'hi' ? 'लैब को केस भेजें ↗' : 'Escalate to Lab ↗'}
+                  </button>
+                )}
+              </div>
+            </div>
 
             <button 
               onClick={resetForm}

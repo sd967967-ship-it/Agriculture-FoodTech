@@ -7,18 +7,20 @@ export default function Navbar() {
   const location = useLocation();
   const { language, setLanguage, languages } = useLanguage();
   const labels = {
-    en: ['Home', 'Diagnose', 'Pest Log', 'Tools', 'About', 'Profile'],
-    bn: ['হোম', 'রোগ নির্ণয়', 'কীটপতঙ্গ লগ', 'সরঞ্জাম', 'সম্পর্কে', 'প্রোফাইল'],
-    hi: ['होम', 'जाँच', 'कीट लॉग', 'उपकरण', 'जानकारी', 'प्रोफ़ाइल']
-  }[language] || ['Home', 'Diagnose', 'Pest Log', 'Tools', 'About', 'Profile'];
+    en: ['Home', 'Diagnose', 'Pest Log', 'Hotspot Map', 'Official Dashboard', 'Tools', 'About', 'Profile'],
+    bn: ['হোম', 'রোগ নির্ণয়', 'কীটপতঙ্গ লগ', 'হটস্পট মানচিত্র', 'সরকারি ড্যাশবোর্ড', 'সরঞ্জাম', 'সম্পর্কে', 'প্রোফাইল'],
+    hi: ['होम', 'जाँच', 'कीट लॉग', 'हॉटस्पॉट नक्शा', 'सरकारी डैशबोर्ड', 'उपकरण', 'जानकारी', 'प्रोफ़ाइल']
+  }[language] || ['Home', 'Diagnose', 'Pest Log', 'Hotspot Map', 'Official Dashboard', 'Tools', 'About', 'Profile'];
 
   const navLinks = [
     { path: '/', label: labels[0], icon: '🏠' },
     { path: '/diagnose', label: labels[1], icon: '🔍' },
     { path: '/pest-log', label: labels[2], icon: '🪤' },
-    { path: '/tools', label: labels[3], icon: '🧰' },
-    { path: '/about', label: labels[4], icon: 'ℹ️' },
-    { path: '/profile', label: labels[5], icon: '👤' },
+    { path: '/hotspots', label: labels[3], icon: '🗺️' },
+    { path: '/admin/dashboard', label: labels[4], icon: '📊' },
+    { path: '/tools', label: labels[5], icon: '🧰' },
+    { path: '/about', label: labels[6], icon: 'ℹ️' },
+    { path: '/profile', label: labels[7], icon: '👤' },
   ];
 
   return (

@@ -41,13 +41,19 @@ FasalSathi addresses that gap by combining machine learning with a West Bengal a
 | --- | --- |
 | Identify a possible crop disease | TorchScript crop model returns sorted class probabilities |
 | Understand whether the result is reliable | Shows confidence, diagnosis type, top alternatives, and escalation status |
-| Know what to do next | Builds organic, chemical, and preventive action groups |
+| Know what to do next | Builds IPDM organic, chemical (with stage dosage), and preventive action groups |
 | Avoid unsafe spraying | Adds PPE, pre-harvest interval, drift, hygiene, and child/animal warnings |
 | Get advice in a familiar language | Supports English, Bengali, and Hindi UI/advisory output |
 | Adapt advice to the field | Uses crop, growth stage, district, GPS, observations, and weather context |
 | Check prices before selling | Uses official mandi data when configured and local estimates otherwise |
 | Know when to harvest | Provides crop-specific windows, maturity indicators, and current relevance |
 | Find local follow-up support | Returns the nearest matching KVK and contact information |
+| Track 7-day follow-up checks | Schedules automated `FollowUpTask` with home screen countdown alert banner |
+| Log pest trap counts | Records manual & sensor trap observations (`/pest-log`) |
+| View regional pest & disease clusters | Interactive 14-day West Bengal district hotspot surveillance map (`/hotspots`) |
+| State agriculture oversight | Official admin dashboard (`/admin/dashboard`) with trend charts & lab review queue |
+| Ground-truth ML confirmation | Field accuracy rating widget for continuous ML learning (`/diagnosis-feedback`) |
+| KVK Laboratory referral | Direct ticket escalation for ambiguous crop samples (`/referrals`) |
 | Use the product hands-free | Records audio in the browser and transcribes it with Vosk |
 
 ## Key capabilities
@@ -63,38 +69,48 @@ FasalSathi addresses that gap by combining machine learning with a West Bengal a
 - Labels results as `DEFINITIVE_DIAGNOSIS`, `ADVISORY_SUPPORT`, or `IMAGE_NOT_MATCHED`.
 - Does not force a treatment when the selected crop cannot be matched confidently.
 
-### 2. Action-oriented advisories
+### 2. Action-oriented advisories & IPDM
 
-Every matched disease advisory can include a plain-language explanation, likely cause, symptoms to verify, crop-stage relevance, organic treatment, conditional chemical treatment, dosage, prevention, weather impact, safety warnings, solution summary, and expert-escalation guidance.
+Every matched disease advisory includes Integrated Pest & Disease Management (IPDM) steps: cultural/biological steps before chemical controls, exact pesticide dosage per growth stage, plain-language explanation, symptoms to verify, weather impact, safety warnings, solution summary, and expert-escalation guidance.
 
 ### 3. West Bengal localization
 
 The built-in knowledge base contains 23 West Bengal districts, coordinates, agro-climatic zones, soil types, major crops, KVK names and contacts, crop stages, crop seasons, common disease mappings, advisory templates, and seasonal harvest guidance.
 
-### 4. Weather-aware field planning
+### 4. Weather-aware field planning & risk forecasting
 
-The weather service returns temperature, humidity, rain, wind, condition, district, location, and a three-day forecast. The current implementation provides a deterministic West Bengal field estimate so the application remains usable without an external weather key. The advisory engine uses weather context to warn about humidity, rainfall, canopy moisture, and spray timing.
+The weather service returns temperature, humidity, rain, wind, condition, district, location, 3-day forecast, and micro-climate disease risk scores (`GET /api/v1/farms/{id}/risk-forecast`). The advisory engine uses weather context to warn about humidity, rainfall, canopy moisture, and spray timing.
 
-### 5. Mandi prices and harvest planning
+### 5. Follow-Up Task Monitoring & Home Screen Banner
 
-FasalSathi supports two market paths:
+Upon diagnosis, a 7-day field check-in task (`FollowUpTask`) is automatically created (`dueDate = LocalDate.now().plusDays(7)`). The home screen (`HomePage.jsx`) displays a prominent, dismissible countdown banner alerting farmers to upcoming or overdue inspections with one-click "Mark Completed" (`✓`) and "Inspect Field" (`🔍`) actions.
 
-- `MandiUpdates`: district-aware market records for the dashboard, using built-in planning estimates and optional `data.gov.in` enrichment.
-- `MandiPriceService`: crop price records for market-information views, using a five-minute in-memory cache, optional official API access, and representative fallback values.
+### 6. Geospatial Hotspot Surveillance Map (`/hotspots`)
 
-Harvest guidance covers Rice, Potato, Wheat, Maize, Tomato, Brinjal, Chilli, Jute, Mustard, Tea, and Mango. It includes sowing windows, harvest windows, duration, season, maturity indicators, and whether the crop is currently in or near its harvest period.
+Aggregates 14-day field diagnoses and trap counts into GeoJSON district clusters (`GET /api/v1/hotspots`). The interactive map page (`HotspotsPage.jsx`) features color-coded risk markers (Red >10 cases, Yellow 5-10, Green <5), crop/timeframe filter toolbars, and a selected district detail drawer.
 
-### 6. Local languages and voice
+### 7. Official Agriculture Admin Dashboard (`/admin/dashboard`)
+
+Executive surveillance portal for state and district agriculture officials. Features 4 top KPI cards (Active Hotspots, Pending Reviews, Follow-Up Compliance Rate %, Total Reports), visual SVG district disease incident breakdown charts, 14-day trapping trend graphs, and an interactive KVK Expert & Laboratory Review Queue.
+
+### 8. Ground-Truth ML Feedback & KVK Lab Referrals
+
+- **Ground-Truth Feedback**: Field workers confirm diagnosis accuracy directly on `DiagnosePage.jsx` (`/api/v1/diagnosis-feedback`) for continuous model refinement.
+- **KVK Lab Referral**: Extension workers escalate ambiguous or high-risk leaf samples to Krishi Vigyan Kendra laboratories with instant ticket tracking numbers (`/api/v1/referrals`).
+
+### 9. Mandi prices and harvest planning
+
+Supports district-aware mandi records, 5-minute in-memory caching, optional `data.gov.in` API enrichment, and harvest planning for 11 West Bengal crops.
+
+### 10. Local languages and voice
 
 - UI language choices: English, Bengali, Hindi.
 - Backend translation templates cover diagnosis labels, common disease names, crop names, stages, safety phrases, and action fragments.
-- Browser microphone capture creates a WAV recording.
-- Vosk converts the audio to text locally when the bundled English model is available.
-- Transcribed text can be used as the farmer's observation.
+- Browser microphone capture with Vosk local speech recognition.
 
-### 7. Farmer planning tools
+### 11. Farmer planning tools
 
-The dashboard includes district selection and geolocation, weather/market/nearby-shop tabs, device-local crop and storage records, planting and harvest dates, a profit calculator, local crop prices used as planning estimates, and estimate disclaimers before financial decisions.
+Includes district selection, geolocation, weather/market/nearby-shop tabs, device-local crop and storage records, planting/harvest dates, and a profit calculator.
 
 ## End-to-end workflow
 
@@ -306,11 +322,42 @@ Returns `transcript`, `language`, and an `error` field when transcription fails.
 | `GET` | `/api/v1/market-info/{cropName}` | path `cropName` | Returns harvest information and price records for one crop. |
 | `GET` | `/api/v1/market-info` | none | Returns harvest and price information for all supported crops. |
 
+### Surveillance, Hotspots & Admin API
+
+| Method | Endpoint | Parameters | Purpose |
+| --- | --- | --- | --- |
+| `GET` | `/api/v1/hotspots` | `days` (optional) | Returns GeoJSON-style district risk cluster nodes based on 14-day field diagnoses & trap counts. |
+| `GET` | `/api/v1/admin/dashboard` | none | Returns executive statistics: active hotspots, pending lab reviews, follow-up compliance rate %, district breakdown, and expert review queue. |
+| `POST` | `/api/v1/pest-observations` | Body JSON | Logs manual/sensor trap count observations (`farmId`, `pestType`, `count`, `source`). |
+| `GET` | `/api/v1/pest-observations` | `farmId` | Retrieves trap observation history for a farm. |
+
+### Follow-Up & Field Interventions API
+
+| Method | Endpoint | Parameters | Purpose |
+| --- | --- | --- | --- |
+| `GET` | `/api/v1/follow-ups` | `farmId` (optional) | Returns pending 7-day post-diagnosis field check-in tasks. |
+| `POST` | `/api/v1/follow-ups` | Body JSON | Schedules a new follow-up task (`farmId`, `diagnosisId`, `dueDate`). |
+| `PUT` | `/api/v1/follow-ups/{id}/complete` | path `id` | Marks a scheduled follow-up task as completed. |
+
+### Ground-Truth Feedback & KVK Lab Referral API
+
+| Method | Endpoint | Parameters | Purpose |
+| --- | --- | --- | --- |
+| `POST` | `/api/v1/diagnosis-feedback` | Body JSON | Submits field accuracy rating (`diagnosisId`, `isCorrect`, `verifiedDisease`, `notes`) for continuous ML refinement. |
+| `POST` | `/api/v1/referrals` | Body JSON | Escalates an ambiguous or high-risk leaf sample to a KVK lab and generates a referral ticket. |
+
+### Micro-Climate Risk Forecasting API
+
+| Method | Endpoint | Parameters | Purpose |
+| --- | --- | --- | --- |
+| `GET` | `/api/v1/farms/{id}/risk-forecast` | path `id` | Scores disease risk (Low, Medium, High) for a farm's current crop based on temperature, humidity, and rainfall thresholds. |
+
 ### Example requests
 
 ```bash
 curl http://localhost:8080/api/v1/health
-curl http://localhost:8080/api/v1/districts
+curl http://localhost:8080/api/v1/hotspots
+curl http://localhost:8080/api/v1/admin/dashboard
 curl "http://localhost:8080/api/v1/weather?lat=23.25&lon=87.85"
 curl "http://localhost:8080/api/v1/mandi-prices?crop=Rice&state=West%20Bengal&district=Purba%20Bardhaman"
 ```
@@ -346,6 +393,17 @@ curl -X POST http://localhost:8080/api/v1/diagnose ^
 | `health()` | Returns a lightweight readiness response. |
 | `parseDouble(value)` | Safely parses optional coordinate strings. |
 
+### Executive & Surveillance Controllers
+
+| Controller | Endpoint(s) | Responsibility |
+| --- | --- | --- |
+| `DashboardController` | `GET /api/v1/admin/dashboard` | Aggregates state-level KPIs, district disease breakdown, 14-day trends, and pending KVK lab review items. |
+| `FieldController` / `HotspotController` | `GET /api/v1/hotspots` | Generates 14-day GeoJSON district risk node clusters from diagnoses and trap counts. |
+| `FollowUpTaskController` | `GET / POST / PUT /api/v1/follow-ups` | Schedules, lists, and completes 7-day post-diagnosis field check-in tasks. |
+| `FarmController` | `GET /api/v1/farms/{id}/risk-forecast`, `POST /api/v1/pest-observations` | Evaluates micro-climate disease risk thresholds and logs trap observation records. |
+| `ReferralController` | `POST /api/v1/referrals` | Creates KVK laboratory referral escalation tickets. |
+| `AgronomicRecommendationController` | `POST /api/v1/diagnosis-feedback` | Collects field-verified diagnosis feedback for continuous ML model training. |
+
 ### `ModelInferenceService`
 
 | Function | Responsibility |
@@ -364,7 +422,7 @@ curl -X POST http://localhost:8080/api/v1/diagnose ^
 | `matchesCrop(...)` | Matches labels to the selected crop, including Brinjal/Eggplant and Chilli/Pepper aliases. |
 | `imageNotMatchedResponse(...)` | Returns a safe no-treatment result for a crop mismatch. |
 | `buildExplanation(...)` | Combines confidence, disease description, cause, symptoms, stage, and observations. |
-| `buildNextActions(...)` | Creates organic, conditional chemical, preventive, and weather-aware actions. |
+| `buildNextActions(...)` | Creates organic (cultural/biological), chemical (with growth-stage dosage), preventive, and weather-aware IPDM actions. |
 | `buildSolutionSummary(...)` | Produces a short treatment summary for the result card. |
 | `buildSafetyWarnings(...)` | Adds PPE, pre-harvest, hygiene, child/animal, and spray-timing warnings. |
 | `buildCropStageRelevance(...)` | Explains why growth stage changes urgency and treatment caution. |
@@ -384,8 +442,9 @@ curl -X POST http://localhost:8080/api/v1/diagnose ^
 
 | Service | Public functions and behavior |
 | --- | --- |
+| `HotspotService` | `getHotspots(days)` aggregates diagnoses and trap counts into GeoJSON district risk clusters. |
 | `WBCropKnowledgeBase` | `getAllDistricts`, `getDistrict`, `getKvkDetails`, `findNearestDistrict`, `getAllCrops`, `getCrop`, `getDiseaseAdvisory`, `getCurrentSeason`, and `getDistrictContext`. |
-| `WeatherService` | `getLiveWeather` builds district-aware conditions and forecast; `getWeatherContext` converts them into advisory text. |
+| `WeatherService` | `getLiveWeather` builds district-aware conditions and forecast; `getWeatherContext` converts them into advisory text; `calculateDiseaseRisk(farm, weather)` scores crop-specific risk. |
 | `MandiUpdates` | `getLivePrices` returns dashboard records with official-data enrichment and local fallback; `getUpdates` supports older callers. |
 | `MandiPriceService` | `getPrices` uses a five-minute cache, official commodity mapping, API access, and representative fallback prices; `getAllPrices` and `isLiveApiAvailable` support overview screens. |
 | `HarvestTimeService` | `getHarvestInfo` returns one crop's season and indicators; `getAllHarvestInfo` returns all; `getAvailableCrops` lists supported crops. |
@@ -398,10 +457,10 @@ curl -X POST http://localhost:8080/api/v1/diagnose ^
 
 | File | Responsibility |
 | --- | --- |
-| `App.jsx` | Wraps the app in `ErrorBoundary`, renders `Navbar` and `Footer`, and routes `/`, `/diagnose`, `/tools`, `/about`, and `/profile`. Unknown routes return home. |
+| `App.jsx` | Wraps the app in `ErrorBoundary`, renders `Navbar` and `Footer`, and routes `/`, `/diagnose`, `/hotspots`, `/admin/dashboard`, `/pest-log`, `/tools`, `/about`, and `/profile`. Unknown routes return home. |
 | `main.jsx` | Mounts React and global styles. |
 | `LanguageContext.jsx` | Stores active language and exposes translation access. |
-| `Navbar.jsx` | Navigation and language switching. |
+| `Navbar.jsx` | Navigation links and language switching. |
 | `Footer.jsx` | Navigation, support links, version, and project identity. |
 | `ErrorBoundary.jsx` | Prevents an unexpected component error from blanking the interface. |
 
@@ -417,19 +476,32 @@ curl -X POST http://localhost:8080/api/v1/diagnose ^
 | `getWeather(latitude, longitude)` | Gets `/weather` with coordinates. |
 | `getKvkInfo(district, latitude, longitude)` | Gets `/kvk`. |
 | `getMandiPrices(crop, state, district)` | Gets `/mandi-prices` with filters. |
+| `getHotspots(days)` | Gets `/hotspots`. |
+| `getAdminDashboard()` | Gets `/admin/dashboard`. |
+| `submitDiagnosisFeedback(feedback)` | Posts to `/diagnosis-feedback`. |
+| `createReferral(referral)` | Posts to `/referrals`. |
+| `getPestObservations(farmId)` | Gets `/pest-observations`. |
+| `createPestObservation(data)` | Posts to `/pest-observations`. |
+| `getFollowUpTasks(farmId)` | Gets `/follow-ups`. |
+| `completeFollowUpTask(id)` | Puts `/follow-ups/{id}/complete`. |
 | `healthCheck()` | Gets `/health`. |
 
-### Reusable components
+### Reusable components & views
 
 | Component | Function |
 | --- | --- |
+| `HomePage` | Home dashboard with 7-day follow-up countdown banner, weather, mandi prices, and quick navigation. |
+| `DiagnosePage` | AI leaf diagnosis, IPDM recommendations, ground-truth feedback, and KVK lab referral. |
+| `HotspotsPage` | Interactive West Bengal geospatial risk cluster map with filters and district detail drawer. |
+| `OfficialDashboard` | Executive agriculture dashboard with KPI cards, SVG charts, and expert review queue. |
+| `PestLogPage` | Manual & sensor pest-trap observation entry form. |
 | `FileUpload` | Image selection and upload interaction. |
 | `LoadingSpinner` | Consistent loading state. |
 | `DiagnosisBadge` | Diagnosis type and status label. |
 | `ConfidenceGauge` | Confidence visualization. |
 | `CandidateList` | Alternative conditions and probabilities. |
-| `ActionCard` | Structured action-plan rendering. |
-| `SafetyWarnings` | High-visibility safety guidance. |
+| `ActionCard` | Grouped IPDM action-plan rendering (Cultural, Biological, Chemical, Preventive). |
+| `SafetyWarnings` | High-visibility PPE, pre-harvest, hygiene, and environmental safety guidance. |
 | `EscalationAlert` | Expert referral and uncertainty explanation. |
 | `WeatherCard` | Current conditions and forecast. |
 | `CropStorage` | Farmer crop and storage records. |

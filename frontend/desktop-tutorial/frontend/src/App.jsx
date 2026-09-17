@@ -9,6 +9,8 @@ import AboutPage from './pages/AboutPage';
 import ProfilePage from './pages/ProfilePage';
 import ToolsPage from './pages/ToolsPage';
 import PestLogPage from './pages/PestLogPage';
+import HotspotsPage from './pages/HotspotsPage';
+import OfficialDashboard from './pages/OfficialDashboard';
 
 export default function App() {
   const { search } = useLocation();
@@ -41,6 +43,9 @@ export default function App() {
             <Route path="/tools" element={<ToolsPage />} />
             <Route path="/pest-log" element={<PestLogPage />} />
             <Route path="/pest-observations" element={<PestLogPage />} />
+            <Route path="/hotspots" element={<HotspotsPage />} />
+            <Route path="/admin/dashboard" element={<OfficialDashboard />} />
+            <Route path="/admin" element={<OfficialDashboard />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </main>
