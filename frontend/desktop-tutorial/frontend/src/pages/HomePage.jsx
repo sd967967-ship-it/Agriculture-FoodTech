@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getDistricts, getMandiPrices, getWeather } from '../api/cropApi';
+import { getDistricts, getMandiPrices, getWeather, getFollowUps, completeFollowUp } from '../api/cropApi';
 import { useLanguage } from '../context/LanguageContext';
 
 const crops = ['Rice', 'Potato', 'Jute', 'Mustard', 'Tea', 'Tomato', 'Brinjal', 'Chilli', 'Mango', 'Wheat', 'Maize'];
@@ -36,6 +36,42 @@ function weekFrom(records) {
   });
 }
 
+const reminderCopy = {
+  en: {
+    badge: 'FOLLOW-UP REMINDER',
+    dueIn: (days) => days === 0 ? 'Due today!' : days === 1 ? 'Due tomorrow' : days < 0 ? `${Math.abs(days)} day(s) overdue` : `Due in ${days} days`,
+    markDone: 'Mark Completed',
+    completing: 'Updating...',
+    inspect: 'Inspect Field →',
+    viewAll: (count) => `+${count - 1} more scheduled check-in(s)`,
+  },
+  bn: {
+    badge: 'পরবর্তী পর্যবেক্ষণ অনুস্মারক',
+    dueIn: (days) => days === 0 ? 'আজই করণীয়!' : days === 1 ? 'আগামীকাল করণীয়' : days < 0 ? `${Math.abs(days)} দিন অতিবাহিত` : `${days} দিনের মধ্যে করণীয়`,
+    markDone: 'সম্পন্ন হয়েছে',
+    completing: 'হালনাগাদ হচ্ছে...',
+    inspect: 'ফসল পরীক্ষা →',
+    viewAll: (count) => `আরও +${count - 1}টি অনুস্মারক রয়েছে`,
+  },
+  hi: {
+    badge: 'फॉलो-अप रिमाइंडर',
+    dueIn: (days) => days === 0 ? 'आज ही करना है!' : days === 1 ? 'कल देय है' : days < 0 ? `${Math.abs(days)} दिन विलंबित` : `${days} दिनों में देय`,
+    markDone: 'पूर्ण चिह्नित करें',
+    completing: 'अपडेट हो रहा है...',
+    inspect: 'खेत निरीक्षण →',
+    viewAll: (count) => `+${count - 1} और निर्धारित निरीक्षण`,
+  },
+};
+
+function getDaysUntil(dateStr) {
+  if (!dateStr) return 0;
+  const target = new Date(dateStr + 'T00:00:00');
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  const diffTime = target - now;
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+}
+
 export default function HomePage() {
   const navigate = useNavigate();
   const { language } = useLanguage();
@@ -49,8 +85,33 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [notice, setNotice] = useState('');
   const [currentTime, setCurrentTime] = useState(() => new Date());
+  const [followUps, setFollowUps] = useState([]);
+  const [completingTaskId, setCompletingTaskId] = useState(null);
   const selected = districts.find((item) => item.name === district);
   const week = useMemo(() => weekFrom(market?.records), [market]);
+
+  useEffect(() => {
+    getFollowUps({ status: 'PENDING' })
+      .then((res) => {
+        const list = Array.isArray(res.data) ? res.data : [];
+        setFollowUps(list);
+      })
+      .catch((err) => {
+        console.warn('Could not load follow-up tasks', err);
+      });
+  }, []);
+
+  const handleCompleteTask = async (taskId) => {
+    setCompletingTaskId(taskId);
+    try {
+      await completeFollowUp(taskId);
+      setFollowUps((prev) => prev.filter((t) => t.id !== taskId));
+    } catch (err) {
+      console.warn('Could not complete follow-up task', err);
+    } finally {
+      setCompletingTaskId(null);
+    }
+  };
 
   useEffect(() => {
     getDistricts().then(({ data }) => {
@@ -114,6 +175,73 @@ export default function HomePage() {
 
   return <div className="min-h-screen bg-[#07120e] text-slate-100">
     <MorningBrief district={district} crop={crop} weather={weather} market={market} currentTime={currentTime} language={language} />
+    {followUps.length > 0 && (() => {
+      const task = followUps[0];
+      const daysUntil = getDaysUntil(task.dueDate);
+      const rText = reminderCopy[language] || reminderCopy.en;
+      const isUrgent = daysUntil <= 1;
+
+      return (
+        <div className="mx-auto max-w-7xl px-4 pt-4 sm:pt-6">
+          <div className={`relative overflow-hidden rounded-2xl border p-4 sm:p-5 shadow-xl backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all ${
+            isUrgent
+              ? 'border-amber-400/40 bg-gradient-to-r from-amber-950/80 via-yellow-950/60 to-[#1b1506]'
+              : 'border-emerald-500/30 bg-gradient-to-r from-[#0a261e]/90 via-[#0d2d23]/80 to-[#071d17]/90'
+          }`}>
+            <div className="flex items-start gap-3.5">
+              <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl text-xl shadow-inner ${
+                isUrgent ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30 animate-pulse' : 'bg-lime-400/15 text-lime-300 border border-lime-400/30'
+              }`}>
+                🔔
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider ${
+                    isUrgent ? 'bg-amber-400 text-slate-950' : 'bg-lime-300 text-emerald-950'
+                  }`}>
+                    {rText.badge}
+                  </span>
+                  <span className="font-mono text-xs font-semibold text-emerald-200/90">
+                    📅 {task.dueDate} · {rText.dueIn(daysUntil)}
+                  </span>
+                  {task.farmId && (
+                    <span className="text-xs text-emerald-300/70">
+                      (Farm #{task.farmId})
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1.5 text-sm font-bold text-white sm:text-base leading-snug">
+                  {task.taskTitle || '7-Day Follow-Up: Check crop recovery after treatment application.'}
+                </p>
+                {followUps.length > 1 && (
+                  <p className="mt-1 text-xs text-emerald-300/70">
+                    {rText.viewAll(followUps.length)}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2.5 self-end md:self-center shrink-0">
+              <button
+                type="button"
+                onClick={() => handleCompleteTask(task.id)}
+                disabled={completingTaskId === task.id}
+                className="rounded-xl bg-emerald-500 px-4 py-2.5 text-xs font-bold text-slate-950 shadow-md hover:bg-emerald-400 active:scale-95 transition-all disabled:opacity-50"
+              >
+                {completingTaskId === task.id ? rText.completing : `✓ ${rText.markDone}`}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate('/diagnose')}
+                className="rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-xs font-semibold text-white hover:bg-white/15 transition-all"
+              >
+                {rText.inspect}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    })()}
     <section className="relative overflow-hidden bg-[#0a1d18] px-4 py-12 text-white sm:py-16">
       <div className="absolute inset-0 opacity-90" style={{ backgroundImage: 'linear-gradient(120deg, rgba(5, 23, 18, 0.88), rgba(10, 49, 39, 0.74)), url("/farm-hero.svg")', backgroundSize: 'cover', backgroundPosition: 'center' }} />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(149,227,145,0.18),transparent_40%)]" />

@@ -1,5 +1,5 @@
 com\example\service\WeatherRiskServiceTest.class
 com\example\service\KisanMitraServiceTest.class
-com\example\auth\AuthServiceTest.class
 com\example\BacklogFeatureFlowTest.class
 com\example\BacklogFullCompletionTest.class
+com\example\auth\AuthServiceTest.class

@@ -726,4 +726,95 @@ public class WBCropKnowledgeBase {
         }
         return "Check drainage and add compost for stable soil health.";
     }
+
+    // ── Disease Weather Profiles (thresholds that favour each disease) ────
+
+    /**
+     * Weather conditions that favour a specific crop disease.
+     * @param minTempC  minimum temperature (°C) for disease development
+     * @param maxTempC  maximum temperature (°C) for disease development
+     * @param minHumidity  minimum relative humidity (%) that promotes the disease
+     * @param minRainfallMm  minimum daily rainfall (mm) that promotes the disease
+     */
+    public record DiseaseWeatherProfile(
+            String diseaseName,
+            double minTempC, double maxTempC,
+            double minHumidity, double minRainfallMm) {
+    }
+
+    private static final Map<String, DiseaseWeatherProfile> DISEASE_WEATHER_PROFILES = new LinkedHashMap<>();
+
+    static {
+        // ── Rice diseases ──
+        DISEASE_WEATHER_PROFILES.put("Blast", new DiseaseWeatherProfile("Blast", 22.0, 30.0, 85.0, 5.0));
+        DISEASE_WEATHER_PROFILES.put("Brown Spot", new DiseaseWeatherProfile("Brown Spot", 25.0, 34.0, 80.0, 4.0));
+        DISEASE_WEATHER_PROFILES.put("Sheath Blight", new DiseaseWeatherProfile("Sheath Blight", 28.0, 34.0, 85.0, 6.0));
+        DISEASE_WEATHER_PROFILES.put("Bacterial Leaf Blight", new DiseaseWeatherProfile("Bacterial Leaf Blight", 26.0, 34.0, 80.0, 7.0));
+        DISEASE_WEATHER_PROFILES.put("Tungro", new DiseaseWeatherProfile("Tungro", 25.0, 32.0, 75.0, 5.0));
+
+        // ── Potato diseases ──
+        DISEASE_WEATHER_PROFILES.put("Early Blight", new DiseaseWeatherProfile("Early Blight", 24.0, 34.0, 70.0, 3.0));
+        DISEASE_WEATHER_PROFILES.put("Late Blight", new DiseaseWeatherProfile("Late Blight", 10.0, 24.0, 85.0, 6.0));
+        DISEASE_WEATHER_PROFILES.put("Black Scurf", new DiseaseWeatherProfile("Black Scurf", 15.0, 25.0, 75.0, 4.0));
+        DISEASE_WEATHER_PROFILES.put("Common Scab", new DiseaseWeatherProfile("Common Scab", 20.0, 30.0, 50.0, 1.0));
+        DISEASE_WEATHER_PROFILES.put("Virus", new DiseaseWeatherProfile("Virus", 20.0, 32.0, 60.0, 2.0));
+
+        // ── Jute diseases ──
+        DISEASE_WEATHER_PROFILES.put("Stem Rot", new DiseaseWeatherProfile("Stem Rot", 28.0, 36.0, 85.0, 8.0));
+        DISEASE_WEATHER_PROFILES.put("Anthracnose", new DiseaseWeatherProfile("Anthracnose", 24.0, 32.0, 80.0, 5.0));
+        DISEASE_WEATHER_PROFILES.put("Leaf Mosaic", new DiseaseWeatherProfile("Leaf Mosaic", 22.0, 32.0, 60.0, 2.0));
+        DISEASE_WEATHER_PROFILES.put("Root Rot", new DiseaseWeatherProfile("Root Rot", 25.0, 35.0, 80.0, 7.0));
+
+        // ── Mustard diseases ──
+        DISEASE_WEATHER_PROFILES.put("White Rust", new DiseaseWeatherProfile("White Rust", 10.0, 22.0, 80.0, 4.0));
+        DISEASE_WEATHER_PROFILES.put("Alternaria Blight", new DiseaseWeatherProfile("Alternaria Blight", 18.0, 28.0, 75.0, 3.0));
+        DISEASE_WEATHER_PROFILES.put("Downy Mildew", new DiseaseWeatherProfile("Downy Mildew", 10.0, 22.0, 85.0, 5.0));
+        DISEASE_WEATHER_PROFILES.put("Aphid Damage", new DiseaseWeatherProfile("Aphid Damage", 15.0, 28.0, 50.0, 1.0));
+
+        // ── Tea diseases ──
+        DISEASE_WEATHER_PROFILES.put("Blister Blight", new DiseaseWeatherProfile("Blister Blight", 18.0, 26.0, 85.0, 6.0));
+        DISEASE_WEATHER_PROFILES.put("Red Spider Mite", new DiseaseWeatherProfile("Red Spider Mite", 25.0, 35.0, 40.0, 0.5));
+        DISEASE_WEATHER_PROFILES.put("Grey Blight", new DiseaseWeatherProfile("Grey Blight", 22.0, 30.0, 80.0, 5.0));
+        DISEASE_WEATHER_PROFILES.put("Mosquito Bug", new DiseaseWeatherProfile("Mosquito Bug", 20.0, 30.0, 70.0, 3.0));
+
+        // ── Tomato diseases ──
+        DISEASE_WEATHER_PROFILES.put("Leaf Curl Virus", new DiseaseWeatherProfile("Leaf Curl Virus", 24.0, 36.0, 55.0, 1.0));
+        DISEASE_WEATHER_PROFILES.put("Bacterial Spot", new DiseaseWeatherProfile("Bacterial Spot", 24.0, 32.0, 80.0, 5.0));
+        DISEASE_WEATHER_PROFILES.put("Septoria Leaf Spot", new DiseaseWeatherProfile("Septoria Leaf Spot", 20.0, 28.0, 80.0, 5.0));
+
+        // ── Brinjal diseases ──
+        DISEASE_WEATHER_PROFILES.put("Fruit & Shoot Borer", new DiseaseWeatherProfile("Fruit & Shoot Borer", 25.0, 35.0, 60.0, 2.0));
+        DISEASE_WEATHER_PROFILES.put("Bacterial Wilt", new DiseaseWeatherProfile("Bacterial Wilt", 28.0, 36.0, 75.0, 5.0));
+        DISEASE_WEATHER_PROFILES.put("Phomopsis Blight", new DiseaseWeatherProfile("Phomopsis Blight", 24.0, 32.0, 80.0, 5.0));
+        DISEASE_WEATHER_PROFILES.put("Little Leaf", new DiseaseWeatherProfile("Little Leaf", 22.0, 32.0, 60.0, 2.0));
+
+        // ── Chilli diseases ──
+        DISEASE_WEATHER_PROFILES.put("Leaf Curl", new DiseaseWeatherProfile("Leaf Curl", 24.0, 36.0, 55.0, 1.0));
+        DISEASE_WEATHER_PROFILES.put("Thrips Damage", new DiseaseWeatherProfile("Thrips Damage", 25.0, 35.0, 40.0, 0.5));
+
+        // ── Mango diseases ──
+        DISEASE_WEATHER_PROFILES.put("Powdery Mildew", new DiseaseWeatherProfile("Powdery Mildew", 20.0, 28.0, 60.0, 1.0));
+        DISEASE_WEATHER_PROFILES.put("Mango Hopper", new DiseaseWeatherProfile("Mango Hopper", 24.0, 34.0, 60.0, 2.0));
+        DISEASE_WEATHER_PROFILES.put("Stem Borer", new DiseaseWeatherProfile("Stem Borer", 25.0, 35.0, 55.0, 1.0));
+
+        // ── Wheat diseases ──
+        DISEASE_WEATHER_PROFILES.put("Rust", new DiseaseWeatherProfile("Rust", 15.0, 25.0, 75.0, 3.0));
+        DISEASE_WEATHER_PROFILES.put("Loose Smut", new DiseaseWeatherProfile("Loose Smut", 18.0, 26.0, 70.0, 3.0));
+        DISEASE_WEATHER_PROFILES.put("Karnal Bunt", new DiseaseWeatherProfile("Karnal Bunt", 18.0, 24.0, 80.0, 4.0));
+        DISEASE_WEATHER_PROFILES.put("Aphid", new DiseaseWeatherProfile("Aphid", 15.0, 28.0, 50.0, 1.0));
+
+        // ── Maize diseases ──
+        DISEASE_WEATHER_PROFILES.put("Turcicum Leaf Blight", new DiseaseWeatherProfile("Turcicum Leaf Blight", 18.0, 27.0, 80.0, 5.0));
+        DISEASE_WEATHER_PROFILES.put("Fall Armyworm", new DiseaseWeatherProfile("Fall Armyworm", 24.0, 34.0, 60.0, 3.0));
+        DISEASE_WEATHER_PROFILES.put("Stalk Rot", new DiseaseWeatherProfile("Stalk Rot", 28.0, 36.0, 80.0, 7.0));
+    }
+
+    public DiseaseWeatherProfile getDiseaseWeatherProfile(String diseaseName) {
+        if (diseaseName == null) return null;
+        return DISEASE_WEATHER_PROFILES.get(diseaseName);
+    }
+
+    public Map<String, DiseaseWeatherProfile> getDiseaseWeatherProfiles() {
+        return Collections.unmodifiableMap(DISEASE_WEATHER_PROFILES);
+    }
 }

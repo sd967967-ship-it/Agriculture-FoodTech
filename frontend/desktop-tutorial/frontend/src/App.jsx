@@ -8,6 +8,7 @@ import DiagnosePage from './pages/DiagnosePage';
 import AboutPage from './pages/AboutPage';
 import ProfilePage from './pages/ProfilePage';
 import ToolsPage from './pages/ToolsPage';
+import PestLogPage from './pages/PestLogPage';
 
 export default function App() {
   const { search } = useLocation();
@@ -38,6 +39,8 @@ export default function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/tools" element={<ToolsPage />} />
+            <Route path="/pest-log" element={<PestLogPage />} />
+            <Route path="/pest-observations" element={<PestLogPage />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </main>

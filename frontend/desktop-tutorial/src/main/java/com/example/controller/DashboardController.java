@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping({"/api/v1", "/api"})
 @CrossOrigin(origins = "*")
 public class DashboardController {
     private final FarmRepository farmRepository;
@@ -27,7 +27,7 @@ public class DashboardController {
         this.monitoringPlanRepository = monitoringPlanRepository;
     }
 
-    @GetMapping("/dashboard")
+    @GetMapping({"/dashboard", "/admin/dashboard"})
     public Map<String, Object> getDashboard() {
         return getSummary();
     }

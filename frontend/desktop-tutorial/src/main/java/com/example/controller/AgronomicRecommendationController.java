@@ -12,8 +12,8 @@ import java.util.Map;
 public class AgronomicRecommendationController {
 
     @GetMapping("/recommendations")
-    public ResponseEntity<Map<String, Object>> getRecommendations(@RequestParam(defaultValue = "Rice") String crop,
-                                            @RequestParam(defaultValue = "Nadia") String district) {
+    public ResponseEntity<Map<String, Object>> getRecommendations(@RequestParam(value = "crop", defaultValue = "Rice") String crop,
+                                            @RequestParam(value = "district", defaultValue = "Nadia") String district) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("crop", crop);
         body.put("district", district);

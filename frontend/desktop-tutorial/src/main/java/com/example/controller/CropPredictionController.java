@@ -4,7 +4,10 @@ import com.example.dto.CropMarketInfoDTO;
 import com.example.dto.HarvestInfoDTO;
 import com.example.dto.MandiPriceDTO;
 import com.example.dto.PredictionResponseDTO;
+import com.example.entity.FollowUpTask;
 import com.example.entity.PredictionLog;
+import com.example.repository.FarmRepository;
+import com.example.repository.FollowUpTaskRepository;
 import com.example.repository.PredictionLogRepository;
 import com.example.service.AdvisoryService;
 import com.example.service.HarvestTimeService;
@@ -24,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -36,6 +40,8 @@ public class CropPredictionController {
     private final WBCropKnowledgeBase knowledgeBase;
     private final TranslationService translationService;
     private final PredictionLogRepository predictionLogRepository;
+    private final FollowUpTaskRepository followUpTaskRepository;
+    private final FarmRepository farmRepository;
     private final SpeechService speechService;
     private final MandiUpdates mandiUpdates;
     private final HarvestTimeService harvestTimeService;
@@ -47,6 +53,8 @@ public class CropPredictionController {
                                     WBCropKnowledgeBase knowledgeBase,
                                     TranslationService translationService,
                                     PredictionLogRepository predictionLogRepository,
+                                    FollowUpTaskRepository followUpTaskRepository,
+                                    FarmRepository farmRepository,
                                     SpeechService speechService,
                                     MandiUpdates mandiUpdates,
                                     HarvestTimeService harvestTimeService,
@@ -57,6 +65,8 @@ public class CropPredictionController {
         this.knowledgeBase = knowledgeBase;
         this.translationService = translationService;
         this.predictionLogRepository = predictionLogRepository;
+        this.followUpTaskRepository = followUpTaskRepository;
+        this.farmRepository = farmRepository;
         this.speechService = speechService;
         this.mandiUpdates = mandiUpdates;
         this.harvestTimeService = harvestTimeService;
@@ -70,6 +80,7 @@ public class CropPredictionController {
     @PostMapping(value = "/diagnose", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public PredictionResponseDTO diagnose(
             @RequestParam("image") MultipartFile image,
+            @RequestParam(value = "farmId", required = false) String farmId,
             @RequestParam(value = "cropType", required = false) String cropType,
             @RequestParam(value = "cropStage", required = false) String cropStage,
             @RequestParam(value = "district", required = false) String district,
@@ -98,16 +109,35 @@ public class CropPredictionController {
                 observations, weather,
                 language != null ? language : "en");
 
-        // 5. Log prediction
+        // 5. Log prediction and auto-create follow-up task 7 days out
         try {
-            predictionLogRepository.save(new PredictionLog(
+            PredictionLog savedLog = predictionLogRepository.save(new PredictionLog(
                     cropType, cropStage, district, lat, lng,
                     observations, response.primaryDiagnosis(),
                     response.confidence(), response.diagnosisType(),
                     response.escalateToExpert(),
                     language != null ? language : "en"));
+
+            if (followUpTaskRepository != null) {
+                Long resolvedFarmId = parseLong(farmId);
+                if (resolvedFarmId == null) {
+                    resolvedFarmId = resolveDefaultFarmId(district);
+                }
+                LocalDate dueDate = LocalDate.now().plusDays(7);
+                String taskTitle = "Follow-up: Inspect field recovery for "
+                        + (response.primaryDiagnosis() != null ? response.primaryDiagnosis() : "crop")
+                        + " following recommended treatment.";
+
+                followUpTaskRepository.save(new FollowUpTask(
+                        resolvedFarmId,
+                        savedLog.getId(),
+                        dueDate,
+                        "PENDING",
+                        taskTitle
+                ));
+            }
         } catch (Exception ignored) {
-            // Don't fail the response if logging fails
+            // Don't fail the response if logging or follow-up scheduling fails
         }
 
         return response;
@@ -244,6 +274,33 @@ public class CropPredictionController {
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    private Long parseLong(String value) {
+        if (value == null || value.isBlank()) return null;
+        try {
+            return Long.parseLong(value.trim());
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    private Long resolveDefaultFarmId(String district) {
+        if (farmRepository != null) {
+            try {
+                if (district != null && !district.isBlank()) {
+                    var match = farmRepository.findAll().stream()
+                            .filter(f -> district.equalsIgnoreCase(f.getDistrict()))
+                            .findFirst();
+                    if (match.isPresent()) return match.get().getId();
+                }
+                var any = farmRepository.findAll().stream().findFirst();
+                if (any.isPresent()) return any.get().getId();
+            } catch (Exception ignored) {
+                // fall through
+            }
+        }
+        return 1L;
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

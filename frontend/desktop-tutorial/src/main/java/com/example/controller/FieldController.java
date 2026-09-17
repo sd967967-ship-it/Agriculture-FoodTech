@@ -25,7 +25,7 @@ public class FieldController {
     }
 
     @GetMapping("/farms/{farmId}/fields")
-    public List<Map<String, Object>> getFields(@PathVariable Long farmId) {
+    public List<Map<String, Object>> getFields(@PathVariable("farmId") Long farmId) {
         return fieldRepository.findByFarmIdOrderByIdAsc(farmId).stream().map(this::toMap).toList();
     }
 

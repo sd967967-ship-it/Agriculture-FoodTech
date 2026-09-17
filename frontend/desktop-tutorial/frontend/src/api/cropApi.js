@@ -79,4 +79,28 @@ export function getCurrentUser() {
   return api.get('/auth/me', { headers: sessionHeaders() });
 }
 
+export function getFarms(farmerUsername) {
+  return api.get('/farms', { params: farmerUsername ? { farmerUsername } : {} });
+}
+
+export function createPestObservation(observation) {
+  return api.post('/pest-observations', observation);
+}
+
+export function getPestObservations(farmId) {
+  return api.get('/pest-observations', { params: farmId ? { farmId } : {} });
+}
+
+export function getFollowUps(params = {}) {
+  return api.get('/follow-ups', { params });
+}
+
+export function createFollowUp(task) {
+  return api.post('/follow-ups', task);
+}
+
+export function completeFollowUp(id) {
+  return api.post(`/follow-ups/${id}/complete`);
+}
+
 export default api;

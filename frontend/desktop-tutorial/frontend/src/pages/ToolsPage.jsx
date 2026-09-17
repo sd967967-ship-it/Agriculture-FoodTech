@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ProfitCalculator } from './HomePage';
 import { useLanguage } from '../context/LanguageContext';
 import { getMandiPrices } from '../api/cropApi';
@@ -92,6 +93,25 @@ export default function ToolsPage() {
 
   return <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
     <header className="mb-10 max-w-3xl"><p className="text-xs font-bold uppercase tracking-widest text-emerald-400">{text.eyebrow}</p><h1 className="mt-2 text-3xl font-bold text-slate-100 sm:text-4xl">{text.title}</h1><p className="mt-3 text-slate-300">{text.intro}</p></header>
+    <div className="mb-8 overflow-hidden rounded-2xl border border-lime-400/30 bg-gradient-to-r from-emerald-950/80 via-emerald-900/60 to-[#071d17] p-6 shadow-xl backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-lime-400/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-lime-300">
+          🪤 NEW FEATURE
+        </span>
+        <h2 className="mt-2 text-xl font-bold text-white">
+          Pest &amp; Trap Count Surveillance
+        </h2>
+        <p className="mt-1 text-sm text-emerald-200/80">
+          Record manual trap readings and field sweep counts to track regional pest pressure in real time.
+        </p>
+      </div>
+      <Link
+        to="/pest-log"
+        className="rounded-xl bg-lime-400 px-5 py-3 text-sm font-bold text-emerald-950 shadow-md hover:bg-lime-300 transition-colors whitespace-nowrap"
+      >
+        Open Pest Logger →
+      </Link>
+    </div>
     <div className="grid gap-6 lg:grid-cols-2">
       <section className="rounded-2xl border border-slate-700 bg-slate-900/80 p-6 shadow-md"><h2 className="text-2xl font-bold text-slate-100">{text.history}</h2><p className="mt-2 text-sm text-slate-400">{text.historyCopy}</p><form onSubmit={saveHistory} className="mt-6 grid gap-4 sm:grid-cols-2"><ToolSelect label={text.crop} value={record.crop} options={crops} onChange={(value) => setRecord({ ...record, crop: value })} /><ToolInput label={text.date} type="date" value={record.date} onChange={(value) => setRecord({ ...record, date: value })} /><ToolInput label={text.issue} value={record.issue} onChange={(value) => setRecord({ ...record, issue: value })} /><ToolInput label={text.action} value={record.action} onChange={(value) => setRecord({ ...record, action: value })} /><button className="rounded-lg bg-emerald-600 px-4 py-3 text-sm font-bold text-white hover:bg-emerald-500 sm:col-span-2">{text.save}</button></form><div className="mt-6 space-y-3">{history.length === 0 ? <p className="rounded-lg border border-dashed border-slate-700 p-4 text-sm text-slate-400">{text.empty}</p> : <><p className="text-xs font-bold uppercase tracking-wider text-emerald-400">{text.saved}</p>{history.map((item) => <div key={item.id} className="flex items-start justify-between gap-3 rounded-lg border border-slate-700 bg-slate-950/70 p-4"><div><p className="font-bold text-slate-100">{item.crop} · {item.date}</p><p className="mt-1 text-sm text-slate-300">{item.issue}</p>{item.action && <p className="mt-1 text-xs text-slate-400">{item.action}</p>}</div><button type="button" onClick={() => removeHistory(item.id)} className="text-xs font-semibold text-red-300 hover:text-red-200">{text.remove}</button></div>)}</>}</div></section>
       <section className="rounded-2xl border border-slate-700 bg-slate-900/80 p-6 shadow-md"><h2 className="text-2xl font-bold text-slate-100">{text.irrigation}</h2><p className="mt-2 text-sm text-slate-400">{text.irrigationCopy}</p><form onSubmit={saveSchedule} className="mt-6 grid gap-4"><ToolSelect label={text.soil} value={schedule.soil} options={text.soilOptions} onChange={(value) => setSchedule({ ...schedule, soil: value })} /><ToolInput label={text.nextWater} type="date" value={schedule.date} onChange={(value) => setSchedule({ ...schedule, date: value })} /><ToolInput label={text.frequency} type="number" min="1" max="30" value={schedule.frequency} onChange={(value) => setSchedule({ ...schedule, frequency: value })} /><button className="rounded-lg bg-emerald-600 px-4 py-3 text-sm font-bold text-white hover:bg-emerald-500">{text.schedule}</button></form>{scheduleSaved && <p className="mt-4 rounded-lg bg-emerald-950/70 p-3 text-sm text-emerald-300">{text.scheduleSaved}</p>}</section>

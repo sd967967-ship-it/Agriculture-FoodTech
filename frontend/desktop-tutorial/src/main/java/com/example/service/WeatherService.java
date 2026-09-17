@@ -1,8 +1,13 @@
 package com.example.service;
 
+import com.example.dto.DiseaseRiskDTO;
+import com.example.entity.Farm;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +80,110 @@ public class WeatherService {
         if (condition != null) builder.append(" — ").append(condition);
         return builder.toString();
     }
+
+    // ── Disease Risk Assessment ──────────────────────────────────────────
+
+    /**
+     * Scores disease risk for a farm's current crop based on forecast weather
+     * and the disease-weather profiles in the knowledge base.
+     *
+     * @param farm     the farm whose fields determine which crop to assess
+     * @param forecast weather data map (from {@link #getLiveWeather})
+     * @return a fully populated {@link DiseaseRiskDTO}
+     */
+    @Transactional(readOnly = true)
+    public DiseaseRiskDTO calculateDiseaseRisk(Farm farm, Map<String, Object> forecast) {
+        // Determine crop from the first field, defaulting to Rice
+        String crop = "Rice";
+        if (farm.getFields() != null && !farm.getFields().isEmpty()) {
+            crop = farm.getFields().get(0).getCrop();
+        }
+
+        // Extract weather values from forecast map
+        double tempC = toDouble(forecast.get("temperatureC"), 28.0);
+        double humidity = toDouble(forecast.get("humidityPercent"), 70.0);
+        double rainMm = toDouble(forecast.get("rainMm"), 3.0);
+
+        // Look up the crop's common diseases
+        WBCropKnowledgeBase.CropInfo cropInfo = knowledgeBase.getCrop(crop);
+        List<String> diseases = (cropInfo != null) ? cropInfo.commonDiseases() : List.of();
+
+        // Score each disease against weather thresholds
+        List<DiseaseRiskDTO.DiseaseScore> scores = new ArrayList<>();
+        int totalMatched = 0;
+        int maxPossible = diseases.size() * 3; // 3 thresholds per disease
+        boolean anyFullMatch = false;
+
+        for (String diseaseName : diseases) {
+            WBCropKnowledgeBase.DiseaseWeatherProfile profile =
+                    knowledgeBase.getDiseaseWeatherProfile(diseaseName);
+
+            if (profile == null) {
+                scores.add(new DiseaseRiskDTO.DiseaseScore(diseaseName, false, false, false, 0, "UNKNOWN"));
+                continue;
+            }
+
+            boolean tempInRange = tempC >= profile.minTempC() && tempC <= profile.maxTempC();
+            boolean humidityExceeded = humidity >= profile.minHumidity();
+            boolean rainfallExceeded = rainMm >= profile.minRainfallMm();
+
+            int matched = 0;
+            if (tempInRange) matched++;
+            if (humidityExceeded) matched++;
+            if (rainfallExceeded) matched++;
+
+            totalMatched += matched;
+            if (matched == 3) anyFullMatch = true;
+
+            String severity = switch (matched) {
+                case 3 -> "HIGH";
+                case 2 -> "MEDIUM";
+                default -> "LOW";
+            };
+
+            scores.add(new DiseaseRiskDTO.DiseaseScore(
+                    diseaseName, tempInRange, humidityExceeded, rainfallExceeded, matched, severity));
+        }
+
+        // Aggregate risk level
+        String riskLevel;
+        if (maxPossible == 0) {
+            riskLevel = "LOW";
+        } else if (anyFullMatch || (double) totalMatched / maxPossible >= 0.6) {
+            riskLevel = "HIGH";
+        } else if (scores.stream().anyMatch(s -> s.matchedThresholds() >= 2)
+                || (double) totalMatched / maxPossible >= 0.3) {
+            riskLevel = "MEDIUM";
+        } else {
+            riskLevel = "LOW";
+        }
+
+        // Build weather snapshot
+        Map<String, Object> snapshot = new LinkedHashMap<>();
+        snapshot.put("temperatureC", roundToOneDecimal(tempC));
+        snapshot.put("humidityPercent", roundToOneDecimal(humidity));
+        snapshot.put("rainMm", roundToOneDecimal(rainMm));
+
+        return new DiseaseRiskDTO(
+            farm.getId(),
+            farm.getName(),
+            farm.getDistrict(),
+            crop,
+            riskLevel,
+            scores,
+            snapshot,
+            LocalDateTime.now().toString());
+    }
+
+    private static double toDouble(Object value, double fallback) {
+        if (value instanceof Number n) return n.doubleValue();
+        if (value instanceof String s) {
+            try { return Double.parseDouble(s); } catch (NumberFormatException e) { /* fall through */ }
+        }
+        return fallback;
+    }
+
+    // ── Internal weather estimation helpers ──────────────────────────────
 
     private String nearestDistrictName(double lat, double lon) {
         if (knowledgeBase == null) return "West Bengal";
