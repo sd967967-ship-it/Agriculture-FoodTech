@@ -113,19 +113,40 @@ export default function OfficialDashboard() {
     setTimeout(() => setToast(''), 4000);
   };
 
+  const handleExportCSV = () => {
+    const headers = ['District', 'Blight Incidents', 'Blast Incidents', 'Aphid Incidents', 'Total'];
+    const rows = DISTRICT_DATA.map((d) => [d.district, d.Blight, d.Blast, d.Aphid, d.Total]);
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `state_surveillance_report_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:py-12 text-slate-100">
       {/* Header */}
-      <header className="mb-8">
-        <span className="rounded-full bg-lime-400/10 px-3 py-1 text-xs font-extrabold uppercase tracking-widest text-lime-300 border border-lime-400/20">
-          {text.eyebrow}
-        </span>
-        <h1 className="mt-3 text-3xl font-black text-white sm:text-4xl">
-          {text.title}
-        </h1>
-        <p className="mt-2 text-slate-300 max-w-3xl">
-          {text.subtitle}
-        </p>
+      <header className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span className="rounded-full bg-lime-400/10 px-3 py-1 text-xs font-extrabold uppercase tracking-widest text-lime-300 border border-lime-400/20">
+            {text.eyebrow}
+          </span>
+          <h1 className="mt-3 text-3xl font-black text-white sm:text-4xl">
+            {text.title}
+          </h1>
+          <p className="mt-2 text-slate-300 max-w-3xl">
+            {text.subtitle}
+          </p>
+        </div>
+        <button
+          onClick={handleExportCSV}
+          className="rounded-xl border border-emerald-500/40 bg-emerald-950/80 hover:bg-emerald-900 px-4 py-2.5 text-sm font-bold text-emerald-200 shadow-lg backdrop-blur-md transition-colors whitespace-nowrap self-start sm:self-auto flex items-center gap-2"
+        >
+          📥 Export CSV Report
+        </button>
       </header>
 
       {/* Toast Notification */}

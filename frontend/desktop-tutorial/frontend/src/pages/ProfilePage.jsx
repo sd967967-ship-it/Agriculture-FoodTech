@@ -63,18 +63,30 @@ export default function ProfilePage() {
   const handleAuthSubmit = async (event) => {
     event.preventDefault();
     setAuthError('');
+    if (!authForm.username.trim() || !authForm.password.trim()) {
+      setAuthError('Please enter both username and password.');
+      return;
+    }
     try {
       const request = authMode === 'register'
-        ? register(authForm.username, authForm.password, authForm.role)
-        : login(authForm.username, authForm.password);
+        ? register(authForm.username.trim(), authForm.password.trim(), authForm.role)
+        : login(authForm.username.trim(), authForm.password.trim());
       const { data } = await request;
       if (data.sessionToken) {
         localStorage.setItem('fasal-sathi-session-token', data.sessionToken);
       }
       setCurrentUser(data);
+
+      // Auto-populate profile name if blank
+      setProfile((current) => {
+        const next = { ...current, name: current.name || data.username };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+        return next;
+      });
+
       setAuthForm({ username: '', password: '', role: 'FARMER' });
     } catch (error) {
-      const message = error?.response?.data?.message || 'Authentication failed. Please try again.';
+      const message = error?.response?.data?.message || 'Authentication failed. If you do not have an account, click Register above first.';
       setAuthError(message);
     }
   };
@@ -91,14 +103,17 @@ export default function ProfilePage() {
         <div className="mb-6 rounded-2xl border border-slate-700 bg-slate-900/80 p-6 shadow-lg">
           <p className="text-xs font-bold uppercase tracking-widest text-lime-400">Account</p>
           <h2 className="mt-2 text-2xl font-bold text-white">Farmer access</h2>
+          <p className="mt-1 text-xs text-slate-300">
+            Sign in or create an account to save your diagnosis history and farm records to your cloud profile.
+          </p>
           <div className="mt-4 flex gap-2">
-            <button type="button" onClick={() => setAuthMode('login')} className={`rounded-lg px-4 py-2 text-sm font-bold ${authMode === 'login' ? 'bg-lime-300 text-emerald-950' : 'bg-slate-800 text-slate-200'}`}>Login</button>
-            <button type="button" onClick={() => setAuthMode('register')} className={`rounded-lg px-4 py-2 text-sm font-bold ${authMode === 'register' ? 'bg-lime-300 text-emerald-950' : 'bg-slate-800 text-slate-200'}`}>Register</button>
+            <button type="button" onClick={() => { setAuthMode('login'); setAuthError(''); }} className={`rounded-lg px-4 py-2 text-sm font-bold ${authMode === 'login' ? 'bg-lime-300 text-emerald-950' : 'bg-slate-800 text-slate-200'}`}>Login</button>
+            <button type="button" onClick={() => { setAuthMode('register'); setAuthError(''); }} className={`rounded-lg px-4 py-2 text-sm font-bold ${authMode === 'register' ? 'bg-lime-300 text-emerald-950' : 'bg-slate-800 text-slate-200'}`}>Register</button>
           </div>
           <form onSubmit={handleAuthSubmit} className="mt-5 space-y-4">
             <label className="block text-sm font-semibold text-slate-200">
               Username
-              <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-3 text-slate-100 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/30" placeholder="farmer@demo" />
+              <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-3 text-slate-100 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/30" placeholder="e.g. farmer_raju" />
             </label>
             <label className="block text-sm font-semibold text-slate-200">
               Password
@@ -116,7 +131,7 @@ export default function ProfilePage() {
             )}
             {authError && <p className="rounded-lg border border-red-700 bg-red-950/60 p-3 text-sm text-red-200">{authError}</p>}
             <button type="submit" className="w-full rounded-lg bg-emerald-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-500">
-              {authMode === 'register' ? 'Create account' : 'Log in'}
+              {authMode === 'register' ? 'Create new farmer account' : 'Log in to account'}
             </button>
           </form>
         </div>

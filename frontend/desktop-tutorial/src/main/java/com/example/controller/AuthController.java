@@ -45,6 +45,11 @@ public class AuthController {
         return ResponseEntity.ok(asResponse(sessionUser.get()));
     }
 
+    @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleIllegalArgument(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().body(Map.of("error", "BAD_REQUEST", "message", ex.getMessage()));
+    }
+
     private Map<String, Object> asResponse(AppUser user) {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("id", user.getId());
@@ -55,3 +60,4 @@ public class AuthController {
         return response;
     }
 }
+

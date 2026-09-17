@@ -12,12 +12,11 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-        "spring.datasource.url=jdbc:h2:mem:fullbacklogtest;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false",
+        "spring.datasource.url=jdbc:h2:mem:fullbacklogtest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false",
         "spring.datasource.driver-class-name=org.h2.Driver",
         "spring.datasource.username=sa",
         "spring.datasource.password=",
-        "spring.jpa.hibernate.ddl-auto=create-drop",
-        "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect"
+        "spring.jpa.hibernate.ddl-auto=create-drop"
 })
 class BacklogFullCompletionTest {
 

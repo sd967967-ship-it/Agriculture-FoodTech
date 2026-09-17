@@ -120,16 +120,20 @@ export default function HomePage() {
       setWeather(null);
       let profileDistrict = '';
       try { profileDistrict = JSON.parse(localStorage.getItem('fasal-sathi-farmer-profile') || '{}').district || ''; } catch { /* use location instead */ }
+      const defaultDistrict = availableDistricts.some((item) => item.name === profileDistrict)
+        ? profileDistrict
+        : (availableDistricts[0]?.name || 'Nadia');
+
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(({ coords }) => {
           const closest = availableDistricts.reduce((best, item) => {
             const distance = Math.hypot(item.latitude - coords.latitude, item.longitude - coords.longitude);
             return !best || distance < best.distance ? { item, distance } : best;
           }, null);
-          setDistrict(closest?.item?.name || profileDistrict);
-        }, () => setDistrict(availableDistricts.some((item) => item.name === profileDistrict) ? profileDistrict : ''), { maximumAge: 300000, timeout: 8000 });
+          setDistrict(closest?.item?.name || defaultDistrict);
+        }, () => setDistrict(defaultDistrict), { maximumAge: 300000, timeout: 5000 });
       } else {
-        setDistrict(availableDistricts.some((item) => item.name === profileDistrict) ? profileDistrict : '');
+        setDistrict(defaultDistrict);
       }
     })
       .catch(() => setNotice(text.districtFail));
@@ -142,19 +146,20 @@ export default function HomePage() {
 
   useEffect(() => {
     if (!selected || tab !== 'weather') {
-      if (!district && tab === 'weather') setWeather(null);
+      if (!district && tab === 'weather' && districts.length > 0) {
+        setDistrict(districts[0].name);
+      }
       return;
     }
-    setWeather(null);
-    setLoading(true); setNotice('');
+    setLoading(true);
     getWeather(selected.latitude, selected.longitude).then(({ data }) => setWeather(data))
       .catch(() => setNotice(text.weatherFail))
       .finally(() => setLoading(false));
-  }, [selected, tab]);
+  }, [selected, tab, district, districts]);
 
   useEffect(() => {
     if (!district || tab !== 'market') return;
-    setLoading(true); setNotice('');
+    setLoading(true);
     getMandiPrices(crop, 'West Bengal', district).then(({ data }) => setMarket(data))
       .catch(() => setNotice(text.marketFail))
       .finally(() => setLoading(false));
@@ -163,14 +168,33 @@ export default function HomePage() {
   const useLocation = () => {
     if (!navigator.geolocation) return setNotice(text.locationUnsupported);
     setLoading(true); setNotice(text.locating);
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const closest = districts.reduce((best, item) => {
-        const distance = Math.hypot(item.latitude - coords.latitude, item.longitude - coords.longitude);
-        return !best || distance < best.distance ? { item, distance } : best;
-      }, null);
-      if (closest) { setDistrict(closest.item.name); setNotice(text.nearest(closest.item.name)); }
-      setLoading(false);
-    }, () => { setNotice(text.locationFail); setLoading(false); }, { timeout: 10000, maximumAge: 300000 });
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        const closest = districts.reduce((best, item) => {
+          const distance = Math.hypot(item.latitude - coords.latitude, item.longitude - coords.longitude);
+          return !best || distance < best.distance ? { item, distance } : best;
+        }, null);
+        const districtName = closest?.item?.name || districts[0]?.name || 'Nadia';
+        setDistrict(districtName);
+
+        getWeather(coords.latitude, coords.longitude)
+          .then(({ data }) => {
+            setWeather(data);
+            setNotice(text.nearest(districtName));
+          })
+          .catch(() => setNotice(text.weatherFail))
+          .finally(() => setLoading(false));
+      },
+      (err) => {
+        console.warn('Location access error:', err);
+        setNotice(text.locationFail);
+        if (!district && districts.length > 0) {
+          setDistrict(districts[0].name);
+        }
+        setLoading(false);
+      },
+      { timeout: 8000, maximumAge: 300000 }
+    );
   };
 
   return <div className="min-h-screen bg-[#07120e] text-slate-100">

@@ -2,6 +2,7 @@ com\example\controller\OfflineQueueController.class
 com\example\service\WeatherService.class
 com\example\controller\FarmController.class
 com\example\service\DemoSeedService.class
+com\example\controller\FollowUpTaskController.class
 com\example\repository\HotspotRepository.class
 com\example\service\AdvisoryService.class
 com\example\Farmer$1.class
@@ -13,11 +14,14 @@ com\example\Farmer.class
 com\example\entity\ExpertEscalation.class
 com\example\entity\MonitoringPlan.class
 com\example\VoiceRecorderFrame.class
+com\example\repository\FollowUpTaskRepository.class
+com\example\repository\PestObservationRepository.class
 com\example\repository\TrapReadingRepository.class
 com\example\dto\PredictionResponseDTO.class
 com\example\controller\ReferralController.class
 com\example\controller\ExpertEscalationController.class
 com\example\controller\DashboardController.class
+com\example\controller\PestObservationController.class
 com\example\controller\TrapReadingController.class
 com\example\Aichatbot.class
 com\example\controller\CropPredictionController.class
@@ -26,6 +30,7 @@ com\example\controller\ImageValidationController.class
 com\example\repository\DiagnosisFeedbackRepository.class
 com\example\service\AuthService.class
 com\example\dto\CropMetadataDTO.class
+com\example\entity\FollowUpTask.class
 com\example\repository\GovernanceConsentRepository.class
 com\example\service\KisanMitraService.class
 com\example\service\WBCropKnowledgeBase.class
@@ -36,7 +41,9 @@ com\example\service\SpeechService.class
 com\example\repository\PredictionLogRepository.class
 com\example\dto\CropMarketInfoDTO.class
 com\example\entity\SensorReading.class
+com\example\service\DiseaseRiskScheduler.class
 com\example\controller\WeatherRiskController.class
+com\example\service\WBCropKnowledgeBase$DiseaseWeatherProfile.class
 com\example\controller\KisanMitraController.class
 com\example\service\MandiPriceService$CacheEntry.class
 com\example\entity\PredictionLog.class
@@ -44,12 +51,15 @@ com\example\service\WBCropKnowledgeBase$DiseaseAdvisory.class
 com\example\service\WeatherRiskService$RiskAssessment.class
 com\example\config\CorsConfig$1.class
 com\example\entity\Farm.class
+com\example\entity\PestObservation.class
 com\example\entity\TrapReading.class
 com\example\controller\AuthController.class
 com\example\dto\TranslatedAdvisoryDTO.class
 com\example\service\WeatherRiskService.class
 com\example\entity\Hotspot.class
 com\example\dto\MandiPriceDTO.class
+com\example\dto\DiseaseRiskDTO$DiseaseScore.class
+com\example\dto\DiseaseRiskDTO.class
 com\example\repository\MonitoringPlanRepository.class
 com\example\controller\DiagnosisFeedbackController.class
 com\example\controller\HotspotController.class

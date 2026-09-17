@@ -21,7 +21,10 @@ export function diagnose(image, metadata = {}) {
   });
 
   return api.post('/diagnose', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      ...sessionHeaders(),
+    },
   });
 }
 
@@ -80,27 +83,27 @@ export function getCurrentUser() {
 }
 
 export function getFarms(farmerUsername) {
-  return api.get('/farms', { params: farmerUsername ? { farmerUsername } : {} });
+  return api.get('/farms', { params: farmerUsername ? { farmerUsername } : {}, headers: sessionHeaders() });
 }
 
 export function createPestObservation(observation) {
-  return api.post('/pest-observations', observation);
+  return api.post('/pest-observations', observation, { headers: sessionHeaders() });
 }
 
 export function getPestObservations(farmId) {
-  return api.get('/pest-observations', { params: farmId ? { farmId } : {} });
+  return api.get('/pest-observations', { params: farmId ? { farmId } : {}, headers: sessionHeaders() });
 }
 
 export function getFollowUps(params = {}) {
-  return api.get('/follow-ups', { params });
+  return api.get('/follow-ups', { params, headers: sessionHeaders() });
 }
 
 export function createFollowUp(task) {
-  return api.post('/follow-ups', task);
+  return api.post('/follow-ups', task, { headers: sessionHeaders() });
 }
 
 export function completeFollowUp(id) {
-  return api.post(`/follow-ups/${id}/complete`);
+  return api.post(`/follow-ups/${id}/complete`, {}, { headers: sessionHeaders() });
 }
 
 export function getHotspots(params = {}) {
@@ -108,15 +111,16 @@ export function getHotspots(params = {}) {
 }
 
 export function getAdminDashboard() {
-  return api.get('/admin/dashboard');
+  return api.get('/admin/dashboard', { headers: sessionHeaders() });
 }
 
 export function submitDiagnosisFeedback(feedback) {
-  return api.post('/diagnosis-feedback', feedback);
+  return api.post('/diagnosis-feedback', feedback, { headers: sessionHeaders() });
 }
 
 export function createReferral(referral) {
-  return api.post('/referrals', referral);
+  return api.post('/referrals', referral, { headers: sessionHeaders() });
 }
 
 export default api;
+

@@ -117,9 +117,85 @@ export default function ToolsPage() {
       <section className="rounded-2xl border border-slate-700 bg-slate-900/80 p-6 shadow-md"><h2 className="text-2xl font-bold text-slate-100">{text.irrigation}</h2><p className="mt-2 text-sm text-slate-400">{text.irrigationCopy}</p><form onSubmit={saveSchedule} className="mt-6 grid gap-4"><ToolSelect label={text.soil} value={schedule.soil} options={text.soilOptions} onChange={(value) => setSchedule({ ...schedule, soil: value })} /><ToolInput label={text.nextWater} type="date" value={schedule.date} onChange={(value) => setSchedule({ ...schedule, date: value })} /><ToolInput label={text.frequency} type="number" min="1" max="30" value={schedule.frequency} onChange={(value) => setSchedule({ ...schedule, frequency: value })} /><button className="rounded-lg bg-emerald-600 px-4 py-3 text-sm font-bold text-white hover:bg-emerald-500">{text.schedule}</button></form>{scheduleSaved && <p className="mt-4 rounded-lg bg-emerald-950/70 p-3 text-sm text-emerald-300">{text.scheduleSaved}</p>}</section>
       <section className="rounded-2xl border border-slate-700 bg-slate-900/80 p-6 shadow-md"><h2 className="text-2xl font-bold text-slate-100">{text.schemes}</h2><p className="mt-2 text-sm text-slate-400">{text.schemesCopy}</p><label className="mt-6 block text-sm font-semibold text-slate-200">{text.schemeCrop}<select value={schemeCrop} onChange={(event) => setSchemeCrop(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-3 text-slate-100"><option value="">{text.all}</option>{crops.map((crop) => <option key={crop}>{crop}</option>)}</select></label><p className="mt-5 text-xs text-slate-400">{text.schemesFor}: {schemeCrop || text.general}</p><div className="mt-3 space-y-3">{schemesForCrop.map(([name, description, url]) => <div key={name} className="rounded-lg border border-slate-700 bg-slate-950/70 p-4"><h3 className="font-bold text-slate-100">{name}</h3><p className="mt-1 text-sm text-slate-400">{description}</p><a className="mt-3 inline-flex text-sm font-bold text-emerald-300 hover:text-emerald-200" href={url} target="_blank" rel="noreferrer">{text.open} ↗</a></div>)}</div></section>
       <section className="rounded-2xl border border-emerald-900/60 bg-emerald-950/40 p-6 shadow-md"><h2 className="text-2xl font-bold text-slate-100">{text.profit}</h2><div className="mt-6"><ProfitCalculator inputs={profitInputs} onChange={(field, value) => setProfitInputs((current) => ({ ...current, [field]: value }))} market={profitMarket} language={language} /></div></section>
+      <section className="rounded-2xl border border-teal-900/60 bg-slate-900/80 p-6 shadow-md lg:col-span-2">
+        <FertilizerCalculator language={language} />
+      </section>
     </div>
   </div>;
 }
 
+function FertilizerCalculator({ language = 'en' }) {
+  const [area, setArea] = useState('1'); // acres
+  const [nDosage, setNDosage] = useState('40'); // kg/acre N
+  const [pDosage, setPDosage] = useState('20'); // kg/acre P
+  const [kDosage, setKDosage] = useState('20'); // kg/acre K
+
+  const areaNum = Math.max(0.1, Number(area) || 1);
+  const nReq = (Number(nDosage) || 0) * areaNum;
+  const pReq = (Number(pDosage) || 0) * areaNum;
+  const kReq = (Number(kDosage) || 0) * areaNum;
+
+  // Commercial conversion factors:
+  // Urea = 46% N -> kg Urea = N / 0.46
+  // SSP = 16% P2O5 -> kg SSP = P / 0.16
+  // MOP = 60% K2O -> kg MOP = K / 0.60
+  const ureaKg = Math.round(nReq / 0.46);
+  const sspKg = Math.round(pReq / 0.16);
+  const mopKg = Math.round(kReq / 0.60);
+
+  const t = {
+    en: { title: '🧪 NPK Soil Health & Fertilizer Calculator', copy: 'Calculate required bags of Urea, SSP, and MOP based on target nutrient dosage and field size.', acre: 'Field Area (Acres)', n: 'Nitrogen (N) kg/acre', p: 'Phosphorus (P) kg/acre', k: 'Potassium (K) kg/acre', result: 'Estimated Commercial Fertilizer Requirement', urea: 'Urea (46% N)', ssp: 'SSP (16% P₂O₅)', mop: 'MOP (60% K₂O)', bags: 'bags (50kg each)' },
+    bn: { title: '🧪 এনপিকে সার ও মাটি পুষ্টির হিসাব', copy: 'জমির পরিমাণ ও পুষ্টি চাহিদার ভিত্তিতে ইউরিয়া, এসএসপি ও এমওপির হিসাব করুন।', acre: 'জমির পরিমাণ (একর)', n: 'নাইট্রোজেন (N) কেজি/একর', p: 'ফসফরাস (P) কেজি/একর', k: 'পটাশিয়াম (K) কেজি/একর', result: 'প্রয়োজনীয় বাণিজ্যিক সারের হিসাব', urea: 'ইউরিয়া (৪৬% N)', ssp: 'এসএসপি (১৬% P₂O₅)', mop: 'এমওপি (৬০% K₂O)', bags: 'বস্তা (৫০ কেজি)' },
+    hi: { title: '🧪 एनपीके उर्वरक और मृदा पोषण कैलकुलेटर', copy: 'खेत के आकार और पोषण आवश्यकता के अनुसार यूरिया, एसएसपी और एमओपी की मात्रा जानें।', acre: 'खेत का आकार (एकड़)', n: 'नाइट्रोजन (N) किग्रा/एकड़', p: 'फास्फोरस (P) किग्रा/एकड़', k: 'पोटेशियम (K) किग्रा/एकड़', result: 'अनुमानित व्यावसायिक उर्वरक आवश्यकता', urea: 'यूरिया (46% N)', ssp: 'एसएसपी (16% P₂O₅)', mop: 'एमओपी (60% K₂O)', bags: 'बोरी (50 किग्रा)' },
+  }[language] || {};
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold text-slate-100">{t.title}</h2>
+      <p className="mt-2 text-sm text-slate-400">{t.copy}</p>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <label className="block text-sm font-semibold text-slate-200">
+          {t.acre}
+          <input type="number" step="0.5" min="0.1" value={area} onChange={(e) => setArea(e.target.value)} className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-slate-100" />
+        </label>
+        <label className="block text-sm font-semibold text-slate-200">
+          {t.n}
+          <input type="number" min="0" value={nDosage} onChange={(e) => setNDosage(e.target.value)} className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-slate-100" />
+        </label>
+        <label className="block text-sm font-semibold text-slate-200">
+          {t.p}
+          <input type="number" min="0" value={pDosage} onChange={(e) => setPDosage(e.target.value)} className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-slate-100" />
+        </label>
+        <label className="block text-sm font-semibold text-slate-200">
+          {t.k}
+          <input type="number" min="0" value={kDosage} onChange={(e) => setKDosage(e.target.value)} className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-slate-100" />
+        </label>
+      </div>
+
+      <div className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-4">
+        <p className="text-xs font-bold uppercase tracking-wider text-emerald-400">{t.result}</p>
+        <div className="mt-3 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-lg bg-slate-950/80 p-3 text-center border border-slate-800">
+            <span className="block text-xs font-medium text-slate-400">{t.urea}</span>
+            <span className="text-xl font-bold text-emerald-300">{ureaKg} kg</span>
+            <span className="block text-xs text-slate-500">~{(ureaKg / 50).toFixed(1)} {t.bags}</span>
+          </div>
+          <div className="rounded-lg bg-slate-950/80 p-3 text-center border border-slate-800">
+            <span className="block text-xs font-medium text-slate-400">{t.ssp}</span>
+            <span className="text-xl font-bold text-emerald-300">{sspKg} kg</span>
+            <span className="block text-xs text-slate-500">~{(sspKg / 50).toFixed(1)} {t.bags}</span>
+          </div>
+          <div className="rounded-lg bg-slate-950/80 p-3 text-center border border-slate-800">
+            <span className="block text-xs font-medium text-slate-400">{t.mop}</span>
+            <span className="text-xl font-bold text-emerald-300">{mopKg} kg</span>
+            <span className="block text-xs text-slate-500">~{(mopKg / 50).toFixed(1)} {t.bags}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ToolInput({ label, value, onChange, type = 'text', ...props }) { return <label className="block text-sm font-semibold text-slate-200">{label}<input type={type} value={value} onChange={(event) => onChange(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-3 text-slate-100 outline-none focus:border-emerald-400" {...props} /></label>; }
 function ToolSelect({ label, value, options, onChange }) { return <label className="block text-sm font-semibold text-slate-200">{label}<select value={value} onChange={(event) => onChange(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-3 text-slate-100">{options.map((option) => <option key={option}>{option}</option>)}</select></label>; }
+
