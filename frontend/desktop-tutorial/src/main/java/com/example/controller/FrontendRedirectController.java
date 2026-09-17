@@ -11,7 +11,19 @@ import jakarta.servlet.http.HttpServletResponse;
 @Controller
 public class FrontendRedirectController {
 
-    @GetMapping({"/", "/diagnose", "/tools", "/about", "/profile", "/market-info.html"})
+    @GetMapping({
+            "/",
+            "/diagnose",
+            "/tools",
+            "/about",
+            "/profile",
+            "/pest-log",
+            "/pest-observations",
+            "/hotspots",
+            "/admin",
+            "/admin/dashboard",
+            "/market-info.html"
+        })
     public String openFrontend(HttpServletResponse response) {
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
         response.setHeader("Pragma", "no-cache");

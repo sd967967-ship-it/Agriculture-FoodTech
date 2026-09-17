@@ -10,9 +10,25 @@ function sessionHeaders() {
   return token ? { 'X-Session-Token': token } : {};
 }
 
-export function diagnose(image, metadata = {}) {
+async function prepareDiagnosisImage(image) {
+  if (!image || image.size <= 2 * 1024 * 1024) return image;
+
+  const bitmap = await createImageBitmap(image);
+  const scale = Math.min(1, 1600 / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(160, Math.round(bitmap.width * scale));
+  canvas.height = Math.max(160, Math.round(bitmap.height * scale));
+  canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.84));
+  return blob ? new File([blob], 'diagnosis.jpg', { type: 'image/jpeg' }) : image;
+}
+
+export async function diagnose(image, metadata = {}) {
+  const preparedImage = await prepareDiagnosisImage(image);
   const formData = new FormData();
-  formData.append('image', image);
+  formData.append('image', preparedImage);
 
   Object.entries(metadata).forEach(([key, value]) => {
     if (value !== null && value !== undefined && value !== '') {

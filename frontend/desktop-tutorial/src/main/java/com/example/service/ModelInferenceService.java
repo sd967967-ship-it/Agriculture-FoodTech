@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,8 +101,13 @@ public class ModelInferenceService {
                     .redirectErrorStream(true)
                     .start();
 
+            boolean finished = process.waitFor(45, TimeUnit.SECONDS);
+            if (!finished) {
+                process.destroyForcibly();
+                throw new IllegalStateException("Crop model analysis took too long. Please try a smaller, clearer image.");
+            }
             String output = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-            int exitCode = process.waitFor();
+            int exitCode = process.exitValue();
             if (exitCode != 0) {
                 throw new IllegalStateException("Python inference failed with exit code " + exitCode + ": " + output);
             }
@@ -121,8 +127,10 @@ public class ModelInferenceService {
                     .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
                     .forEach(entry -> ordered.put(entry.getKey(), entry.getValue()));
             return ordered;
-        } catch (IOException | InterruptedException exception) {
+        } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
+            throw new IllegalStateException("Unable to run crop model inference", exception);
+        } catch (IOException exception) {
             throw new IllegalStateException("Unable to run crop model inference", exception);
         } finally {
             if (tempImage != null) {

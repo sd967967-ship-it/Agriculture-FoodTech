@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
-import HomePage from './pages/HomePage';
-import DiagnosePage from './pages/DiagnosePage';
-import AboutPage from './pages/AboutPage';
-import ProfilePage from './pages/ProfilePage';
-import ToolsPage from './pages/ToolsPage';
-import PestLogPage from './pages/PestLogPage';
-import HotspotsPage from './pages/HotspotsPage';
-import OfficialDashboard from './pages/OfficialDashboard';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const DiagnosePage = lazy(() => import('./pages/DiagnosePage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const ToolsPage = lazy(() => import('./pages/ToolsPage'));
+const PestLogPage = lazy(() => import('./pages/PestLogPage'));
+const HotspotsPage = lazy(() => import('./pages/HotspotsPage'));
+const OfficialDashboard = lazy(() => import('./pages/OfficialDashboard'));
 
 export default function App() {
   const { search } = useLocation();
@@ -35,19 +36,21 @@ export default function App() {
         <div className="ambient-glow ambient-glow-two" />
         <Navbar />
         <main className="page-enter relative z-10 flex-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/diagnose" element={<DiagnosePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/tools" element={<ToolsPage />} />
-            <Route path="/pest-log" element={<PestLogPage />} />
-            <Route path="/pest-observations" element={<PestLogPage />} />
-            <Route path="/hotspots" element={<HotspotsPage />} />
-            <Route path="/admin/dashboard" element={<OfficialDashboard />} />
-            <Route path="/admin" element={<OfficialDashboard />} />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
+          <Suspense fallback={<div className="mx-auto flex min-h-[18rem] max-w-4xl items-center justify-center px-4 text-sm text-emerald-200" role="status">Loading FasalSathi...</div>}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/diagnose" element={<DiagnosePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/tools" element={<ToolsPage />} />
+              <Route path="/pest-log" element={<PestLogPage />} />
+              <Route path="/pest-observations" element={<PestLogPage />} />
+              <Route path="/hotspots" element={<HotspotsPage />} />
+              <Route path="/admin/dashboard" element={<OfficialDashboard />} />
+              <Route path="/admin" element={<OfficialDashboard />} />
+              <Route path="*" element={<HomePage />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>

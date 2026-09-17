@@ -40,7 +40,7 @@ public class ReferralController {
     }
 
     @PutMapping("/referrals/{id}/result")
-    public ResponseEntity<Map<String, Object>> updateResult(@PathVariable("id") Long id, @RequestBody Map<String, String> payload) {
+    public ResponseEntity<Map<String, Object>> updateResult(@PathVariable("id") long id, @RequestBody Map<String, String> payload) {
         Referral referral = repository.findById(id).orElse(null);
         if (referral == null) {
             return ResponseEntity.notFound().build();

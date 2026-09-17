@@ -4,6 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
   const location = useLocation();
   const { language, setLanguage, languages } = useLanguage();
   const labels = {
@@ -15,9 +16,12 @@ export default function Navbar() {
   const navLinks = [
     { path: '/', label: labels[0], icon: '🏠' },
     { path: '/diagnose', label: labels[1], icon: '🔍' },
+    { path: '/admin/dashboard', label: labels[4], icon: '📊' },
+  ];
+
+  const moreLinks = [
     { path: '/pest-log', label: labels[2], icon: '🪤' },
     { path: '/hotspots', label: labels[3], icon: '🗺️' },
-    { path: '/admin/dashboard', label: labels[4], icon: '📊' },
     { path: '/tools', label: labels[5], icon: '🧰' },
     { path: '/about', label: labels[6], icon: 'ℹ️' },
     { path: '/profile', label: labels[7], icon: '👤' },
@@ -33,7 +37,7 @@ export default function Navbar() {
             <span className="hidden text-xl sm:inline">Fasal<span className="text-lime-300">Sathi</span></span>
           </Link>
           
-          {/* Desktop Menu */}
+          {/* Primary desktop menu */}
           <div className="hidden items-center gap-1 md:flex">
             {navLinks.map((link) => (
               <Link
@@ -52,8 +56,49 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Language Selector & Mobile Menu Button */}
+          {/* More menu, language selector, and mobile menu button */}
           <div className="flex items-center gap-3">
+            <div className="relative hidden md:block">
+              <button
+                type="button"
+                onClick={() => setIsMoreOpen(!isMoreOpen)}
+                className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+                  isMoreOpen || moreLinks.some((link) => location.pathname === link.path)
+                    ? 'bg-lime-300/15 text-lime-200 shadow-inner'
+                    : 'text-emerald-100/80 hover:bg-white/10 hover:text-white'
+                }`}
+                aria-expanded={isMoreOpen}
+                aria-haspopup="menu"
+              >
+                <span className="text-lg">⋯</span>
+                <span>{language === 'bn' ? 'আরও' : language === 'hi' ? 'और' : 'More'}</span>
+                <svg className={`h-4 w-4 transition-transform ${isMoreOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                </svg>
+              </button>
+
+              {isMoreOpen && (
+                <div className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-emerald-300/20 bg-[#0b241b] p-2 shadow-2xl" role="menu">
+                  {moreLinks.map((link) => (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      onClick={() => setIsMoreOpen(false)}
+                      className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                        location.pathname === link.path
+                          ? 'bg-lime-300/15 text-lime-200'
+                          : 'text-emerald-100/85 hover:bg-white/10 hover:text-white'
+                      }`}
+                      role="menuitem"
+                    >
+                      <span className="text-lg">{link.icon}</span>
+                      <span>{link.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Language Buttons */}
             <div className="hidden sm:flex gap-1">
               {languages.map((lang) => (

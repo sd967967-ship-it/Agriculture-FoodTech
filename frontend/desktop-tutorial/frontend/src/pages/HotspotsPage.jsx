@@ -1,6 +1,77 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getHotspots } from '../api/cropApi';
 import { useLanguage } from '../context/LanguageContext';
+
+function LiveHotspotMap({ hotspots, onSelect, onMapError }) {
+  const mapElement = React.useRef(null);
+  const mapInstance = React.useRef(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadLeaflet = () => new Promise((resolve, reject) => {
+      if (window.L) {
+        resolve(window.L);
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      script.onload = () => resolve(window.L);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    const loadStyles = () => {
+      if (document.querySelector('link[data-fasalsathi-leaflet]')) return;
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      link.dataset.fasalsathiLeaflet = 'true';
+      document.head.appendChild(link);
+    };
+
+    loadStyles();
+    loadLeaflet().then((L) => {
+      if (cancelled || !mapElement.current || mapInstance.current) return;
+      const map = L.map(mapElement.current, { scrollWheelZoom: true }).setView([23.5, 87.8], 7);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+        maxZoom: 18,
+      }).addTo(map);
+      map.on('tileerror', onMapError);
+      mapInstance.current = map;
+    }).catch(onMapError);
+
+    return () => {
+      cancelled = true;
+      if (mapInstance.current) {
+        mapInstance.current.remove();
+        mapInstance.current = null;
+      }
+    };
+  }, [onMapError]);
+
+  useEffect(() => {
+    const map = mapInstance.current;
+    const L = window.L;
+    if (!map || !L) return;
+    map.eachLayer((layer) => {
+      if (layer instanceof L.CircleMarker) map.removeLayer(layer);
+    });
+    hotspots.forEach((item) => {
+      const color = item.riskLevel === 'HIGH' ? '#ef4444' : item.riskLevel === 'MEDIUM' ? '#fbbf24' : '#34d399';
+      const marker = L.circleMarker([Number(item.lat), Number(item.lon)], {
+        radius: Math.max(8, Math.min(18, 6 + Number(item.cases || 0))),
+        color,
+        fillColor: color,
+        fillOpacity: 0.75,
+      }).addTo(map);
+      marker.bindPopup(`<strong>${item.district}</strong><br>${item.topIssue}<br>${item.cases} reported case(s)`);
+      marker.on('click', () => onSelect(item));
+    });
+  }, [hotspots, onSelect]);
+
+  return <div ref={mapElement} className="h-full w-full" aria-label="West Bengal hotspot map" />;
+}
 
 const textContent = {
   en: {
@@ -68,24 +139,17 @@ const textContent = {
   },
 };
 
-const DEFAULT_CLUSTERS = [
-  { id: '1', district: 'Nadia', lat: 23.4710, lon: 88.5565, cases: 18, topIssue: 'Potato Late Blight', riskLevel: 'HIGH', action: 'Apply Mancozeb / Cymoxanil & avoid leaf wetness.' },
-  { id: '2', district: 'Murshidabad', lat: 24.1750, lon: 88.2800, cases: 14, topIssue: 'Brown Planthopper (BPH)', riskLevel: 'HIGH', action: 'Alternate wetting & drying (AWD); clear lower canopy.' },
-  { id: '3', district: 'Hooghly', lat: 22.9031, lon: 88.3970, cases: 8, topIssue: 'Tomato Yellow Leaf Curl', riskLevel: 'MEDIUM', action: 'Deploy yellow sticky traps for whitefly control.' },
-  { id: '4', district: 'Bankura', lat: 23.2324, lon: 87.0716, cases: 6, topIssue: 'Chilli Anthracnose', riskLevel: 'MEDIUM', action: 'Remove infected fruits & apply Copper Oxychloride.' },
-  { id: '5', district: 'Purulia', lat: 23.3321, lon: 86.3652, cases: 3, topIssue: 'Mustard Aphid', riskLevel: 'LOW', action: 'Monitor ETL levels; use Neem seed kernel extract (NSKE 5%).' },
-  { id: '6', district: 'Birbhum', lat: 23.8402, lon: 87.6186, cases: 11, topIssue: 'Rice Blast', riskLevel: 'HIGH', action: 'Avoid excess Nitrogen fertilizer; spray Tricyclazole if threshold met.' },
-];
-
 export default function HotspotsPage() {
   const { language } = useLanguage();
   const text = textContent[language] || textContent.en;
   
   const [selectedCrop, setSelectedCrop] = useState('');
   const [timeWindow, setTimeWindow] = useState('14');
-  const [hotspots, setHotspots] = useState(DEFAULT_CLUSTERS);
+  const [hotspots, setHotspots] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [activeCluster, setActiveCluster] = useState(DEFAULT_CLUSTERS[0]);
+  const [activeCluster, setActiveCluster] = useState(null);
+  const [mapError, setMapError] = useState(false);
+  const handleMapError = useCallback(() => setMapError(true), []);
 
   useEffect(() => {
     setLoading(true);
@@ -94,31 +158,19 @@ export default function HotspotsPage() {
         if (Array.isArray(data) && data.length > 0) {
           setHotspots(data);
           setActiveCluster(data[0]);
-        } else if (data && data.features) {
-          const parsed = data.features.map((f, i) => ({
-            id: String(i + 1),
-            district: f.properties?.district || 'West Bengal',
-            cases: f.properties?.count || 5,
-            topIssue: f.properties?.topIssue || 'Crop Leaf Spot',
-            riskLevel: (f.properties?.count || 5) > 10 ? 'HIGH' : (f.properties?.count || 5) >= 5 ? 'MEDIUM' : 'LOW',
-            action: f.properties?.recommendation || 'Regular field inspection',
-            lat: f.geometry?.coordinates?.[1] || 23.0,
-            lon: f.geometry?.coordinates?.[0] || 88.0,
-          }));
-          setHotspots(parsed);
-          if (parsed.length > 0) setActiveCluster(parsed[0]);
+        } else {
+          setHotspots([]);
+          setActiveCluster(null);
         }
       })
-      .catch((err) => {
-        console.warn('Could not load hotspots from backend, using active local cluster view.', err);
+      .catch(() => {
+        setHotspots([]);
+        setActiveCluster(null);
       })
       .finally(() => setLoading(false));
   }, [selectedCrop, timeWindow]);
 
-  const filtered = hotspots.filter((item) => {
-    if (!selectedCrop) return true;
-    return item.topIssue.toLowerCase().includes(selectedCrop.toLowerCase());
-  });
+  const filtered = hotspots;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:py-12 text-slate-100">
@@ -187,43 +239,15 @@ export default function HotspotsPage() {
             <span className="text-xs text-slate-400 font-mono">Live Sync</span>
           </div>
 
-          {/* Interactive Map Visual */}
-          <div className="relative w-full h-[320px] rounded-xl bg-gradient-to-b from-[#0e261e] to-[#081510] border border-emerald-900/50 overflow-hidden grid place-items-center">
-            {/* SVG District Map Backdrop */}
-            <svg viewBox="0 0 500 400" className="absolute inset-0 w-full h-full opacity-30 stroke-emerald-500/40 fill-emerald-950/20">
-              <path d="M150,50 L200,30 L260,60 L240,120 L280,180 L220,240 L180,320 L120,280 L100,200 L140,140 Z" />
-              <path d="M240,120 L310,130 L360,190 L300,250 L220,240 Z" />
-              <path d="M180,320 L240,360 L320,330 L300,250 Z" />
-            </svg>
-
-            {/* Hotspot Markers */}
-            {filtered.map((item, index) => {
-              const isSelected = activeCluster?.id === item.id;
-              const posX = 150 + ((item.lon - 86.0) * 110) % 300;
-              const posY = 80 + ((25.0 - item.lat) * 110) % 240;
-              const colorClass = item.riskLevel === 'HIGH' ? 'bg-red-500 ring-red-400/50' : item.riskLevel === 'MEDIUM' ? 'bg-amber-400 ring-amber-300/50' : 'bg-emerald-400 ring-emerald-300/50';
-
-              return (
-                <button
-                  key={item.id || index}
-                  onClick={() => setActiveCluster(item)}
-                  style={{ top: `${Math.max(10, Math.min(85, posY))}px`, left: `${Math.max(10, Math.min(85, posX))}px` }}
-                  className={`absolute transform -translate-x-1/2 -translate-y-1/2 group transition-all duration-300 ${isSelected ? 'scale-125 z-30' : 'hover:scale-110 z-10'}`}
-                >
-                  <span className={`relative flex h-7 w-7 items-center justify-center rounded-full text-xs font-black text-slate-950 shadow-lg ring-4 ${colorClass}`}>
-                    {item.cases}
-                    <span className={`absolute -inset-1 rounded-full animate-ping opacity-30 ${colorClass}`} />
-                  </span>
-                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block whitespace-nowrap rounded-md bg-slate-900 px-2 py-1 text-[11px] font-bold text-white shadow-md">
-                    {item.district}: {item.topIssue}
-                  </span>
-                </button>
-              );
-            })}
-
-            <div className="absolute bottom-3 left-3 bg-slate-900/90 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-300 backdrop-blur-md">
-              📍 Click any risk node to view district field advisories
-            </div>
+          {/* Real West Bengal map using OpenStreetMap tiles. */}
+          <div className="relative h-[320px] overflow-hidden rounded-xl border border-emerald-900/50 bg-[#081510]">
+            {mapError ? (
+              <div className="grid h-full place-items-center p-6 text-center text-sm text-slate-300">
+                The map tiles could not load. The verified hotspot list below is still available.
+              </div>
+            ) : (
+              <LiveHotspotMap hotspots={filtered} onSelect={setActiveCluster} onMapError={handleMapError} />
+            )}
           </div>
 
           <p className="mt-4 text-xs text-slate-400 italic">
@@ -243,33 +267,33 @@ export default function HotspotsPage() {
                 activeCluster?.riskLevel === 'HIGH' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
                 activeCluster?.riskLevel === 'MEDIUM' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'bg-emerald-400/20 text-emerald-300 border border-emerald-400/30'
               }`}>
-                {activeCluster?.riskLevel} RISK
+                {activeCluster?.riskLevel || 'NO DATA'} {activeCluster ? 'RISK' : ''}
               </span>
             </div>
 
             <div className="space-y-4">
               <div className="rounded-xl bg-slate-900/70 p-3.5 border border-slate-800">
                 <p className="text-xs text-slate-400 font-semibold">{text.topIssue}</p>
-                <p className="mt-1 text-base font-bold text-emerald-300">🦠 {activeCluster?.topIssue}</p>
+                <p className="mt-1 text-base font-bold text-emerald-300">🦠 {activeCluster?.topIssue || 'No recent reports'}</p>
               </div>
 
               <div className="rounded-xl bg-slate-900/70 p-3.5 border border-slate-800">
                 <p className="text-xs text-slate-400 font-semibold">{text.cases}</p>
-                <p className="mt-1 text-2xl font-black text-white">{activeCluster?.cases} <span className="text-xs font-normal text-slate-400">verified field reports</span></p>
+                <p className="mt-1 text-2xl font-black text-white">{activeCluster?.cases || 0} <span className="text-xs font-normal text-slate-400">reported cases</span></p>
               </div>
 
               <div className="rounded-xl bg-emerald-950/50 p-4 border border-emerald-800/40">
                 <p className="text-xs font-extrabold text-lime-400 uppercase tracking-wider">{text.action}</p>
                 <p className="mt-2 text-sm text-slate-200 leading-relaxed font-medium">
-                  {activeCluster?.action}
+                  {activeCluster?.action || 'Select a hotspot to view field guidance.'}
                 </p>
               </div>
             </div>
           </div>
 
           <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-            <span>Coordinates: {activeCluster?.lat?.toFixed(2)}°N, {activeCluster?.lon?.toFixed(2)}°E</span>
-            <span className="text-emerald-400 font-bold">Updated Today</span>
+            <span>Coordinates: {activeCluster ? `${Number(activeCluster.lat).toFixed(2)}°N, ${Number(activeCluster.lon).toFixed(2)}°E` : 'Not available'}</span>
+            <span className="text-emerald-400 font-bold">Updated from recent reports</span>
           </div>
         </div>
       </div>
@@ -289,8 +313,12 @@ export default function HotspotsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60">
-              {filtered.map((item, idx) => (
-                <tr key={idx} onClick={() => setActiveCluster(item)} className="hover:bg-emerald-950/30 cursor-pointer transition-colors">
+              {loading ? (
+                <tr><td colSpan="5" className="px-4 py-8 text-center text-slate-400">{text.loading}</td></tr>
+              ) : filtered.length === 0 ? (
+                <tr><td colSpan="5" className="px-4 py-8 text-center text-slate-400">{text.noData}</td></tr>
+              ) : filtered.map((item) => (
+                <tr key={item.id} onClick={() => setActiveCluster(item)} className="cursor-pointer transition-colors hover:bg-emerald-950/30">
                   <td className="px-4 py-3.5 font-bold text-white">{item.district}</td>
                   <td className="px-4 py-3.5 font-black text-slate-200">{item.cases}</td>
                   <td className="px-4 py-3.5 text-emerald-300 font-medium">{item.topIssue}</td>

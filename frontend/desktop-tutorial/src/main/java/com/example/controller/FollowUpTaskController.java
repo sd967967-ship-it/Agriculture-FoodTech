@@ -96,17 +96,17 @@ public class FollowUpTaskController {
     }
 
     @PostMapping("/follow-ups/{id}/complete")
-    public ResponseEntity<?> completeFollowUpPost(@PathVariable("id") Long id) {
+    public ResponseEntity<?> completeFollowUpPost(@PathVariable("id") long id) {
         return markComplete(id);
     }
 
     @PatchMapping("/follow-ups/{id}/complete")
-    public ResponseEntity<?> completeFollowUpPatch(@PathVariable("id") Long id) {
+    public ResponseEntity<?> completeFollowUpPatch(@PathVariable("id") long id) {
         return markComplete(id);
     }
 
     @PatchMapping("/follow-ups/{id}")
-    public ResponseEntity<?> updateFollowUp(@PathVariable("id") Long id, @RequestBody(required = false) Map<String, Object> payload) {
+    public ResponseEntity<?> updateFollowUp(@PathVariable("id") long id, @RequestBody(required = false) Map<String, Object> payload) {
         String newStatus = payload != null && payload.get("status") != null
                 ? payload.get("status").toString().trim().toUpperCase()
                 : "COMPLETED";
@@ -119,7 +119,7 @@ public class FollowUpTaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    private ResponseEntity<?> markComplete(Long id) {
+    private ResponseEntity<?> markComplete(long id) {
         return repository.findById(id)
                 .map(task -> {
                     task.setStatus("COMPLETED");

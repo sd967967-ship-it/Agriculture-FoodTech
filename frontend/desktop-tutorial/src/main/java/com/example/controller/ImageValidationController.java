@@ -22,9 +22,18 @@ public class ImageValidationController {
         if (crop.isBlank() || brightness == null || qualityScore == null) {
             status = "INVALID";
         } else {
-            double brightnessValue = Double.parseDouble(brightness.toString());
-            double qualityValue = Double.parseDouble(qualityScore.toString());
-            if (brightnessValue < 30 || qualityValue < 60 || Boolean.TRUE.equals(pestVisible)) {
+            double brightnessValue;
+            double qualityValue;
+            try {
+                brightnessValue = Double.parseDouble(brightness.toString());
+                qualityValue = Double.parseDouble(qualityScore.toString());
+            } catch (NumberFormatException exception) {
+                status = "INVALID";
+                brightnessValue = 0;
+                qualityValue = 0;
+            }
+            if (status.equals("VALID") && (Double.isNaN(brightnessValue) || Double.isNaN(qualityValue)
+                    || brightnessValue < 30 || qualityValue < 60 || Boolean.TRUE.equals(pestVisible))) {
                 status = "RETAKE";
             }
         }
